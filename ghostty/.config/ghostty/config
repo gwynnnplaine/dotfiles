@@ -1,0 +1,24 @@
+# --- Appearance ---
+theme = Catppuccin Frappe
+font-family = "Pragmasevka Nerd Font"
+font-size = 14
+font-feature = -liga
+cursor-style = block
+
+# macOS specific - Hide titlebar for more space
+macos-titlebar-style = hidden
+window-padding-x = 10
+window-padding-y = 10
+
+# --- Functionality ---
+# Ensure the window stays open if a command fails
+confirm-close-surface = false
+
+# Use Option + Arrow keys to navigate splits
+keybind = alt+left=goto_split:left
+keybind = alt+right=goto_split:right
+keybind = alt+up=goto_split:up
+keybind = alt+down=goto_split:down
+
+# Zoom a split (equivalent to tmux zoom) for deep coding
+keybind = cmd+enter=toggle_split_zoom
