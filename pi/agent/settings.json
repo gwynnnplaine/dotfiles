@@ -12,7 +12,8 @@
     "npm:pi-model-picker",
     "npm:pi-rtk",
     "npm:@marckrenn/pi-sub-core",
-    "npm:@marckrenn/pi-sub-bar"
+    "npm:@marckrenn/pi-sub-bar",
+    "npm:pi-rewind"
   ],
   "theme": "rose-pine"
 }

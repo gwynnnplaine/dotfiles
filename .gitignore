@@ -2,5 +2,5 @@ pi/agent/sessions/
 pi/agent/auth.json
 pi/agent/cache/
 pi/agent/todos/
-
+pi/agent/skills/structured-handoff-workspace/
 .pi/

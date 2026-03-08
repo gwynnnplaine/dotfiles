@@ -1,0 +1,29 @@
+{
+  "skill_name": "structured-handoff",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just finished implementing JWT token refresh logic for the auth system. Added rate limiting, stored tokens in memory cache, and updated the endpoints. There's a potential race condition under heavy load that I documented but didn't fully solve. Generate the structured handoff report.",
+      "expected_output": "Report with all 5 sections: implementation details of JWT logic, identified risk about race condition, what's locked (token expiry duration, storage mechanism), open questions (load testing at 200+ concurrent), and how other agents should integrate it.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Fixed a critical SQL injection vulnerability in the user search endpoint. Changed parameterized queries, added input validation, wrote security tests. Backported to v1.2. What's the handoff?",
+      "expected_output": "Concise report covering: exact files/lines fixed, risk assessment (was this the only vulnerable endpoint?), what can't change (parameterized query approach is now mandatory), whether security audit is still needed, and how to apply same fix to other endpoints.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Refactored the payment processing module from callbacks to async/await. All tests pass. Migrated 3 call sites. Just need the handoff before we integrate with the billing system.",
+      "expected_output": "Report covering: what changed (callbacks→async, file paths), risks (backwards compatibility? timing issues?), invariants (async contract is now required), open questions (other call sites to migrate?), recommendations (how billing system should consume this).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Added dark mode toggle to the dashboard. Persists to localStorage. Updated 8 components. Save this handoff and confirm it's stored in .pi/handoff/",
+      "expected_output": "Generated all 5 sections concisely. Handoff saved to .pi/handoff/dark-mode-toggle-[date].md. Confirm: file exists, contains all sections, naming matches pattern.",
+      "files": []
+    }
+  ]
+}
