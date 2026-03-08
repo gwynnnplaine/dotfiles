@@ -1,0 +1,20 @@
+{
+  "lastChangelogVersion": "0.57.1",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "claude-haiku-4.5",
+  "defaultThinkingLevel": "minimal",
+  "quietStartup": true,
+  "packages": [
+    "npm:@ujjwalgrover/pi-catppuccin",
+    "npm:@e9n/pi-github",
+    "npm:@plannotator/pi-extension",
+    "npm:pi-mcp-adapter",
+    "npm:pi-context",
+    "npm:pi-model-picker",
+    "npm:pi-rtk"
+  ],
+  "theme": "rose-pine",
+  "extensions": [
+    "extensions/block-dangerous-git.ts"
+  ]
+}

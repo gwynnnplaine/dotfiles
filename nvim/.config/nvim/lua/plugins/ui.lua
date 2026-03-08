@@ -5,7 +5,7 @@ return {
     lazy = false,
     version = false,
     opts = {
-      provider = "copilot", 
+      provider = "copilot",
     },
     build = "make",
     dependencies = {
@@ -81,7 +81,7 @@ return {
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
       { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
-   },
+    },
   },
 
   {
@@ -137,5 +137,22 @@ return {
       })
       vim.diagnostic.config({ virtual_text = false })
     end,
+  },
+  { "nvim-tree/nvim-web-devicons", opts = {} },
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory" },
+    opts = {
+      enhanced_diff_hl = true, -- Better syntax highlighting in diffs
+      view = {
+        merge_tool = {
+          layout = "diff3_mixed", -- Shows your version, their version, and the result
+        },
+      },
+    },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
+    },
   },
 }

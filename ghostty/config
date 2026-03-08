@@ -1,0 +1,37 @@
+# --- Appearance ---
+theme = Rose Pine
+font-family = "FiraCode Nerd Font"
+font-size = 20
+font-feature = -liga
+cursor-style = block
+adjust-cell-height = 35%
+
+# macOS specific
+macos-titlebar-style = transparent
+macos-option-as-alt = left
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+window-decoration = true
+window-colorspace = display-p3
+window-save-state = always
+
+# Background
+background-opacity = 1
+
+# --- Functionality ---
+copy-on-select = clipboard
+mouse-scroll-multiplier = 2
+
+# Ensure the window stays open if a command fails
+confirm-close-surface = false
+
+# --- Keybinds ---
+# Use Option + Arrow keys to navigate splits
+keybind = alt+left=goto_split:left
+keybind = alt+right=goto_split:right
+keybind = alt+up=goto_split:up
+keybind = alt+down=goto_split:down
+
+# Zoom a split (equivalent to tmux zoom) for deep coding
+keybind = cmd+enter=toggle_split_zoom
