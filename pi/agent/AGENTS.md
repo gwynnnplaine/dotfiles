@@ -2,6 +2,14 @@
 - In all interactions and commit messages, be extremely concise and sacrifice grammar for the sake of concision.
 - Avoid fluff, repetition, and obvious explanations.
 
+## Search
+- Never use `grep`.
+- Never use `rg` or other text-only tools for syntax-aware or structural search.
+- Default to `ast-grep` for code search.
+- Use `ast-grep run --lang ruby -p '<pattern>'`.
+- Set `--lang` correctly for the target language.
+- Use text-only search only if I explicitly request plain-text search.
+
 ## Plans
 - End each plan with unresolved questions, if any.
 - Questions must be extremely concise.
