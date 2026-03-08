@@ -4,6 +4,8 @@
  * Automatically names sessions based on the first user message.
  */
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import { existsSync, mkdirSync } from "fs";
+import { dirname } from "path";
 
 export default function (pi: ExtensionAPI) {
   let named = false;
@@ -22,6 +24,17 @@ export default function (pi: ExtensionAPI) {
     if (!text) return;
     const name = text.slice(0, 60).replace(/\n/g, " ").trim();
     if (name) {
+      try {
+        const sessionPath = pi.getSessionPath?.();
+        if (sessionPath) {
+          const dir = dirname(sessionPath);
+          if (!existsSync(dir)) {
+            mkdirSync(dir, { recursive: true });
+          }
+        }
+      } catch {
+        // Silently continue if directory creation fails
+      }
       pi.setSessionName(name);
       named = true;
     }
