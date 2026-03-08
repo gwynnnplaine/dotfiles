@@ -73,30 +73,21 @@ Generate a report with all 5 sections. Use this template exactly:
 - Before handing off to another agent
 - At the end of sprint/milestone work
 
-## Store the handoff
+## Output rules
 
-After generating the report, save it to `.pi/handoff/` with a descriptive filename:
+**NEVER write the report content in the chat response.**
+
+Save the report to `.pi/handoff/` with a descriptive timestamped filename:
 
 ```
-.pi/handoff/[TASK_NAME]-[TIMESTAMP].md
+.pi/handoff/[TASK_NAME]-[YYYY-MM-DD_HH-MM-SS].md
 ```
-
-Timestamp format: `YYYY-MM-DD_HH-MM-SS` (human-readable, sortable)
 
 Examples:
 - `.pi/handoff/jwt-token-refresh-2026-03-08_22-30-45.md`
 - `.pi/handoff/sql-injection-fix-2026-03-08_14-02-30.md`
 - `.pi/handoff/payment-async-refactor-2026-03-08_09-15-30.md`
 
-**Using the helper script:**
+Use `mkdir -p .pi/handoff` then write the file with the bash tool.
 
-```bash
-# Save from file
-python scripts/save_handoff.py "jwt-token-refresh" handoff.md
-
-# Or pipe from stdout
-echo "# Handoff..." | python scripts/save_handoff.py "task-name"
-```
-
-This creates a centralized, timestamped handoff archive. Other agents can reference recent work and trace execution history.
-Timestamp enables quick sorting and prevents filename collisions if multiple handoffs created same day.
+In the chat response write only a short confirmation, e.g.: "Handoff saved to .pi/handoff/jwt-token-refresh-2026-03-08_22-30-45.md"

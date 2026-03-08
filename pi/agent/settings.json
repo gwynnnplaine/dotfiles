@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.57.1",
   "defaultProvider": "github-copilot",
-  "defaultModel": "claude-haiku-4.5",
+  "defaultModel": "claude-sonnet-4.6",
   "defaultThinkingLevel": "minimal",
   "quietStartup": true,
   "packages": [
