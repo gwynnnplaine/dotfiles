@@ -9,12 +9,18 @@
     "npm:@e9n/pi-github",
     "npm:@plannotator/pi-extension",
     "npm:pi-mcp-adapter",
-    "npm:pi-context",
     "npm:pi-model-picker",
     "npm:pi-rtk"
   ],
   "theme": "rose-pine",
   "extensions": [
-    "extensions/block-dangerous-git.ts"
+    "extensions/block-dangerous-git.ts",
+    "extensions/answer.ts",
+    "extensions/context.ts",
+    "extensions/files.ts",
+    "extensions/notify.ts",
+    "extensions/review.ts",
+    "extensions/todos.ts",
+    "extensions/whimsical.ts"
   ]
 }
