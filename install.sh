@@ -13,6 +13,13 @@ if command -v brew &> /dev/null && [[ -f "$DOTFILES/Brewfile" ]]; then
   echo "  ✔ brew packages"
 fi
 
+# --- Pi ---
+if ! command -v pi &> /dev/null; then
+  echo "📦 Installing pi..."
+  npm install -g @mariozechner/pi-coding-agent
+  echo "  ✔ pi"
+fi
+
 # --- Fonts ---
 FONTS_DIR="$DOTFILES/fonts"
 if [[ -d "$FONTS_DIR" ]]; then
