@@ -14,15 +14,5 @@
     "npm:@marckrenn/pi-sub-core",
     "npm:@marckrenn/pi-sub-bar"
   ],
-  "theme": "rose-pine",
-  "extensions": [
-    "extensions/block-dangerous-git.ts",
-    "extensions/answer.ts",
-    "extensions/context.ts",
-    "extensions/files.ts",
-    "extensions/notify.ts",
-    "extensions/review.ts",
-    "extensions/todos.ts",
-    "extensions/whimsical.ts"
-  ]
+  "theme": "rose-pine"
 }
