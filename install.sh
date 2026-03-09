@@ -63,9 +63,13 @@ if [[ -d "$DOTFILES/zellij" ]]; then
   echo "  ✔ zellij"
 fi
 
-# Pi
-if [[ -d "$DOTFILES/pi" ]]; then
-  ln -sf "$DOTFILES/pi" "$HOME/.pi"
+# Pi - Link only the agent config, not the entire pi directory
+# This allows npm-managed ~/.pi to coexist with dotfiles config
+if [[ -d "$DOTFILES/pi/agent" ]]; then
+  mkdir -p "$HOME/.pi"
+  # Remove old broken symlink or directory if it exists
+  rm -rf "$HOME/.pi/agent"
+  ln -sf "$DOTFILES/pi/agent" "$HOME/.pi/agent"
   echo "  ✔ pi"
 fi
 
