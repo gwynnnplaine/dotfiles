@@ -1,0 +1,131 @@
+{
+  "version": 3,
+  "skills": {
+    "next-best-practices": {
+      "source": "vercel-labs/next-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/next-skills.git",
+      "skillPath": "skills/next-best-practices/SKILL.md",
+      "skillFolderHash": "ad17eb27952b39a6ab0061bd50e8a2213b63a3ec",
+      "installedAt": "2026-03-03T17:41:45.932Z",
+      "updatedAt": "2026-03-03T17:44:16.659Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "installedAt": "2026-03-03T17:41:52.805Z",
+      "updatedAt": "2026-03-03T17:41:52.805Z"
+    },
+    "simplify": {
+      "source": "brianlovin/claude-config",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/brianlovin/claude-config.git",
+      "skillPath": "skills/simplify/SKILL.md",
+      "skillFolderHash": "83566973442dc05bcf5abbe83053e8a8e5f50b6b",
+      "installedAt": "2026-03-04T08:52:34.107Z",
+      "updatedAt": "2026-03-04T08:52:34.107Z"
+    },
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "368263b629b1c1af2abd68ff2e45fa40ead82601",
+      "pluginName": "agent-browser",
+      "installedAt": "2026-03-04T08:52:37.400Z",
+      "updatedAt": "2026-03-04T08:52:37.400Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "fce8b5a24ff4ff2fc5db6aa1051e03b53c6b5bf1",
+      "installedAt": "2026-03-04T09:17:24.605Z",
+      "updatedAt": "2026-03-04T09:17:24.605Z"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "skillFolderHash": "928950704df8a8b885c03de5da626331e6f29cf8",
+      "pluginName": "example-skills",
+      "installedAt": "2026-03-06T16:34:11.847Z",
+      "updatedAt": "2026-03-06T16:34:11.847Z"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "skillFolderHash": "3116f3e62dbd02b44a598b1aa690d2a8938e8f89",
+      "installedAt": "2026-03-06T16:37:09.487Z",
+      "updatedAt": "2026-03-06T16:37:09.487Z"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "skillFolderHash": "5c26c1472b98de33a48074ba5d3efe3a727b8e37",
+      "pluginName": "example-skills",
+      "installedAt": "2026-03-06T16:37:20.170Z",
+      "updatedAt": "2026-03-06T16:37:20.170Z"
+    },
+    "code-review-expert": {
+      "source": "sanyuan0704/code-review-expert",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sanyuan0704/code-review-expert.git",
+      "skillPath": "skills/code-review-expert/SKILL.md",
+      "skillFolderHash": "d3ff60f85c38178f30c5fe25a396030fb74bc859",
+      "installedAt": "2026-03-09T15:06:19.376Z",
+      "updatedAt": "2026-03-09T15:06:19.376Z"
+    },
+    "gh-cli": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/awesome-copilot.git",
+      "skillPath": "skills/gh-cli/SKILL.md",
+      "skillFolderHash": "437437f7f20bcdbbdb3081cf164435a388c0a39a",
+      "installedAt": "2026-03-09T16:16:07.003Z",
+      "updatedAt": "2026-03-09T16:16:07.003Z"
+    },
+    "core-web-vitals": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/addyosmani/web-quality-skills.git",
+      "skillPath": "skills/core-web-vitals/SKILL.md",
+      "skillFolderHash": "6c8ba65254a5228e366901005befb9df7f1bbd96",
+      "installedAt": "2026-03-09T17:29:57.114Z",
+      "updatedAt": "2026-03-09T17:29:57.114Z"
+    },
+    "react-hook-form-zod": {
+      "source": "ovachiever/droid-tings",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ovachiever/droid-tings.git",
+      "skillPath": "skills/react-hook-form-zod/SKILL.md",
+      "skillFolderHash": "f438db1130d67f37ae03accfa09bc04bd72ff0da",
+      "installedAt": "2026-03-10T10:19:15.153Z",
+      "updatedAt": "2026-03-10T10:19:15.153Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "cline",
+    "codex",
+    "cursor",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "claude-code",
+    "pi"
+  ]
+}

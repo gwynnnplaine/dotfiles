@@ -115,12 +115,33 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
+      delay = 300,
       spec = {
         { "<leader>c", group = "code" },
         { "<leader>f", group = "file/find" },
         { "<leader>s", group = "search" },
         { "<leader>u", group = "ui" },
       },
+    },
+    keys = {
+      {
+        "?",
+        function()
+          require("which-key").show({ global = true })
+        end,
+        desc = "Keybindings cheatsheet",
+      },
+    },
+  },
+
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    event = "VeryLazy",
+    opts = {
+      disable_mouse = false,
+      hint = true,
+      notification = true,
     },
   },
   {

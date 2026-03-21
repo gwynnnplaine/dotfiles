@@ -1,77 +1,40 @@
 #!/usr/bin/env bash
-# dotfiles install script
-# Creates symlinks from dotfiles into the expected system locations.
-# Safe to re-run — uses -f to overwrite existing symlinks.
-# Skips sections if the source directory doesn't exist.
+set -e
 
-DOTFILES="$HOME/dotfiles"
+DOTFILES="$HOME/Documents/dotfiles"
 
 # --- Brew ---
-if command -v brew &> /dev/null && [[ -f "$DOTFILES/Brewfile" ]]; then
+if command -v brew &>/dev/null && [[ -f "$DOTFILES/Brewfile" ]]; then
   echo "🍺 Installing Homebrew packages..."
   brew bundle install --file="$DOTFILES/Brewfile" --no-upgrade
-  echo "  ✔ brew packages"
 fi
 
 # --- Pi ---
-if ! command -v pi &> /dev/null; then
-  echo "📦 Installing pi..."
-  npm install -g @mariozechner/pi-coding-agent
-  echo "  ✔ pi"
+echo "📦 Installing/updating pi..."
+npm install -g @mariozechner/pi-coding-agent
+
+# --- Stow ---
+echo "🔗 Stowing dotfiles..."
+stow --restow --dir="$DOTFILES" --target="$HOME" nvim
+stow --restow --dir="$DOTFILES" --target="$HOME" ghostty
+stow --restow --dir="$DOTFILES" --target="$HOME" lazygit
+
+# --- Pi agent (manual — pi manages ~/.pi/ itself) ---
+AGENT_LINK="$HOME/.pi/agent"
+AGENT_TARGET="$DOTFILES/pi/agent"
+if [[ "$(readlink "$AGENT_LINK")" != "$AGENT_TARGET" ]]; then
+  rm -rf "$AGENT_LINK"
+  ln -sf "$AGENT_TARGET" "$AGENT_LINK"
 fi
 
-# --- Fonts ---
-FONTS_DIR="$DOTFILES/fonts"
-if [[ -d "$FONTS_DIR" ]]; then
-  echo "🔤 Installing fonts..."
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    TARGET_FONTS="$HOME/Library/Fonts"
-  else
-    TARGET_FONTS="$HOME/.local/share/fonts"
-  fi
-  mkdir -p "$TARGET_FONTS"
-  find "$FONTS_DIR" \( -name "*.ttf" -o -name "*.otf" \) | while read -r font; do
-    cp -n "$font" "$TARGET_FONTS/"
-  done
-  if [[ "$OSTYPE" != "darwin"* ]]; then
-    fc-cache -fv "$TARGET_FONTS" &>/dev/null
-  fi
-  echo "  ✔ fonts"
-fi
+# --- Agents (shared skills across pi, claude code, opencode) ---
+rm -rf "$HOME/.agents"
+ln -sf "$DOTFILES/agents" "$HOME/.agents"
 
-# --- Symlinks ---
-echo "🔗 Linking dotfiles..."
+# --- Claude Code ---
+mkdir -p "$HOME/.claude"
+ln -sf "$DOTFILES/agents/AGENTS.md" "$HOME/.claude/CLAUDE.md"
+rm -rf "$HOME/.claude/skills"
+ln -sf "$DOTFILES/agents/skills" "$HOME/.claude/skills"
 
-# Ghostty
-if [[ -d "$DOTFILES/ghostty" ]]; then
-  mkdir -p "$HOME/.config/ghostty"
-  ln -sf "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
-  echo "  ✔ ghostty"
-fi
-
-# Neovim
-if [[ -d "$DOTFILES/nvim" ]]; then
-  mkdir -p "$HOME/.config/nvim"
-  ln -sf "$DOTFILES/nvim" "$HOME/.config/nvim"
-  echo "  ✔ nvim"
-fi
-
-# Zellij
-if [[ -d "$DOTFILES/zellij" ]]; then
-  mkdir -p "$HOME/.config/zellij"
-  ln -sf "$DOTFILES/zellij" "$HOME/.config/zellij"
-  echo "  ✔ zellij"
-fi
-
-# Pi - Link only the agent config, not the entire pi directory
-# This allows npm-managed ~/.pi to coexist with dotfiles config
-if [[ -d "$DOTFILES/pi/agent" ]]; then
-  mkdir -p "$HOME/.pi"
-  # Remove old broken symlink or directory if it exists
-  rm -rf "$HOME/.pi/agent"
-  ln -sf "$DOTFILES/pi/agent" "$HOME/.pi/agent"
-  echo "  ✔ pi"
-fi
-
-echo ""
 echo "✅ Done!"

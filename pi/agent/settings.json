@@ -1,17 +1,21 @@
 {
-  "lastChangelogVersion": "0.57.1",
-  "defaultThinkingLevel": "minimal",
+  "lastChangelogVersion": "0.60.0",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "packages": [
     "npm:@ujjwalgrover/pi-catppuccin",
     "npm:@e9n/pi-github",
-    "npm:@plannotator/pi-extension",
     "npm:pi-mcp-adapter",
     "npm:pi-model-picker",
     "npm:pi-rtk",
     "npm:@marckrenn/pi-sub-core",
     "npm:@marckrenn/pi-sub-bar",
-    "npm:pi-rewind"
+    "npm:pi-rewind",
+    "npm:@plannotator/pi-extension",
+    "npm:pi-subagents"
   ],
-  "theme": "rose-pine"
+  "theme": "rose-pine-dawn",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-sonnet-4-6",
+  "hideThinkingBlock": false
 }
