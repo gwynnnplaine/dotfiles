@@ -10,10 +10,11 @@
     "npm:pi-subagents",
     "npm:pi-themes",
     "npm:@tran-quil/pi-rose-pine",
-    "npm:pi-powerline-footer"
+    "npm:pi-powerline-footer",
+    "npm:claude-agent-sdk-pi"
   ],
   "theme": "rose-pine-dawn",
-  "defaultProvider": "anthropic",
+  "defaultProvider": "claude-agent-sdk",
   "defaultModel": "claude-sonnet-4-6",
   "hideThinkingBlock": false,
   "powerline": "default"
