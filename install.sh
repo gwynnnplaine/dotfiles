@@ -29,10 +29,6 @@ install -m 644 "$DOTFILES/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 mkdir -p "$HOME/Library/Application Support/lazygit"
 install -m 644 "$DOTFILES/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
 
-# --- Bin helpers ---
-mkdir -p "$HOME/bin"
-install -m 755 "$DOTFILES/bin/delta-auto" "$HOME/bin/delta-auto"
-
 # --- Shared agents (single source in repo: .agents) ---
 mkdir -p "$HOME/.agents"
 rsync -a "$DOTFILES/.agents/" "$HOME/.agents/"

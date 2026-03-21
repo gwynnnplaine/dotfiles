@@ -1,4 +1,5 @@
 git:
   pagers:
+    # macOS-only: switch delta theme based on system light/dark appearance.
     - colorArg: always
-      pager: delta-auto --paging=never --line-numbers
+      pager: bash -lc 'if [ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]; then delta --dark --paging=never --line-numbers; else delta --light --paging=never --line-numbers; fi'

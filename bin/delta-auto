@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-appearance=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
-if [ "$appearance" = "Dark" ]; then
-  delta --dark "$@"
-else
-  delta --light "$@"
-fi
