@@ -6,3 +6,5 @@ pi/agent/mcp-cache.json
 pi/agent/mcp-npx-cache.json
 pi/agent/cache/
 pi/agent/sessions/
+pi/agent/powerline-footer/
+pi/agent/git/

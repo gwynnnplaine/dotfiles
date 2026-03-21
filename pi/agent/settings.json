@@ -11,7 +11,8 @@
     "npm:pi-themes",
     "npm:@tran-quil/pi-rose-pine",
     "npm:pi-powerline-footer",
-    "npm:claude-agent-sdk-pi"
+    "git:github.com/gwynnnplaine/claude-agent-sdk-pi",
+    "https://github.com/davebcn87/pi-autoresearch"
   ],
   "theme": "rose-pine-dawn",
   "defaultProvider": "claude-agent-sdk",

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "worktrunk": {
+      "source": "max-sixty/worktrunk",
+      "sourceType": "github",
+      "computedHash": "dead14409a84dfefeeac33cbe6a9e6d92c4cef0650d0f4b9941ec260310f6131"
+    }
+  }
+}

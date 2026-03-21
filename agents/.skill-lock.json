@@ -125,7 +125,6 @@
     "github-copilot",
     "kimi-cli",
     "opencode",
-    "claude-code",
-    "pi"
+    "warp"
   ]
 }
