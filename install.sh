@@ -19,6 +19,14 @@ stow --restow --dir="$DOTFILES" --target="$HOME" nvim
 stow --restow --dir="$DOTFILES" --target="$HOME" ghostty
 stow --restow --dir="$DOTFILES" --target="$HOME" lazygit
 
+# --- Ghostty (macOS: Library path takes precedence over XDG) ---
+GHOSTTY_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+GHOSTTY_TARGET="$DOTFILES/ghostty/.config/ghostty/config"
+if [[ "$(readlink "$GHOSTTY_CONFIG")" != "$GHOSTTY_TARGET" ]]; then
+  rm -f "$GHOSTTY_CONFIG"
+  ln -sf "$GHOSTTY_TARGET" "$GHOSTTY_CONFIG"
+fi
+
 # --- Pi agent (manual — pi manages ~/.pi/ itself) ---
 AGENT_LINK="$HOME/.pi/agent"
 AGENT_TARGET="$DOTFILES/pi/agent"

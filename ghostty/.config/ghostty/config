@@ -1,5 +1,5 @@
 # --- Appearance ---
-theme = Rose Pine
+theme = light:Rose Pine Dawn,dark:Rose Pine
 font-family = "FiraCode Nerd Font"
 font-size = 20
 font-feature = -liga
