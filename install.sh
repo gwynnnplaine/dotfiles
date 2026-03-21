@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-DOTFILES="$HOME/Documents/dotfiles"
+DOTFILES="${DOTFILES:-$HOME/Documents/dotfiles}"
 
 # --- Brew ---
 if command -v brew &>/dev/null && [[ -f "$DOTFILES/Brewfile" ]]; then
@@ -13,36 +13,40 @@ fi
 echo "📦 Installing/updating pi..."
 npm install -g @mariozechner/pi-coding-agent
 
-# --- Stow ---
-echo "🔗 Stowing dotfiles..."
-stow --restow --dir="$DOTFILES" --target="$HOME" nvim
-stow --restow --dir="$DOTFILES" --target="$HOME" ghostty
-stow --restow --dir="$DOTFILES" --target="$HOME" lazygit
+# --- Neovim (merge updates) ---
+mkdir -p "$HOME/.config/nvim"
+rsync -a "$DOTFILES/nvim/" "$HOME/.config/nvim/"
 
-# --- Ghostty (macOS: Library path takes precedence over XDG) ---
-GHOSTTY_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
-GHOSTTY_TARGET="$DOTFILES/ghostty/.config/ghostty/config"
-if [[ "$(readlink "$GHOSTTY_CONFIG")" != "$GHOSTTY_TARGET" ]]; then
-  rm -f "$GHOSTTY_CONFIG"
-  ln -sf "$GHOSTTY_TARGET" "$GHOSTTY_CONFIG"
-fi
+# --- Ghostty ---
+mkdir -p "$HOME/.config/ghostty"
+install -m 644 "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
+mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
+install -m 644 "$DOTFILES/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 
-# --- Pi agent (manual — pi manages ~/.pi/ itself) ---
-AGENT_LINK="$HOME/.pi/agent"
-AGENT_TARGET="$DOTFILES/pi/agent"
-if [[ "$(readlink "$AGENT_LINK")" != "$AGENT_TARGET" ]]; then
-  rm -rf "$AGENT_LINK"
-  ln -sf "$AGENT_TARGET" "$AGENT_LINK"
-fi
+# --- Lazygit ---
+mkdir -p "$HOME/.config/lazygit"
+install -m 644 "$DOTFILES/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+mkdir -p "$HOME/Library/Application Support/lazygit"
+install -m 644 "$DOTFILES/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
 
-# --- Agents (shared skills across pi, claude code, opencode) ---
-rm -rf "$HOME/.agents"
-ln -sf "$DOTFILES/agents" "$HOME/.agents"
+# --- Bin helpers ---
+mkdir -p "$HOME/bin"
+install -m 755 "$DOTFILES/bin/delta-auto" "$HOME/bin/delta-auto"
+
+# --- Shared agents (single source in repo: .agents) ---
+mkdir -p "$HOME/.agents"
+rsync -a "$DOTFILES/.agents/" "$HOME/.agents/"
+
+# --- Pi agent (merge updates; keep runtime local) ---
+mkdir -p "$HOME/.pi/agent"
+rsync -a "$DOTFILES/pi/agent/" "$HOME/.pi/agent/"
+rm -rf "$HOME/.pi/agent/skills"
+ln -sf "$HOME/.agents/skills" "$HOME/.pi/agent/skills"
 
 # --- Claude Code ---
 mkdir -p "$HOME/.claude"
-ln -sf "$DOTFILES/agents/AGENTS.md" "$HOME/.claude/CLAUDE.md"
-rm -rf "$HOME/.claude/skills"
-ln -sf "$DOTFILES/agents/skills" "$HOME/.claude/skills"
+install -m 644 "$HOME/.agents/AGENTS.md" "$HOME/.claude/CLAUDE.md"
+mkdir -p "$HOME/.claude/skills"
+rsync -a "$HOME/.agents/skills/" "$HOME/.claude/skills/"
 
 echo "✅ Done!"

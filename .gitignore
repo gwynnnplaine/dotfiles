@@ -8,3 +8,7 @@ pi/agent/cache/
 pi/agent/sessions/
 pi/agent/powerline-footer/
 pi/agent/git/
+
+# Local runtime dirs (outside managed dotfiles tree)
+.pi/
+.claude/
