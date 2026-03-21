@@ -4,13 +4,14 @@ font-family = "FiraCode Nerd Font"
 font-size = 18
 font-feature = -liga
 cursor-style = block
-adjust-cell-height = 35%
+cursor-style-blink = false
+adjust-cell-height = 15%
 
 # macOS specific
 macos-titlebar-style = transparent
 macos-option-as-alt = left
-window-padding-x = 10
-window-padding-y = 10
+window-padding-x = 6
+window-padding-y = 6
 window-padding-balance = true
 window-decoration = true
 window-colorspace = display-p3
@@ -18,6 +19,10 @@ window-save-state = always
 
 # Background
 background-opacity = 1
+
+# Split panes
+unfocused-split-opacity = 0.85
+split-divider-color = #4b4b4b
 
 # --- Functionality ---
 copy-on-select = clipboard
@@ -35,3 +40,4 @@ keybind = alt+down=goto_split:down
 
 # Zoom a split (equivalent to tmux zoom) for deep coding
 keybind = cmd+enter=toggle_split_zoom
+

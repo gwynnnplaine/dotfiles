@@ -23,4 +23,5 @@ brew "ejoffe/tap/spr"
 
 cask "alt-tab"
 cask "ghostty"
+cask "cmux"
 cask "font-fira-code-nerd-font"

@@ -1,20 +1,19 @@
 {
   "lastChangelogVersion": "0.61.1",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "medium",
   "quietStartup": true,
   "packages": [
     "npm:@e9n/pi-github",
     "npm:pi-mcp-adapter",
     "npm:pi-model-picker",
     "npm:@plannotator/pi-extension",
-    "npm:pi-subagents",
     "npm:pi-themes",
     "npm:@tran-quil/pi-rose-pine",
     "npm:pi-powerline-footer",
     "git:github.com/gwynnnplaine/claude-agent-sdk-pi",
     "https://github.com/davebcn87/pi-autoresearch"
   ],
-  "theme": "rose-pine-dawn",
+  "theme": "rose-pine",
   "defaultProvider": "claude-agent-sdk",
   "defaultModel": "claude-sonnet-4-6",
   "hideThinkingBlock": false,
