@@ -1,36 +1,56 @@
 # dotfiles
 
+Managed with [chezmoi](https://www.chezmoi.io/) for reproducible, idempotent setup.
+
 ## Install
 
 ```bash
-git clone https://github.com/gwynnnplaine/dotfiles ~/Documents/dotfiles
-cd ~/Documents/dotfiles
+git clone https://github.com/gwynnnplaine/dotfiles ~/dotfiles
+cd ~/dotfiles
 ./install.sh
 ```
 
-Requires [Homebrew](https://brew.sh) and [Node.js](https://nodejs.org) (via nvm) pre-installed.
+## Layout
 
-## What's included
+- `home/` — chezmoi source state (`.chezmoiroot` points here)
+- `.agents` (symlink) → `home/dot_agents` (compat path for local agent tooling)
+- `pi/agent` (symlink) → `home/dot_pi/agent` (compat path)
 
-### Shell & Terminal
-- **Ghostty** — terminal config with FiraCode Nerd Font
-- **Starship** — prompt
+## Daily workflow
 
-### Editor
-- **Neovim** — full config with plugins (LSP, Treesitter, ui icons via nvim-web-devicons)
+```bash
+# preview
+chezmoi -S ~/dotfiles diff
 
-### Git
-- **lazygit** — TUI config
-- **git-delta** — diff viewer
+# apply
+chezmoi -S ~/dotfiles apply
+```
 
-### AI Agents
-- **pi** — agent config, extensions, themes (rose-pine)
-- **Shared skills** (`~/.agents/skills/`) — loaded by pi, Claude Code, and OpenCode
-- **Claude Code** — CLAUDE.md + skills wired to shared agents dir
-- **AGENTS.md** — global instructions for all agents
+See also: [`CONFIG_PATHS.md`](./CONFIG_PATHS.md)
 
-### CLI tools
-- `fd`, `fzf`, `rg`, `bat`, `btop`, `yazi`, `zoxide`, `gh`, `bun`, `opencode`
+## Config directories (where apps actually read from)
 
-### Fonts
-- FiraCode Nerd Font (installed via Homebrew cask)
+| Tool | Config location |
+|---|---|
+| Ghostty | `~/.config/ghostty/config.ghostty` |
+| Ghostty (macOS alt) | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` |
+| Neovim | `~/.config/nvim` |
+| Lazygit | `~/Library/Application Support/lazygit` (on this macOS setup via `lazygit --print-config-dir`) |
+| Pi (global) | `~/.pi/agent` |
+| Pi (project override) | `.pi/settings.json` inside a repo |
+| Shared skills | `~/.agents/skills` |
+| Claude Code | `~/.claude` |
+
+Notes:
+- Ghostty config is managed at `~/.config/ghostty/config.ghostty` and `install.sh` symlinks the macOS App Support path to it.
+- Font configured: `FiraCode Nerd Font Mono`.
+
+## What's managed via chezmoi
+
+- `~/.config/ghostty/config.ghostty`
+- `~/.config/nvim/**`
+- `~/.config/lazygit/config.yml`
+- `~/.agents/**`
+- `~/.pi/agent/{extensions,prompts,settings.json,system-theme.json}`
+- `~/.pi/agent/{AGENTS.md,skills}` (as symlinks to `~/.agents`)
+- `~/.claude/{CLAUDE.md,skills}` (as symlinks to `~/.agents`)
