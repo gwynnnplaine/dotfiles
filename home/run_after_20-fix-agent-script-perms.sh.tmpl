@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -d "$HOME/.agents/skills" ]]; then
+  find "$HOME/.agents/skills" -type f \( -name '*.sh' -o -name '*.js' -o -name '*.py' \) -exec chmod +x {} +
+fi

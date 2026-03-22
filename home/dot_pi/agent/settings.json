@@ -12,8 +12,10 @@
     "git:github.com/gwynnnplaine/claude-agent-sdk-pi",
     "https://github.com/davebcn87/pi-autoresearch"
   ],
-  "defaultProvider": "claude-agent-sdk",
-  "defaultModel": "claude-sonnet-4-6",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.3-codex",
   "hideThinkingBlock": false,
-  "powerline": "default"
+  "powerline": "default",
+  "theme": "solarized-dark",
+  "defaultThinkingLevel": "high"
 }

@@ -1,6 +1,6 @@
 # --- Appearance ---
 theme = light:Rose Pine Dawn,dark:Rose Pine
-font-family = "FiraCode Nerd Font"
+font-family = "FiraCode Nerd Font Mono"
 font-size = 18
 font-feature = -liga
 cursor-style = block
