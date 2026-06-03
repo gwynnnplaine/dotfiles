@@ -1,0 +1,4 @@
+# Pi config is owned solely by the i-love-this-shitty-agent repo (link-to-pi.sh).
+# chezmoi must never create, overwrite, or remove anything under ~/.pi.
+.pi
+.pi/**

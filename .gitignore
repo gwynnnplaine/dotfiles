@@ -1,23 +1,3 @@
-# Pi runtime (compat path + chezmoi source path)
-pi/agent/auth.json
-pi/agent/.update-check
-pi/agent/run-history.jsonl
-pi/agent/mcp-cache.json
-pi/agent/mcp-npx-cache.json
-pi/agent/cache/
-pi/agent/sessions/
-pi/agent/powerline-footer/
-pi/agent/git/
-home/dot_pi/agent/auth.json
-home/dot_pi/agent/.update-check
-home/dot_pi/agent/run-history.jsonl
-home/dot_pi/agent/mcp-cache.json
-home/dot_pi/agent/mcp-npx-cache.json
-home/dot_pi/agent/cache/
-home/dot_pi/agent/sessions/
-home/dot_pi/agent/powerline-footer/
-home/dot_pi/agent/git/
-
 # Local runtime dirs (outside managed dotfiles tree)
 .pi/
 .claude/
