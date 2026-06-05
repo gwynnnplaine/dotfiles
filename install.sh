@@ -42,7 +42,9 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   if command -v nu >/dev/null 2>&1; then
     NU_AUTOLOAD="$NU_SUPPORT/vendor/autoload"
     mkdir -p "$NU_AUTOLOAD"
-    command -v starship >/dev/null 2>&1 && starship init nu > "$NU_AUTOLOAD/starship.nu"
+    if command -v oh-my-posh >/dev/null 2>&1; then
+      oh-my-posh init nu --config "$HOME/.config/oh-my-posh/config.json"
+    fi
     command -v zoxide  >/dev/null 2>&1 && zoxide init nushell > "$NU_AUTOLOAD/zoxide.nu"
     command -v fzf     >/dev/null 2>&1 && fzf --nushell > "$NU_AUTOLOAD/fzf.nu"
     command -v wt      >/dev/null 2>&1 && wt config shell install nu --yes
