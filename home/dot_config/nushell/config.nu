@@ -77,4 +77,4 @@ if ($carapace_cache | path exists) {
 # Config auto-switches Rose Pine dark/dawn palette based on macOS appearance.
 # zoxide & fzf activated via $nu.data-dir/vendor/autoload/{zoxide,fzf}.nu.
 # fzf binds Ctrl-T (files), Ctrl-R (history), Alt-C (cd).
-$env.POSH_THEME = ($env.HOME | path join ".config/oh-my-posh/config.json")
+$env.POSH_CONFIG = ($env.HOME | path join ".config/oh-my-posh/config.json")
