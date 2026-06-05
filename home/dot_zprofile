@@ -1,0 +1,3 @@
+# ~/.zprofile — login shell setup. Homebrew env (PATH, MANPATH, INFOPATH).
+# Interactive config + Nushell handoff live in ~/.zshrc.
+eval "$(/opt/homebrew/bin/brew shellenv)"
