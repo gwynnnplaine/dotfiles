@@ -2,31 +2,31 @@
 
 Managed with [chezmoi](https://www.chezmoi.io/) for reproducible, idempotent setup.
 
-## Install
+See [`AGENTS.md`](./AGENTS.md) for the full workflow and best practices.
+
+## Install (new machine)
 
 ```bash
-git clone https://github.com/gwynnnplaine/dotfiles ~/dotfiles
-cd ~/dotfiles
-./install.sh
+chezmoi init --apply gwynnnplaine/dotfiles
 ```
+
+Clones into `~/.local/share/chezmoi` and applies. Optionally run `./install.sh`
+for `brew bundle` + macOS App Support symlinks (Ghostty, Lazygit).
 
 ## Layout
 
 - `home/` — chezmoi source state (`.chezmoiroot` points here)
 - `.agents` (symlink) → `home/dot_agents` (compat path for local agent tooling)
-- `pi/agent` (symlink) → `home/dot_pi/agent` (compat path)
 
 ## Daily workflow
 
 ```bash
-# preview
-chezmoi -S ~/dotfiles diff
-
-# apply
-chezmoi -S ~/dotfiles apply
+chezmoi update   # pull + apply (routine sync)
+chezmoi diff     # preview pending changes
+chezmoi apply    # apply
 ```
 
-See also: [`CONFIG_PATHS.md`](./CONFIG_PATHS.md)
+See also: [`AGENTS.md`](./AGENTS.md), [`CONFIG_PATHS.md`](./CONFIG_PATHS.md)
 
 ## Config directories (where apps actually read from)
 
@@ -43,7 +43,7 @@ See also: [`CONFIG_PATHS.md`](./CONFIG_PATHS.md)
 
 Notes:
 - Ghostty config is managed at `~/.config/ghostty/config.ghostty` and `install.sh` symlinks the macOS App Support path to it.
-- Font configured: `FiraCode Nerd Font Mono`.
+- Font configured: `Iosevka Nerd Font Mono`, size 20.
 
 ## What's managed via chezmoi
 
@@ -51,6 +51,7 @@ Notes:
 - `~/.config/nvim/**`
 - `~/.config/lazygit/config.yml`
 - `~/.agents/**`
-- `~/.pi/agent/{extensions,prompts,settings.json,system-theme.json}`
-- `~/.pi/agent/{AGENTS.md,skills}` (as symlinks to `~/.agents`)
 - `~/.claude/{CLAUDE.md,skills}` (as symlinks to `~/.agents`)
+
+> `~/.pi` is **not** managed here — it is owned solely by the
+> `i-love-this-shitty-agent` repo and is ignored via `home/.chezmoiignore`.
