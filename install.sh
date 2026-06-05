@@ -49,7 +49,8 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 fi
 
 # --- Pi binary ---
+# Pi moved from @mariozechner to @earendil-works on 2026-05-07 (>= 0.74.0).
 echo "🤖 Installing/updating pi..."
-npm install -g @mariozechner/pi-coding-agent
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 
 echo "✅ Done!"
