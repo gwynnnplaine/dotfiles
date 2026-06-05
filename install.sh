@@ -45,11 +45,23 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     command -v starship >/dev/null 2>&1 && starship init nu > "$NU_AUTOLOAD/starship.nu"
     command -v zoxide  >/dev/null 2>&1 && zoxide init nushell > "$NU_AUTOLOAD/zoxide.nu"
     command -v fzf     >/dev/null 2>&1 && fzf --nushell > "$NU_AUTOLOAD/fzf.nu"
+    command -v wt      >/dev/null 2>&1 && wt config shell install nu --yes
   fi
 fi
 
 # --- Pi binary ---
 # Pi moved from @mariozechner to @earendil-works on 2026-05-07 (>= 0.74.0).
+# --- corepack: enable pnpm shim in fnm's default Node ---
+if command -v fnm >/dev/null 2>&1 && command -v corepack >/dev/null 2>&1; then
+  echo "📦 Enabling corepack pnpm shim..."
+  FNM_DEFAULT=$(fnm default)
+  FNM_DIR="${FNM_DIR:-$HOME/.local/share/fnm}"
+  NODE_BIN="$FNM_DIR/node-versions/$FNM_DEFAULT/installation/bin"
+  if [[ -d "$NODE_BIN" ]]; then
+    corepack enable pnpm --install-directory "$NODE_BIN"
+  fi
+fi
+
 echo "🤖 Installing/updating pi..."
 npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 
