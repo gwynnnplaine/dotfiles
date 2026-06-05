@@ -11,7 +11,8 @@ chezmoi init --apply gwynnnplaine/dotfiles
 ```
 
 Clones into `~/.local/share/chezmoi` and applies. Optionally run `./install.sh`
-for `brew bundle` + macOS App Support symlinks (Ghostty, Lazygit).
+for `brew bundle` + macOS App Support symlinks (Lazygit, Nushell) + Nushell
+autoload generation.
 
 ## Layout
 
@@ -40,18 +41,22 @@ Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
 | Ghostty / cmux | `~/.config/ghostty/config` (cmux renders terminals via libghostty and reads this) |
 | Neovim | `~/.config/nvim` |
 | Lazygit | `~/Library/Application Support/lazygit/config.yml` (symlinked to `~/.config` by `install.sh`) |
-| Shared skills | `~/.agents/skills` |
-| Claude Code | `~/.claude` (`CLAUDE.md`, `skills` → symlinks to `~/.agents`) |
+| Nushell | `~/.config/nushell/{config,env}.nu` (App Support symlinked by `install.sh`) |
+| zsh | `~/.zprofile` (login env), `~/.zshrc` (bootstrap → `exec nu`) |
 
 Font: `Iosevka Nerd Font Mono`, size 20.
+
+Daily shell is **Nushell**; zsh just bootstraps the env and hands off. See the
+Shell & PATH section in [`AGENTS.md`](./AGENTS.md) for how to add to PATH or
+define aliases.
 
 ## What's managed via chezmoi
 
 - `~/.config/ghostty/config`
 - `~/.config/nvim/**`
 - `~/.config/lazygit/config.yml`
-- `~/.agents/**`
-- `~/.claude/{CLAUDE.md,skills}` (as symlinks to `~/.agents`)
+- `~/.config/nushell/{config,env}.nu`
+- `~/.zshrc`, `~/.zprofile`
 
 > `~/.pi` is **not** managed here — it is owned solely by the
 > `i-love-this-shitty-agent` repo and is ignored via `home/.chezmoiignore`.

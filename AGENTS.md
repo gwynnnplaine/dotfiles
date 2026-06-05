@@ -25,11 +25,42 @@ Files in `home/` use chezmoi prefixes, not literal names:
 
 ## Source of truth boundaries
 
-- This repo manages: `~/.agents/**`, `~/.claude/{CLAUDE.md,skills}`,
-  `~/.config/{ghostty,nvim,lazygit}/**`.
+- This repo manages: `~/.config/{ghostty,nvim,lazygit,nushell}/**`,
+  `~/.zshrc`, `~/.zprofile`.
 - This repo does **not** manage `~/.pi`. That path is owned solely by the
   `i-love-this-shitty-agent` repo (`link-to-pi.sh`). It is listed in
   `home/.chezmoiignore`. Never add anything under `.pi` here.
+
+## Shell & PATH
+
+The daily shell is **Nushell**. zsh is a thin POSIX login bootstrap that sets
+the environment, then hands off to Nu:
+
+- `~/.zprofile` — login: `brew shellenv` (Homebrew PATH/MANPATH/INFOPATH).
+- `~/.zshrc` — sets PATH/secrets/locale, then `exec nu` for interactive use.
+  Escape to plain zsh: just type `zsh` (`NU_LAUNCHED` is already set, so it
+  won't bounce back); return with `nu` or `exit`.
+- `~/.config/nushell/{env.nu,config.nu}` — the real interactive config (PATH,
+  aliases, prompt, completions). On macOS Nu reads
+  `~/Library/Application Support/nushell`, which `install.sh` symlinks to
+  `~/.config/nushell`.
+
+### Adding to PATH
+
+- **For Nushell (the daily shell)** — edit the `$env.PATH` block in `config.nu`:
+  ```nu
+  $env.PATH ++= ["~/some/bin"]                     # append
+  $env.PATH = ($env.PATH | prepend "~/some/bin")   # prepend (takes priority)
+  ```
+- **For zsh (login / escape hatch; also inherited by Nu)** — add to `~/.zshrc`:
+  ```sh
+  export PATH="$HOME/some/bin:$PATH"
+  ```
+  Use zsh only for things that must exist before Nu starts; otherwise prefer
+  `config.nu`. Aliases go in the `config.nu` aliases block (e.g.
+  `alias lg = lazygit`).
+
+Edit via `chezmoi edit ~/.config/nushell/config.nu`, then `chezmoi apply`.
 
 ## Daily workflow (canonical source — no `-S` flag)
 
@@ -70,8 +101,9 @@ chezmoi init --apply gwynnnplaine/dotfiles
 ```
 
 Clones into `~/.local/share/chezmoi` and applies. `install.sh` is an optional
-bootstrap that also runs `brew bundle` and symlinks the macOS App Support paths
-(Ghostty, Lazygit) to `~/.config`.
+bootstrap that also runs `brew bundle`, symlinks the macOS App Support paths
+(Lazygit, Nushell) to `~/.config`, and generates Nushell's starship/zoxide/fzf
+autoload scripts. (Ghostty/cmux read `~/.config/ghostty/config` directly.)
 
 ## Adding a new managed file
 
