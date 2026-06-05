@@ -37,7 +37,7 @@ Files in `home/` use chezmoi prefixes, not literal names:
 chezmoi update            # git pull in source + apply  ← routine sync
 chezmoi diff              # preview pending changes
 chezmoi apply             # apply (prompts before clobbering a local edit)
-chezmoi edit <file>       # edit the source for a target, e.g. ~/.config/ghostty/config.ghostty
+chezmoi edit <file>       # edit the source for a target, e.g. ~/.config/ghostty/config
 chezmoi cd                # cd into the source repo to git commit / push
 ```
 

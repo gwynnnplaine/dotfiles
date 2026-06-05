@@ -26,13 +26,9 @@ fi
 echo "🧩 Applying dotfiles with chezmoi..."
 chezmoi -S "$DOTFILES" apply --force
 
-# Ghostty on macOS may prioritize Application Support path.
-# Keep a single source of truth by symlinking it to ~/.config.
+# Lazygit on macOS reads from Application Support; symlink it to ~/.config.
+# (Ghostty/cmux read ~/.config/ghostty/config directly — no symlink needed.)
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
-  ln -snf "$HOME/.config/ghostty/config.ghostty" \
-    "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
-
   mkdir -p "$HOME/Library/Application Support/lazygit"
   ln -snf "$HOME/.config/lazygit/config.yml" \
     "$HOME/Library/Application Support/lazygit/config.yml"

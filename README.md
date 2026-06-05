@@ -37,8 +37,7 @@ Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
 
 | Tool | Effective config path |
 |---|---|
-| Ghostty | `~/.config/ghostty/config.ghostty` |
-| Ghostty (macOS alt) | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` (symlinked to `~/.config` by `install.sh`) |
+| Ghostty / cmux | `~/.config/ghostty/config` (cmux renders terminals via libghostty and reads this) |
 | Neovim | `~/.config/nvim` |
 | Lazygit | `~/Library/Application Support/lazygit/config.yml` (symlinked to `~/.config` by `install.sh`) |
 | Shared skills | `~/.agents/skills` |
@@ -48,7 +47,7 @@ Font: `Iosevka Nerd Font Mono`, size 20.
 
 ## What's managed via chezmoi
 
-- `~/.config/ghostty/config.ghostty`
+- `~/.config/ghostty/config`
 - `~/.config/nvim/**`
 - `~/.config/lazygit/config.yml`
 - `~/.agents/**`
