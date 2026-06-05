@@ -1,7 +1,7 @@
 # --- Appearance ---
 theme = light:Rose Pine Dawn,dark:Rose Pine
 font-family = "Iosevka Nerd Font Mono"
-font-size = 16
+font-size = 20
 font-feature = -liga
 cursor-style = block
 cursor-style-blink = false
