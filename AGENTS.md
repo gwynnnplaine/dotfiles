@@ -26,7 +26,7 @@ Files in `home/` use chezmoi prefixes, not literal names:
 ## Source of truth boundaries
 
 - This repo manages: `~/.config/{ghostty,nvim,lazygit,nushell}/**`,
-  `~/.zshrc`, `~/.zprofile`.
+  `~/.config/starship.toml`, `~/.zshrc`, `~/.zprofile`.
 - This repo does **not** manage `~/.pi`. That path is owned solely by the
   `i-love-this-shitty-agent` repo (`link-to-pi.sh`). It is listed in
   `home/.chezmoiignore`. Never add anything under `.pi` here.
@@ -97,9 +97,9 @@ Rules:
 ## Node (single source of truth)
 
 - **fnm is the only Node version manager.** It works in Nushell (wired in
-  `dot_config/nushell/config.nu` via `fnm env`) and auto-switches per project
-  from `.node-version` / `.nvmrc` (PWD hook; fnm's `--use-on-cd` flag freezes
-  Nushell, so a hook with `--install-if-missing` is used instead).
+  `dot_config/nushell/config.nu` via `fnm env`) and provides the default Node.
+  Per-project auto-switch is intentionally **disabled** — run `fnm use`
+  manually when a project needs a version other than the default.
 - **Global CLIs (e.g. `pi`) live in the fnm default version.** Each fnm Node
   version has isolated global packages, so on upgrade:
   `fnm install <new> --reinstall-packages-from=default && fnm default <new>`.

@@ -23,17 +23,8 @@ if (which fnm | is-not-empty) {
     $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 }
 
-# ── Auto-switch Node per project (.node-version / .nvmrc) ──────────────────────
-# fnm's --use-on-cd flag freezes Nushell (stdin-in-hook bug); use a PWD hook.
-# --install-if-missing avoids the confirmation prompt that would freeze nu.
-$env.config.hooks.env_change.PWD = (
-    $env.config.hooks.env_change.PWD?
-    | default []
-    | append {
-        condition: {|_, _| ['.node-version' '.nvmrc'] | path exists | any {} }
-        code: {|_, _| fnm use --silent-if-unchanged --install-if-missing }
-    }
-)
+# Per-project Node auto-switch is intentionally disabled. fnm provides the
+# default Node only; run `fnm use` manually when a project needs another version.
 
 # ── Editor ────────────────────────────────────────────────────────────────────
 $env.EDITOR = "nvim"

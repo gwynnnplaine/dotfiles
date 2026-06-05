@@ -1,0 +1,7 @@
+# starship prompt config (managed by chezmoi)
+
+# Disable automatic Node.js version pickup. fnm multishell cold-starts make
+# `node --version` exceed starship's command_timeout (500ms), spamming
+# "Executing command ... timed out" warnings.
+[nodejs]
+disabled = true
