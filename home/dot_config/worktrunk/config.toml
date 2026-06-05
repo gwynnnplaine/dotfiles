@@ -1,0 +1,6 @@
+# worktrunk (wt) user config (managed by chezmoi)
+# Global, user-scope preferences. Not project-shared.
+# Full reference: `wt config create` template / https://worktrunk.dev/config/
+
+# Create worktrees inside the repo at .worktrees/<branch>.
+worktree-path = "{{ repo_path }}/.worktrees/{{ branch | sanitize }}"

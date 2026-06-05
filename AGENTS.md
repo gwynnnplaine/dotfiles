@@ -26,7 +26,8 @@ Files in `home/` use chezmoi prefixes, not literal names:
 ## Source of truth boundaries
 
 - This repo manages: `~/.config/{ghostty,nvim,lazygit,nushell}/**`,
-  `~/.config/starship.toml`, `~/.zshrc`, `~/.zprofile`.
+  `~/.config/starship.toml`, `~/.config/worktrunk/config.toml`, `~/.zshrc`,
+  `~/.zprofile`.
 - This repo does **not** manage `~/.pi`. That path is owned solely by the
   `i-love-this-shitty-agent` repo (`link-to-pi.sh`). It is listed in
   `home/.chezmoiignore`. Never add anything under `.pi` here.
