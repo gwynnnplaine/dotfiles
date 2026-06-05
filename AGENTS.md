@@ -94,6 +94,22 @@ Rules:
 4. **Minimal, related changes.** Don't churn unrelated files. Commit with
    Conventional Commits (`feat`, `fix`, `refactor`, `chore`, …).
 
+## Node (single source of truth)
+
+- **fnm is the only Node version manager.** It works in Nushell (wired in
+  `dot_config/nushell/config.nu` via `fnm env`) and auto-switches per project
+  from `.node-version` / `.nvmrc` (PWD hook; fnm's `--use-on-cd` flag freezes
+  Nushell, so a hook with `--install-if-missing` is used instead).
+- **Global CLIs (e.g. `pi`) live in the fnm default version.** Each fnm Node
+  version has isolated global packages, so on upgrade:
+  `fnm install <new> --reinstall-packages-from=default && fnm default <new>`.
+- **Homebrew `node` is kept only as a dependency** for brew formulae
+  (`opencode`, `mongosh`, `mongodb-community`); never used directly. fnm's Node
+  wins on PATH in interactive shells.
+- **nvm is not used** (bash-only, redundant). Do not reintroduce it.
+- **Pi**: `@earendil-works/pi-coding-agent` (moved from `@mariozechner` on
+  2026-05-07). Install: `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`.
+
 ## New machine setup
 
 ```bash
