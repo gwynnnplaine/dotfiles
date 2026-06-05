@@ -43,7 +43,19 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     NU_AUTOLOAD="$NU_SUPPORT/vendor/autoload"
     mkdir -p "$NU_AUTOLOAD"
     if command -v oh-my-posh >/dev/null 2>&1; then
+      # oh-my-posh v26+ self-writes the init script into NU_AUTOLOAD (nothing on
+      # stdout) and skips rewriting when version+config are unchanged. Drop any
+      # stale/empty copy first so a changed config always regenerates.
+      OMP_INIT="$NU_AUTOLOAD/oh-my-posh.nu"
+      rm -f "$OMP_INIT"
       oh-my-posh init nu --config "$HOME/.config/oh-my-posh/config.json"
+      # Null-safe the history lookup to avoid the empty-history crash on a fresh
+      # shell (oh-my-posh#4887: `history | last 1 | get 0.command`). Idempotent.
+      if [[ -f "$OMP_INIT" ]]; then
+        OMP_TMP=$(mktemp)
+        sed 's/| get 0\.command)/| get 0?.command | default "")/' "$OMP_INIT" > "$OMP_TMP" \
+          && mv "$OMP_TMP" "$OMP_INIT"
+      fi
     fi
     command -v zoxide  >/dev/null 2>&1 && zoxide init nushell > "$NU_AUTOLOAD/zoxide.nu"
     command -v fzf     >/dev/null 2>&1 && fzf --nushell > "$NU_AUTOLOAD/fzf.nu"
