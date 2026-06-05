@@ -27,12 +27,24 @@ if (which fnm | is-not-empty) {
 $env.EDITOR = "nvim"
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
-alias ll  = ls -la
-alias la  = ls -a
 alias ..  = cd ..
 alias ... = cd ../..
+
+# git
 alias g   = git
+alias gs  = git status
+alias ga  = git add
+alias gp  = git push
+alias gl  = git pull
+alias gco = git checkout
+alias gd  = git diff
+alias gb  = git branch
 alias lg  = lazygit
+
+# listing — bare `ls` stays Nu's builtin (structured output); eza powers these
+alias ll  = eza -lh --icons --group-directories-first
+alias la  = eza -lah --icons --group-directories-first
+alias lt  = eza --tree --icons --level=2
 
 # ── Nu settings ───────────────────────────────────────────────────────────────
 $env.config = {
@@ -56,6 +68,7 @@ if ($carapace_cache | path exists) {
     source $"($nu.cache-dir)/carapace.nu"
 }
 
-# ── Starship prompt & zoxide ──────────────────────────────────────────────────
-# Activated via $nu.data-dir/vendor/autoload/{starship,zoxide}.nu, which Nushell
-# auto-loads on every start. install.sh regenerates them on a new machine.
+# ── Starship prompt, zoxide & fzf ─────────────────────────────────────────────
+# Activated via $nu.data-dir/vendor/autoload/{starship,zoxide,fzf}.nu, which
+# Nushell auto-loads on every start. install.sh regenerates them on a new
+# machine. fzf binds Ctrl-T (files), Ctrl-R (history), Alt-C (cd).

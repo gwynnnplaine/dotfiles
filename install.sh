@@ -44,6 +44,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     mkdir -p "$NU_AUTOLOAD"
     command -v starship >/dev/null 2>&1 && starship init nu > "$NU_AUTOLOAD/starship.nu"
     command -v zoxide  >/dev/null 2>&1 && zoxide init nushell > "$NU_AUTOLOAD/zoxide.nu"
+    command -v fzf     >/dev/null 2>&1 && fzf --nushell > "$NU_AUTOLOAD/fzf.nu"
   fi
 fi
 
