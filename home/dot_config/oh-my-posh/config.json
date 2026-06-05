@@ -95,8 +95,7 @@
                     "template": " {{ .Path }} ",
                     "properties": {
                         "home_icon": "~",
-                        "folder_icon": "..",
-                        "style": "agnoster_short"
+                        "style": "full"
                     }
                 },
                 {
