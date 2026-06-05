@@ -50,6 +50,14 @@ Daily shell is **Nushell**; zsh just bootstraps the env and hands off. See the
 Shell & PATH section in [`AGENTS.md`](./AGENTS.md) for how to add to PATH or
 define aliases.
 
+## Node
+
+**fnm is the only Node version manager** (works in Nushell; auto-switches per
+project from `.node-version` / `.nvmrc`). Global CLIs like `pi` live in the fnm
+default version. Homebrew `node` is kept only as a dependency for brew formulae
+(`opencode`, `mongosh`, `mongodb`). **nvm is not used.** Pi installs as
+`@earendil-works/pi-coding-agent`. Full policy in [`AGENTS.md`](./AGENTS.md).
+
 ## What's managed via chezmoi
 
 - `~/.config/ghostty/config`
