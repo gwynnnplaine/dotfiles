@@ -20,7 +20,6 @@ brew "yazi"
 brew "zoxide"
 
 brew "oven-sh/bun/bun"
-brew "ejoffe/tap/spr"
 
 cask "alt-tab"
 cask "ghostty"
