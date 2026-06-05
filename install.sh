@@ -32,6 +32,19 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   mkdir -p "$HOME/Library/Application Support/lazygit"
   ln -snf "$HOME/.config/lazygit/config.yml" \
     "$HOME/Library/Application Support/lazygit/config.yml"
+
+  # Nushell on macOS reads from Application Support; symlink config to ~/.config.
+  NU_SUPPORT="$HOME/Library/Application Support/nushell"
+  mkdir -p "$NU_SUPPORT"
+  ln -snf "$HOME/.config/nushell/config.nu" "$NU_SUPPORT/config.nu"
+  ln -snf "$HOME/.config/nushell/env.nu" "$NU_SUPPORT/env.nu"
+  # Generate prompt/jump integrations into Nu's autoload dir.
+  if command -v nu >/dev/null 2>&1; then
+    NU_AUTOLOAD="$NU_SUPPORT/vendor/autoload"
+    mkdir -p "$NU_AUTOLOAD"
+    command -v starship >/dev/null 2>&1 && starship init nu > "$NU_AUTOLOAD/starship.nu"
+    command -v zoxide  >/dev/null 2>&1 && zoxide init nushell > "$NU_AUTOLOAD/zoxide.nu"
+  fi
 fi
 
 # --- Pi binary ---
