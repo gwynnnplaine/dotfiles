@@ -6,6 +6,9 @@ copy-env = 'for f in .env .env.development.local; do [ -f {{ primary_worktree_pa
 [[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
 install = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && pnpm install'
 
+[[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
+setup = '[ -d .next-docs ] || npx @next/codemod agents-md --output AGENTS.md'
+
 [[projects."github.com/IndieCampers/goindie-website".pre-start]]
 copy-env = '[ -f {{ primary_worktree_path }}/.env ] && cp {{ primary_worktree_path }}/.env . ; true'
 
