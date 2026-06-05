@@ -16,7 +16,6 @@ for `brew bundle` + macOS App Support symlinks (Ghostty, Lazygit).
 ## Layout
 
 - `home/` — chezmoi source state (`.chezmoiroot` points here)
-- `.agents` (symlink) → `home/dot_agents` (compat path for local agent tooling)
 
 ## Daily workflow
 
@@ -26,24 +25,26 @@ chezmoi diff     # preview pending changes
 chezmoi apply    # apply
 ```
 
-See also: [`AGENTS.md`](./AGENTS.md), [`CONFIG_PATHS.md`](./CONFIG_PATHS.md)
+See [`AGENTS.md`](./AGENTS.md) for conventions and best practices.
+
+## Homebrew
+
+Packages live in [`Brewfile`](./Brewfile). `install.sh` runs `brew bundle`.
+Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
+`brew bundle dump --file=./Brewfile --force`.
 
 ## Config directories (where apps actually read from)
 
-| Tool | Config location |
+| Tool | Effective config path |
 |---|---|
 | Ghostty | `~/.config/ghostty/config.ghostty` |
-| Ghostty (macOS alt) | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` |
+| Ghostty (macOS alt) | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` (symlinked to `~/.config` by `install.sh`) |
 | Neovim | `~/.config/nvim` |
-| Lazygit | `~/Library/Application Support/lazygit` (on this macOS setup via `lazygit --print-config-dir`) |
-| Pi (global) | `~/.pi/agent` |
-| Pi (project override) | `.pi/settings.json` inside a repo |
+| Lazygit | `~/Library/Application Support/lazygit/config.yml` (symlinked to `~/.config` by `install.sh`) |
 | Shared skills | `~/.agents/skills` |
-| Claude Code | `~/.claude` |
+| Claude Code | `~/.claude` (`CLAUDE.md`, `skills` → symlinks to `~/.agents`) |
 
-Notes:
-- Ghostty config is managed at `~/.config/ghostty/config.ghostty` and `install.sh` symlinks the macOS App Support path to it.
-- Font configured: `Iosevka Nerd Font Mono`, size 20.
+Font: `Iosevka Nerd Font Mono`, size 20.
 
 ## What's managed via chezmoi
 
