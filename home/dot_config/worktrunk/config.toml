@@ -1,7 +1,7 @@
 worktree-path = "{{ repo_path }}/.worktrees/{{ branch | sanitize }}"
 
 [[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
-copy-env = 'for f in .env .env.development.local; do [ -f {{ primary_worktree_path }}/$f ] && cp {{ primary_worktree_path }}/$f . ; done; true'
+copy-env = '$HOME/.config/worktrunk/copy-env.sh {{ primary_worktree_path }}'
 
 [[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
 install = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && pnpm install'
@@ -10,7 +10,7 @@ install = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && pnp
 setup = '[ -d .next-docs ] || npx @next/codemod agents-md --output AGENTS.md'
 
 [[projects."github.com/IndieCampers/goindie-website".pre-start]]
-copy-env = '[ -f {{ primary_worktree_path }}/.env ] && cp {{ primary_worktree_path }}/.env . ; true'
+copy-env = '$HOME/.config/worktrunk/copy-env.sh {{ primary_worktree_path }}'
 
 [[projects."github.com/IndieCampers/goindie-website".pre-start]]
 setup = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && yarn install && yarn fetch-unzip-translations'
