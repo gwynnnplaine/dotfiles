@@ -1,4 +1,4 @@
-worktree-path = "{{ repo_path }}/.worktrees/{{ branch | sanitize }}"
+worktree-path = "~/worktrees/{{ repo }}/{{ branch | sanitize }}"
 
 [[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
 copy-env = '$HOME/.config/worktrunk/copy-env.sh {{ primary_worktree_path }}'
