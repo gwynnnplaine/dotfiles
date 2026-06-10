@@ -1,6 +1,6 @@
 ---
 name: type-design
-description: Turn resolved design decisions into a type system — type signatures, seams, error channels, a disambiguation ledger, and a prod/test call graph — before any implementation. Use after a design discussion converges (a grilling session or a handed-off decisions file), or when asked to "design the types", "define the contracts", or go API-first.
+description: Turn resolved design decisions into a type system — type signatures, seams, error channels, and a prod/test call graph — before any implementation. Use after a design discussion converges (a grilling session or a handed-off decisions file), or when asked to "design the types", "define the contracts", or go API-first.
 ---
 
 Types are the actual program. Implementation is a runtime courtesy.
@@ -47,15 +47,7 @@ Do one disambiguation pass — before or while drafting; finish it before the ca
 
 A known fact with no home — neither encoded, contracted, nor rejected — is an unresolved ambiguity. Surface it and resolve it before finalizing. Prose lets ambiguity hide; types force it into the open.
 
-Output the pass as a visible ledger, not just a mental check:
-
-- **Resolved** — each rule -> the type decision it forced, traceable to its source:
-  `"only pending can be accepted" -> acceptInvite(invite: PendingInvite)`.
-- **Rejected** — disproven facts -> the deletion they force, with the evidence cited:
-  `"quote may carry first_payment_percentage" -> branch deleted (serializer never emits it)`.
-- **Unresolved** — facts with no home yet, as open questions:
-  `is an expired invite still "pending"?`, `what errors can acceptInvite return?`.
-  These block finalizing; resolve or grill each before the call graph.
+Make the pass explicit, not just a mental check — for each fact, state the decision it forced and the source it traces to (an encoded rule, a contracted invariant, or a disproven "fact" deleted with cited evidence). Any fact with no home yet is an open question that blocks finalizing; resolve or grill each before the call graph.
 
 Trace both ways: every fact has a home, and every non-conventional type decision has a source fact. Structure with no source is invention — cut it or surface it as a question.
 
@@ -78,4 +70,4 @@ Format: indented tree, one call per line. Annotate non-obvious ordering and comp
 
 Wait for explicit approval of the type signatures before writing any implementation code.
 
-If you produced these as a subagent, do NOT gate yourself: return the type contracts, the ledger (Resolved/Rejected/Unresolved), and the call graph. The approving session holds the gate. A new ambiguity found while designing goes into **Unresolved** and is returned — never guessed.
+If you produced these as a subagent, do NOT gate yourself: return the type contracts, the disambiguation results (resolved decisions plus any unresolved ambiguities as open questions), and the call graph. The approving session holds the gate. A new ambiguity found while designing is surfaced as an open question and returned — never guessed.

@@ -23,6 +23,6 @@ When the questions stop revealing new constraints or trade-offs, the grilling is
 
 ALWAYS present the solution as type signatures before writing any implementation. Types are the actual program; implementation is a runtime courtesy.
 
-Produce them with the `type-design` skill ([../type-design/SKILL.md](../type-design/SKILL.md)): the type contracts, the disambiguation ledger (Resolved/Unresolved), and the prod/test call graph. Then wait for explicit approval before writing any implementation code.
+Produce them with the `type-design` skill ([../type-design/SKILL.md](../type-design/SKILL.md)): the type contracts, the disambiguation results (resolved decisions, with unresolved ambiguities as open questions), and the prod/test call graph. Then wait for explicit approval before writing any implementation code.
 
 </type-first-design>
