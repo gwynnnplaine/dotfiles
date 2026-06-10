@@ -1,11 +1,11 @@
 ---
 name: type-design
-description: Turn resolved design decisions into a type system — type signatures, seams, error channels, a disambiguation ledger, and a prod/test call graph — before any implementation. Use after a design discussion converges (grilling, /discuss, a handed-off decisions file), or when asked to "design the types", "define the contracts", or go API-first.
+description: Turn resolved design decisions into a type system — type signatures, seams, error channels, a disambiguation ledger, and a prod/test call graph — before any implementation. Use after a design discussion converges (a grilling session or a handed-off decisions file), or when asked to "design the types", "define the contracts", or go API-first.
 ---
 
 Types are the actual program. Implementation is a runtime courtesy.
 
-Use this once the design decisions are settled — from a grilling session, a spec, `CONTEXT.md` + ADRs, or a handed-off decisions file. Input: the resolved facts. Output: the type-level contracts and call graph the implementer works from.
+Use this once the design decisions are settled — from a grilling session, a spec, or a handed-off decisions file. Input: the resolved facts. Output: the type-level contracts and call graph the implementer works from.
 
 Read the project's type conventions before drafting (naming rules, `interface` vs `type` policy, error-handling guide — in this repo: `.agents/guides/typescript.md`, `.agents/guides/result-errors.md`, the AGENTS.md naming tree). If a detail can be answered by exploring the codebase (existing names, seams, conventions), explore instead of guessing.
 
