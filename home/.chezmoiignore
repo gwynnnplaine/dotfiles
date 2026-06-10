@@ -1,2 +1,22 @@
-.pi
-.pi/**
+# ~/.pi/agent: dotfiles manages only Pi *source* resources —
+# settings.json, instruction files, and extensions/skills/prompts.
+# Everything below is machine-local state or secrets: never manage it.
+.pi/cache
+.pi/subagent-schedules
+.pi/agent/.pi
+.pi/agent/auth.json
+.pi/agent/trust.json
+.pi/agent/mcp-oauth
+.pi/agent/mcp-cache.json
+.pi/agent/mcp-npx-cache.json
+.pi/agent/mcp-onboarding.json
+.pi/agent/sessions
+.pi/agent/npm
+.pi/agent/git
+.pi/agent/helpers
+.pi/agent/run-history.jsonl
+.pi/agent/.update-check
+.pi/agent/*.log
+.pi/agent/*.bak-*
+.pi/agent/*.bak.*
+.pi/agent/.backup-*

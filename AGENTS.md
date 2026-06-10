@@ -28,9 +28,15 @@ Files in `home/` use chezmoi prefixes, not literal names:
 - This repo manages: `~/.config/{ghostty,nvim,lazygit,nushell}/**`,
   `~/.config/starship.toml`, `~/.config/worktrunk/config.toml`, `~/.zshrc`,
   `~/.zprofile`.
-- This repo does **not** manage `~/.pi`. That path is owned solely by the
-  `i-love-this-shitty-agent` repo (`link-to-pi.sh`). It is listed in
-  `home/.chezmoiignore`. Never add anything under `.pi` here.
+- This repo also manages Pi's **source** config under `~/.pi/agent`:
+  `settings.json`, the instruction files (`SYSTEM.md`, `AGENTS.md`, `CLAUDE.md`,
+  `CODING_STANDARDS.md`), and the `extensions/`, `skills/`, `prompts/`
+  directories. Source lives at `home/dot_pi/agent/`. (Migrated off the old
+  `i-love-this-shitty-agent` repo + `link-to-pi.sh`, which is now decommissioned.)
+- This repo does **not** manage Pi **machine-local state or secrets**:
+  `auth.json`, `trust.json`, `mcp-*` caches/oauth, `sessions/`, `npm/`, `git/`,
+  `helpers/`, logs, `run-history.jsonl`, `.update-check`, and `*.bak-*`. These
+  stay ignored in `home/.chezmoiignore`. Never add them here.
 
 ## Shell & PATH
 
