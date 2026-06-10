@@ -25,9 +25,18 @@ Existing code already works. A test you add now is **green from the first run** 
 
 So make the test fail on purpose. A test you've watched go red is a test you can trust.
 
+## How to write the test
+
+This skill is the *when*; the *how* lives in [tdd](../tdd/SKILL.md)'s references. Read these before characterizing — they are not optional:
+
+- [tests.md](../tdd/tests.md) — good vs bad tests. Test behavior through the **public interface**. A characterization test that asserts internals dies on the next refactor — the exact moment you need it.
+- [mocking.md](../tdd/mocking.md) — mock at **system boundaries** only. Never mock the code you're about to sabotage: a mocked path can't bleed, and the check turns into theater.
+
+For the implementation phase, [interface-design.md](../tdd/interface-design.md), [deep-modules.md](../tdd/deep-modules.md), and [refactoring.md](../tdd/refactoring.md) apply as usual — the tdd skill routes them.
+
 ## Loop
 
-1. **Characterize.** Write a test for each behavior you could break. Assert what the code does **now**, not what it should do. Don't know the output? Assert a guess, run it, let the failure tell you the real value, bake it in.
+1. **Characterize.** Write a test for each behavior you could break — through the public interface, per [tests.md](../tdd/tests.md). Assert what the code does **now**, not what it should do. Don't know the output? Assert a guess, run it, let the failure tell you the real value, bake it in.
 2. **Sabotage.** Break the production code on purpose — flip a condition, return a wrong value.
 3. **Watch it go red.** Red → the net is real, move on. Still green → the test is worthless. Fix the test, sabotage again.
 4. **Revert** the sabotage. Green again.
