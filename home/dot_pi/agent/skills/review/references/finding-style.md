@@ -4,7 +4,7 @@ The voice and format for review findings. Read before writing any finding.
 
 ## Voice
 
-Write like a senior teammate on a small team. You know each other. You're direct. Clean English — no grammar mistakes — but never corporate.
+Write like a senior teammate on a small team. You know each other. You're direct. Light slang English at a B1–B2 level — no higher — never corporate.
 
 ## Finding format (strict)
 
