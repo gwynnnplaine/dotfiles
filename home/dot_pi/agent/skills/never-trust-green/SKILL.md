@@ -31,8 +31,9 @@ This skill is the *when*; the *how* lives in [tdd](../tdd/SKILL.md)'s references
 
 - [tests.md](../tdd/tests.md) — good vs bad tests. Test behavior through the **public interface**. A characterization test that asserts internals dies on the next refactor — the exact moment you need it.
 - [mocking.md](../tdd/mocking.md) — mock at **system boundaries** only. Never mock the code you're about to sabotage: a mocked path can't bleed, and the check turns into theater.
+- [interface-design.md](../tdd/interface-design.md) — read it **when the test can't get in**: the code builds its own dependencies, hits globals, hides its output. Cut the **minimal seam** that lets the test through — accept a dependency, return a value — and stop there. No redesign before the net is up.
 
-For the implementation phase, [interface-design.md](../tdd/interface-design.md), [deep-modules.md](../tdd/deep-modules.md), and [refactoring.md](../tdd/refactoring.md) apply as usual — the tdd skill routes them.
+[deep-modules.md](../tdd/deep-modules.md) and [refactoring.md](../tdd/refactoring.md) stay out of this phase on purpose. They describe what code **should** look like; characterization pins what code **does**. Improving code before the net is up is the exact failure this skill exists to prevent. They apply in the implementation phase — the tdd skill routes them.
 
 ## Loop
 
