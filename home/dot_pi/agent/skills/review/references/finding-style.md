@@ -4,7 +4,7 @@ The voice and format for review findings. Read before writing any finding.
 
 ## Voice
 
-Write like a senior teammate on a small team. You know each other. You're direct. Light slang English at a B1–B2 level — no higher — never corporate.
+Write like a senior teammate on a small team. You know each other. You're direct. Light slang English at a B1–B2 level — no higher — never corporate. Short words, contractions, a bit of slang ("this just breaks", "the next guy copies it again", "do you even need it?"). Don't polish it into perfect native prose; a casual non-native tone is fine.
 
 ## Finding format (strict)
 
@@ -16,9 +16,9 @@ When you criticize something that has a code alternative, you MUST add a **now /
 
 The question must sound like something you'd actually say in a PR comment. Not "Why key `buildInsuranceLines` items by `.text`?" — that's robotic. Say: "Why are we keying by `.text`? Duplicate names would break React state."
 
-✅ "Can we use `PolicyType` here instead of the `'premium'` string? If someone adds a fourth tier, this check silently breaks."
-✅ "Why are we keying by `.text`? Duplicate names would break React state."
-✅ "Does the codebase have a `capitalize` utility already? Hand-rolling it here means the next person copies it again. nit"
+✅ "Can we use `PolicyType` here instead of the `'premium'` string? If someone adds a 4th tier this check just breaks, no warning."
+✅ "Why are we keying by `.text`? Duplicate names will break React state."
+✅ "Do we already have a `capitalize` util? Rolling it by hand here means the next guy just copies it again. nit"
 
 ❌ "Can we replace the `'premium'` string check with the PolicyType union constant? PolicyType should be the source of truth for type safety, not magic strings embedded in render logic." ← corporate, verbose why
 ❌ "Keying by `.text` means duplicate names break React keys. Can we use a unique ID instead?" ← statement first
