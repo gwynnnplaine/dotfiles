@@ -1,8 +1,9 @@
 ---
-description: Review local changes, commits/ranges, or GitHub PRs
-argument-hint: "[staged|commit/range|pr <number|url>|GitHub PR URL]"
+name: review
+description: Deep, read-only code review of local changes, a commit/range, or a GitHub PR, with a type-first lens and a strict question-led finding format. Use via /skill:review with an optional target (staged | commit/range | pr <number|url> | GitHub PR URL).
+disable-model-invocation: true
 ---
-Review target: $ARGUMENTS
+Review target: the argument appended to this skill invocation (shown below as `User: <target>`). If empty, default to local staged + unstaged.
 
 GitHub PR URL → use `gh`. No target → local staged + unstaged. Otherwise git ref or review focus.
 

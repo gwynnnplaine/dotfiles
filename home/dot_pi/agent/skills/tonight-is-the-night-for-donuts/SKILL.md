@@ -1,8 +1,9 @@
 ---
-description: Docs-grounded grilling, then a subagent designs the type system from the resolved decisions
-argument-hint: "[feature, plan, or domain area to design]"
+name: tonight-is-the-night-for-donuts
+description: Docs-grounded grilling (grill-with-docs) then a subagent designs the type system (type-design) from the resolved decisions. Use via /skill:tonight-is-the-night-for-donuts with the feature, plan, or domain area to design.
+disable-model-invocation: true
 ---
-Target: $ARGUMENTS
+Target: the feature, plan, or domain area appended to this skill invocation (shown below as `User: <target>`).
 
 Two phases. Phase 1 is interactive and runs here. Phase 2 is delegated to a subagent so this context never carries the grilling transcript into type design.
 
