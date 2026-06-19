@@ -51,7 +51,7 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 
 For JS/TS implementation, refactor, debug, review, or API/type-contract work:
 
-- Apply [CODING_STANDARDS.md](CODING_STANDARDS.md).
+- ALWAYS follow [CODING_STANDARDS.md](CODING_STANDARDS.md) when touching `.ts`/`.tsx` files.
 - Read [`skills/typescript-meta/README.md`](skills/typescript-meta/README.md).
 - Read [MUST HAVE](skills/typescript-meta/00-must-have.md).
 - Read [Type Safety Philosophy](skills/typescript-meta/05-type-safety-philosophy.md).
