@@ -10,14 +10,15 @@
     "npm:@plannotator/pi-extension",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@gwynnnplaine/pi-github",
-    "npm:@tmustier/pi-session-hud"
+    "npm:@tmustier/pi-session-hud",
+    "npm:@mrclrchtr/supi-code-intelligence"
   ],
   "theme": "rose-pine-moon",
   "defaultThinkingLevel": "medium",
   "quietStartup": true,
   "hideThinkingBlock": false,
   "showHardwareCursor": true,
-  "lastChangelogVersion": "0.79.1",
+  "lastChangelogVersion": "0.80.2",
   "warnings": {
     "anthropicExtraUsage": false
   },
