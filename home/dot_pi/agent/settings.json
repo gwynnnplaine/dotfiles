@@ -9,7 +9,8 @@
     "npm:@ff-labs/pi-fff",
     "npm:@plannotator/pi-extension",
     "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:@gwynnnplaine/pi-github"
+    "npm:@gwynnnplaine/pi-github",
+    "npm:@tmustier/pi-session-hud"
   ],
   "theme": "rose-pine-moon",
   "defaultThinkingLevel": "medium",
