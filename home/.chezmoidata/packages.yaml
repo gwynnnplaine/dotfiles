@@ -7,3 +7,4 @@ npm_globals:
   - "typescript-language-server" # TS/JS LSP (supi-lsp)
   - "typescript" # tsserver backing typescript-language-server
   - "bash-language-server" # Bash/sh/zsh LSP (supi-lsp); shellcheck via Brewfile
+  - "vscode-langservers-extracted" # provides vscode-html-language-server (+css/json/eslint)
