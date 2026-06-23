@@ -1,0 +1,9 @@
+# Declarative package lists consumed by run_onchange_ scripts.
+# Editing a list re-runs the matching script on the next `chezmoi apply`.
+
+# Global npm CLIs installed into the fnm default Node.
+# See run_onchange_install-npm-globals.sh.tmpl.
+npm_globals:
+  - "typescript-language-server" # TS/JS LSP (supi-lsp)
+  - "typescript" # tsserver backing typescript-language-server
+  - "bash-language-server" # Bash/sh/zsh LSP (supi-lsp); shellcheck via Brewfile

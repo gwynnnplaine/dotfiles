@@ -79,4 +79,8 @@ fi
 echo "🤖 Installing/updating pi..."
 npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 
+# Other npm globals (LSP servers, etc.) are installed declaratively by chezmoi
+# via .chezmoidata/packages.yaml + run_onchange_install-npm-globals.sh.tmpl,
+# which runs during the `chezmoi apply` below.
+
 echo "✅ Done!"

@@ -1,0 +1,23 @@
+{{ if lookPath "npm" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Global npm CLIs for the fnm default Node, managed declaratively in
+# .chezmoidata/packages.yaml. run_onchange hashes this rendered content, so the
+# script re-runs only when the package list (embedded below) changes.
+
+packages=(
+{{ range .npm_globals -}}
+  {{ . | quote }}
+{{ end -}}
+)
+
+echo "🔤 Installing/updating npm globals: ${packages[*]}"
+npm install -g "${packages[@]}"
+{{ else -}}
+#!/usr/bin/env bash
+# npm not on PATH yet (fresh machine before Node is set up). Skip without
+# failing `chezmoi apply`. Once npm exists this rendered content changes, so
+# run_onchange re-runs and installs the globals.
+echo "⚠️  npm not found; skipping npm globals (will install once Node is ready)."
+{{ end -}}
