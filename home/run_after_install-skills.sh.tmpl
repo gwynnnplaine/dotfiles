@@ -1,0 +1,18 @@
+{{ if lookPath "npx" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Install/refresh personal agent skills from the canonical repo
+# (github.com/gwynnnplaine/skills) into pi's global skills dir
+# (~/.pi/agent/skills). Skills are no longer stored in this dotfiles repo;
+# this repo only consumes them. run_after re-runs on every `chezmoi apply`
+# so the installed set stays current with upstream.
+echo "🛠️  Installing/updating skills from gwynnnplaine/skills"
+npx -y skills@latest add gwynnnplaine/skills --skill '*' --global --agent pi --yes
+{{ else -}}
+#!/usr/bin/env bash
+# npx not on PATH yet (fresh machine before Node is set up). Skip without
+# failing `chezmoi apply`. Once npx exists this rendered content changes
+# anyway, and the install runs on the next apply.
+echo "⚠️  npx not found; skipping skills install (will install once Node is ready)."
+{{ end -}}

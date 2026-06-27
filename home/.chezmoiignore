@@ -1,5 +1,8 @@
 # ~/.pi/agent: dotfiles manages only Pi *source* resources —
-# settings.json, instruction files, and extensions/skills/prompts.
+# settings.json, instruction files, and extensions/prompts.
+# Skills are installed by `npx skills` (see run_after_install-skills.sh.tmpl),
+# canonical source github.com/gwynnnplaine/skills — never manage them here.
+.pi/agent/skills
 # Everything below is machine-local state or secrets: never manage it.
 .pi/cache
 .pi/subagent-schedules
