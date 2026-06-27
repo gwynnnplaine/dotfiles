@@ -4,14 +4,18 @@ font-family = "Iosevka Nerd Font Mono"
 font-size = 20
 font-feature = -liga
 cursor-style = block
-cursor-style-blink = false
+cursor-style-blink = true
 adjust-cell-height = 15%
 
 # macOS specific
+# Static window title (overrides the dynamic dir/command title from shell-integration).
+title = ghostty
 macos-titlebar-style = transparent
 macos-option-as-alt = left
-window-padding-x = 6
-window-padding-y = 6
+window-padding-x = 0
+window-padding-y = 0
+window-width = 90
+window-height = 30
 window-padding-balance = true
 window-decoration = true
 window-colorspace = display-p3
@@ -25,8 +29,13 @@ unfocused-split-opacity = 0.85
 split-divider-color = #4b4b4b
 
 # --- Functionality ---
-copy-on-select = clipboard
-mouse-scroll-multiplier = 2
+copy-on-select = false
+mouse-scroll-multiplier = 0.4
+clipboard-read = allow
+clipboard-write = allow
+
+# Bleeding-edge Ghostty builds (tip channel; less stable than stable)
+auto-update-channel = tip
 
 # Ensure the window stays open if a command fails
 confirm-close-surface = false

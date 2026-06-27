@@ -1,0 +1,95 @@
+# Herdr config — tailored for cmux habits + Pi running inside panes.
+# Docs: https://herdr.dev/docs/configuration/
+# Reload after edits: `herdr server reload-config` (or `reload config` in the menu).
+
+# Skip the first-run onboarding wizard (we configure everything here).
+onboarding = false
+
+[terminal]
+default_shell = "nu"   # Nushell in newly created panes
+shell_mode = "auto"    # macOS: login shell so brew/PATH init runs in new panes
+
+[theme]
+# Mirror Ghostty: Rose Pine (dark) / Rose Pine Dawn (light), auto-switch with the OS.
+name = "rose-pine"
+auto_switch = true
+light_name = "rose-pine-dawn"
+dark_name = "rose-pine"
+
+[ui]
+# Sort the agents panel by urgency: blocked, then done, then working, then idle.
+# The agent that needs you floats to the top of the list.
+agent_panel_sort = "priority"
+sidebar_width = 32                        # wider sidebar (default 26)
+right_click_passthrough_modifier = "ctrl" # ctrl+right-click goes to the pane app, not Herdr's menu
+
+[ui.sound]
+enabled = true         # short beep when an agent finishes / needs input
+
+[ui.toast]
+delivery = "system"  # macOS native notification via terminal-notifier (falls back to osascript)
+
+[keys]
+# Prefix = Ctrl+; (semicolon). Chosen over Ctrl+Space because Ctrl+Space is
+# taken by macOS input-source (language) switching, and Ctrl+B by Pi. Ctrl+;
+# avoids both and needs no macOS changes. (If a pane app ever doesn't receive
+# ctrl+; it's a terminal transmission issue, not a Herdr one.)
+# Daily rule: press Ctrl+;, release, then ONE letter. Examples:
+#   Ctrl+; c        new tab
+#   Ctrl+; d        split right   |  Ctrl+; -   split down
+#   Ctrl+; shift+n  new workspace |  Ctrl+; w   workspace picker
+#   Ctrl+; z        zoom pane     |  Ctrl+; x   close pane
+#   Ctrl+; q        detach        |  Ctrl+; ?   show all keybindings
+# Everything not listed below keeps Herdr's defaults (all prefix-first).
+prefix = "ctrl+semicolon"
+
+# Move focus between panes with ONE chord: Ctrl+h/j/k/l (trivial with Caps->Ctrl).
+# TRADE-OFF: Herdr grabs these globally, so inside Pi you lose ctrl+j (new line),
+# ctrl+k (delete to EOL), ctrl+l (model select), ctrl+h (backspace). Use Shift+Enter
+# for a new line in Pi. Prefix form (Ctrl+; then h/j/k/l) is kept as a fallback.
+focus_pane_left  = ["ctrl+h", "prefix+h"]
+focus_pane_down  = ["ctrl+j", "prefix+j"]
+focus_pane_up    = ["ctrl+k", "prefix+k"]
+focus_pane_right = ["ctrl+l", "prefix+l"]
+
+# Splitting panes, cmux-style:
+#   Ctrl+Space d   split right (side by side)  <- like cmux Cmd+D
+#   Ctrl+Space -   split down  (stacked)       <- minus = horizontal divider
+# (mouse: right-click in a pane -> Split right / Split down)
+split_vertical   = ["prefix+d", "prefix+v"]
+split_horizontal = ["prefix+minus"]
+
+# Open an existing git worktree of the current repo as its own grouped workspace.
+# Ctrl+Space Shift+O  (mouse: right-click the repo row -> Open worktree...)
+open_worktree = "prefix+shift+o"
+
+# Jump to a workspace (project) by number: Ctrl+; 1 .. 9 (plain digits, reliable).
+# Shift+digit was unreliable: the terminal sends ! @ # ... instead of shift+1/2/3.
+# Trade-off: tabs lose number-jump; switch tabs with Ctrl+; n / Ctrl+; p instead.
+switch_workspace = "prefix+1..9"
+switch_tab = ""
+
+# Step to the previous / next workspace (project): Ctrl+; , and Ctrl+; .
+previous_workspace = "prefix+comma"
+next_workspace = "prefix+period"
+
+# Jump to an agent by number: Ctrl+; then Alt+1 .. Alt+9.
+# NOTE: with agent_panel_sort = "priority" the order shifts (urgent floats up),
+# so the number maps to the CURRENT sorted position, not a fixed agent.
+focus_agent = "prefix+alt+1..9"
+
+# --- Plugin: cloudmanic.herdr-plus ---
+# Both launchers live on "A":
+#   Ctrl+Space a        Quick Actions (one-off command launcher)
+#   Ctrl+Space shift+a  Projects (spin up a whole workspace from a template)
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "cloudmanic.herdr-plus.quick-actions"
+description = "quick actions"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "plugin_action"
+command = "cloudmanic.herdr-plus.projects"
+description = "projects"

@@ -43,6 +43,7 @@ alias gco = git checkout
 alias gd  = git diff
 alias gb  = git branch
 alias lg  = lazygit
+alias h   = herdr
 
 # listing — bare `ls` stays Nu's builtin (structured output); eza powers these
 alias ll  = eza -lh --icons --group-directories-first
