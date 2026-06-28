@@ -26,3 +26,7 @@ require("fff").setup({
     modes = { "plain", "regex", "fuzzy" },
   },
 })
+
+vim.keymap.set("n", "<leader><leader>", function() require("fff").find_files() end,            { desc = "Find files" })
+vim.keymap.set("n", "<leader>fg",       function() require("fff").live_grep() end,             { desc = "Live grep" })
+vim.keymap.set({ "n", "x" }, "<leader>fw", function() require("fff").live_grep_under_cursor() end, { desc = "Grep word/selection" })

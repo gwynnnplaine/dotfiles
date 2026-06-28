@@ -9,6 +9,7 @@ ts.install({
   "lua", "vim", "vimdoc",
   "typescript", "javascript", "tsx",
   "go", "zig",
+  "markdown", "markdown_inline",
 }):wait(300000)
 
 -- Enable highlighting + indentation for any file that has a parser

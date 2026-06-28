@@ -3,6 +3,7 @@ vim.pack.add{
 }
 
 require("blink.cmp").setup({
+  keymap = { preset = "super-tab" },
   sources = {
     default = { "lsp", "path", "buffer" },
   },

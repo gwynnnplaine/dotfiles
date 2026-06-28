@@ -30,3 +30,5 @@ require("oil").setup({
     ["g."] = { "actions.toggle_hidden", mode = "n" },
   },
 })
+
+vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", { desc = "File explorer" })
