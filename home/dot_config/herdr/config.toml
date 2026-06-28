@@ -5,6 +5,11 @@
 # Skip the first-run onboarding wizard (we configure everything here).
 onboarding = false
 
+[experimental]
+# Render inline images (Kitty graphics protocol) in panes. Without this, Pi
+# can "see" an image (sent to the model) but the pane never paints it.
+kitty_graphics = true
+
 [terminal]
 default_shell = "nu"   # Nushell in newly created panes
 shell_mode = "auto"    # macOS: login shell so brew/PATH init runs in new panes
