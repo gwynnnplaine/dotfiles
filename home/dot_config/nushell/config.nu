@@ -44,6 +44,7 @@ alias gd  = git diff
 alias gb  = git branch
 alias lg  = lazygit
 alias h   = herdr
+alias nv  = nvim
 
 # listing — bare `ls` stays Nu's builtin (structured output); eza powers these
 alias ll  = eza -lh --icons --group-directories-first
