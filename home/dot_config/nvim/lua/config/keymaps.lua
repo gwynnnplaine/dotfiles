@@ -1,3 +1,6 @@
+-- ── Save ──────────────────────────────────────────────────────────────────
+vim.keymap.set({ "n", "i", "v" }, "<C-s>", "<cmd>silent! write<cr><esc>", { desc = "Save file" })
+
 -- ── Diagnostics ───────────────────────────────────────────────────────────
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })

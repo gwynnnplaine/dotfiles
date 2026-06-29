@@ -50,3 +50,6 @@ keybind = alt+down=goto_split:down
 # Zoom a split (equivalent to tmux zoom) for deep coding
 keybind = cmd+enter=toggle_split_zoom
 
+# Send Ctrl+S through to the terminal (e.g. Neovim :w) instead of XOFF flow-control
+keybind = ctrl+s=text:\x13
+
