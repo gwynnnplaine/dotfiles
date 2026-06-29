@@ -53,3 +53,8 @@ keybind = cmd+enter=toggle_split_zoom
 # Send Ctrl+S through to the terminal (e.g. Neovim :w) instead of XOFF flow-control
 keybind = ctrl+s=text:\x13
 
+# Floating quake-style quick terminal
+keybind = global:ctrl+minus=toggle_quick_terminal
+# Global show/hide the Ghostty window (iTerm2-style)
+keybind = global:ctrl+equal=toggle_visibility
+
