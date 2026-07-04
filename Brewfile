@@ -25,6 +25,4 @@ brew "pnpm"
 
 cask "alt-tab"
 cask "ghostty"
-cask "cmux"
-cask "orbstack"
 cask "font-iosevka-nerd-font"
