@@ -7,7 +7,7 @@
     "npm:@ff-labs/pi-fff",
     "npm:@plannotator/pi-extension",
     "npm:@gwynnnplaine/pi-github",
-    "npm:@tmustier/pi-session-hud",
+    "npm:@tmustier/pi-session-hud"
   ],
   "theme": "rose-pine-moon",
   "defaultThinkingLevel": "medium",
