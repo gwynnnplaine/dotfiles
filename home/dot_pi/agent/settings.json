@@ -1,17 +1,13 @@
 {
   "packages": [
     "npm:pi-mcp-adapter",
-    "npm:pi-autoresearch",
     "npm:pi-web-access",
-    "npm:pi-subagents",
     "npm:pi-codex-goal",
     "npm:pi-themes-rose-pine",
     "npm:@ff-labs/pi-fff",
     "npm:@plannotator/pi-extension",
-    "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@gwynnnplaine/pi-github",
     "npm:@tmustier/pi-session-hud",
-    "npm:@mrclrchtr/supi-code-intelligence"
   ],
   "theme": "rose-pine-moon",
   "defaultThinkingLevel": "medium",
@@ -23,7 +19,6 @@
     "anthropicExtraUsage": false
   },
   "enabledModels": [
-    "anthropic/claude-sonnet-4-6",
     "anthropic/claude-opus-4-8",
     "anthropic/claude-fable-5"
   ],
