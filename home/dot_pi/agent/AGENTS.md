@@ -1,6 +1,14 @@
-# Project
+## Non-negotiables
 
-This repository stores my portable AGENTS.md preferences for coding agents across local machines.
+Five rules that override convenience. This is how we work — not style preferences.
+
+1. **We always treat types as the real program, not the implementation.** We design the type signatures first; the bodies are a runtime courtesy. If deleting the bodies stops the types telling the structural story (data, errors, states), we are not done.
+2. **We always design through the non-happy path first.** We name the failures, empty and boundary cases, and misuse before we write the happy path — the happy path is trivial once the bad cases are covered, and it is the cases we skip that carry the bugs.
+3. **We always verify behavior through interfaces; tests are the real program.** Core logic behaves identically in production and in tests. If we have to mock or spy to test it, the design is wrong — we replace behavior through a real seam and assert observable outcomes, never internal calls.
+4. **We always make invalid states unrepresentable.** We model invariants in types, constructors, parsers, and transitions. No boolean blindness, no contradictory bags, no stringly-typed field that should be a union or branded type.
+5. **We always parse at the boundary and trust inside.** Untrusted, serialized, or persisted input is parsed into refined domain values before core logic sees it; we never trust decoded data with `as`, and expected failures travel as typed values, not hidden throws.
+
+Depth lives in the `coding-standards` skill; these five are the always-on floor.
 
 ## Precedence
 
