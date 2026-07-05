@@ -10,11 +10,11 @@
     "npm:@tmustier/pi-session-hud"
   ],
   "theme": "rose-pine-moon",
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "hideThinkingBlock": false,
   "showHardwareCursor": true,
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "warnings": {
     "anthropicExtraUsage": false
   },
