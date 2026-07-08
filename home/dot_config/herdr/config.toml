@@ -26,6 +26,7 @@ dark_name = "rose-pine"
 # The agent that needs you floats to the top of the list.
 agent_panel_sort = "priority"
 sidebar_width = 32                        # wider sidebar (default 26)
+sidebar_collapsed_mode = "hidden"
 right_click_passthrough_modifier = "ctrl" # ctrl+right-click goes to the pane app, not Herdr's menu
 
 [ui.sound]
