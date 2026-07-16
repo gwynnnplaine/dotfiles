@@ -8,18 +8,19 @@
     "npm:@gwynnnplaine/pi-github",
     "npm:@tmustier/pi-session-hud"
   ],
-  "theme": "rose-pine-moon",
+  "theme": "rose-pine-dawn/rose-pine-moon",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "showHardwareCursor": true,
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.80.7",
   "warnings": {
     "anthropicExtraUsage": false
   },
   "enabledModels": [
-    "anthropic/claude-opus-4-8",
-    "anthropic/claude-fable-5"
+    "anthropic/claude-fable-5",
+    "anthropic/claude-opus-4-6",
+    "anthropic/claude-opus-4-8"
   ],
   "defaultProvider": "anthropic",
   "defaultModel": "claude-opus-4-8",
