@@ -1,0 +1,21 @@
+{{ if lookPath "herdr" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Reinstall the herdr <-> Pi lifecycle integration extension
+# (~/.pi/agent/extensions/herdr-agent-state.ts). herdr generates and overwrites
+# that file, so it is NOT chezmoi-managed (see .chezmoiignore) -- herdr owns it.
+# run_onchange hashes this rendered content, and the herdr version embedded
+# below changes on every `brew upgrade herdr`, so the extension is refreshed to
+# the matching version after each herdr upgrade + `chezmoi apply`. This closes
+# the version-skew that left Pi panes stuck "idle" while working (needs the v5+
+# extension shipped with herdr 0.7.4).
+# herdr version: {{ output "herdr" "--version" | trim }}
+echo "🐑 Reinstalling herdr Pi integration to match $(herdr --version)"
+herdr integration install pi
+{{ else -}}
+#!/usr/bin/env bash
+# herdr not on PATH yet. Skip without failing `chezmoi apply`; once herdr is
+# installed this rendered content changes and run_onchange re-runs.
+echo "⚠️  herdr not found; skipping Pi integration install."
+{{ end -}}

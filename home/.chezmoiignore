@@ -3,6 +3,13 @@
 # Skills are installed by `npx skills` (see run_after_install-skills.sh.tmpl),
 # canonical source github.com/gwynnnplaine/skills — never manage them here.
 .pi/agent/skills
+# herdr writes and overwrites this integration extension on every
+# `herdr integration install pi` / herdr upgrade (see the header it stamps in
+# the file). Tracking it here caused perpetual `chezmoi status` drift and a
+# version skew (source v3 / deployed v4 / herdr wants v5) that left panes stuck
+# "idle" while Pi was working. herdr owns it; run_onchange_after_install-herdr-
+# integration.sh reinstalls it after herdr upgrades.
+.pi/agent/extensions/herdr-agent-state.ts
 # Everything below is machine-local state or secrets: never manage it.
 .pi/cache
 .pi/subagent-schedules
