@@ -99,3 +99,16 @@ key = "prefix+shift+a"
 type = "plugin_action"
 command = "cloudmanic.herdr-plus.projects"
 description = "projects"
+
+# --- lazygit popup (0.7.4 `type = "popup"`) ---
+# Session-modal floating terminal: grabs all input (incl. Esc) until lazygit
+# exits, and leaves the tiled split layout untouched. cmux-style git overlay
+# that vanishes on quit, instead of a dedicated split. `prefix+t` is free
+# (rename_tab is prefix+shift+t, cycle_pane_next is prefix+tab).
+[[keys.command]]
+key = "prefix+t"
+type = "popup"
+command = "lazygit"
+description = "lazygit"
+width = "80%"
+height = "80%"
