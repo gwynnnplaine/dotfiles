@@ -2,7 +2,6 @@
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",
-    "npm:pi-codex-goal",
     "npm:pi-themes-rose-pine",
     "npm:@ff-labs/pi-fff",
     "npm:@plannotator/pi-extension",
