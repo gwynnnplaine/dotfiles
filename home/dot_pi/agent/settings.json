@@ -6,14 +6,15 @@
     "npm:@ff-labs/pi-fff",
     "npm:@plannotator/pi-extension",
     "npm:@gwynnnplaine/pi-github",
-    "npm:@tmustier/pi-session-hud"
+    "npm:@tmustier/pi-session-hud",
+    "npm:@injaneity/pi-computer-use"
   ],
   "theme": "rose-pine-dawn/rose-pine-moon",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "hideThinkingBlock": true,
   "showHardwareCursor": true,
-  "lastChangelogVersion": "0.80.7",
+  "lastChangelogVersion": "0.80.10",
   "warnings": {
     "anthropicExtraUsage": false
   },
