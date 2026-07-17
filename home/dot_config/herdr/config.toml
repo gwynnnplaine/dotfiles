@@ -112,3 +112,12 @@ command = "lazygit"
 description = "lazygit"
 width = "90%"
 height = "90%"
+
+# --- Plugin: persiyanov.reviewr (code-review sidebar) ---
+# Ctrl+; r  toggles the reviewr diff/review pane beside the agent.
+# id.action form required (persiyanov.reviewr + toggle), not the display name.
+[[keys.command]]
+key = "prefix+r"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"
+description = "reviewr: toggle sidebar"
