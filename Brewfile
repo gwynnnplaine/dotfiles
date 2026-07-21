@@ -20,7 +20,7 @@ brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 brew "chezmoi"
 brew "yazi"
 brew "zoxide"
-
+brew "keidarcy/tap/e1s"
 brew "pnpm"
 
 cask "alt-tab"
