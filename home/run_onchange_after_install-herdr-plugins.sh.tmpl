@@ -1,0 +1,38 @@
+{{ if lookPath "herdr" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Install herdr plugins that this repo's config depends on. Plugin binaries live
+# under ~/.config/herdr/plugins/ (per-arch prebuilt, machine-local, NOT
+# chezmoi-managed), so the config keybindings sync but the plugins themselves do
+# not. This hook closes that gap on every machine.
+#
+# run_onchange hashes this rendered content, so editing the PLUGINS list below
+# re-runs it after `chezmoi apply`. Each install is guarded by `herdr plugin
+# list`, so a re-run is a cheap no-op when the plugin is already present.
+
+# id => source (github owner/repo)
+PLUGINS=(
+  "persiyanov.reviewr=persiyanov/herdr-reviewr"
+)
+
+installed="$(herdr plugin list 2>/dev/null || true)"
+
+for entry in "${PLUGINS[@]}"; do
+  id="${entry%%=*}"
+  source="${entry#*=}"
+  if grep -q "$id" <<<"$installed"; then
+    echo "🐑 herdr plugin $id already installed; skipping."
+  else
+    echo "🐑 Installing herdr plugin $id from $source"
+    herdr plugin install "$source" --yes
+  fi
+done
+
+herdr server reload-config >/dev/null 2>&1 || true
+{{ else -}}
+#!/usr/bin/env bash
+# herdr not on PATH yet. Skip without failing `chezmoi apply`; once herdr is
+# installed this rendered content changes and run_onchange re-runs.
+echo "⚠️  herdr not found; skipping plugin install."
+{{ end -}}
