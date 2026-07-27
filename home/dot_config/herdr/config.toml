@@ -58,6 +58,10 @@ focus_pane_down  = ["ctrl+j", "prefix+j"]
 focus_pane_up    = ["ctrl+k", "prefix+k"]
 focus_pane_right = ["ctrl+l", "prefix+l"]
 
+# Resize mode: Ctrl+; r, then h/j/k/l (Esc exits). This is herdr's default, kept
+# explicit because a plugin binding once shadowed prefix+r.
+resize_mode = "prefix+r"
+
 # Splitting panes, cmux-style:
 #   Ctrl+Space d   split right (side by side)  <- like cmux Cmd+D
 #   Ctrl+Space -   split down  (stacked)       <- minus = horizontal divider
@@ -112,12 +116,3 @@ command = "lazygit"
 description = "lazygit"
 width = "90%"
 height = "90%"
-
-# --- Plugin: persiyanov.reviewr (code-review sidebar) ---
-# Ctrl+; r  toggles the reviewr diff/review pane beside the agent.
-# id.action form required (persiyanov.reviewr + toggle), not the display name.
-[[keys.command]]
-key = "prefix+r"
-type = "plugin_action"
-command = "persiyanov.reviewr.toggle"
-description = "reviewr: toggle sidebar"
