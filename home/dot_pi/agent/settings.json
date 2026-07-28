@@ -1,6 +1,6 @@
 {
   "packages": [
-    "npm:pi-mcp-adapter",
+    "git:github.com/dmmulroy/pi-mcp",
     "npm:pi-web-access",
     "npm:pi-themes-rose-pine",
     "npm:@ff-labs/pi-fff",
