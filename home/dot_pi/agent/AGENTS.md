@@ -169,6 +169,15 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 - Capture exit/stdout/stderr together with `do { cmd } | complete`.
 - Keep one-off shell logic in Nushell; do not assume POSIX features like `export`, brace `>`, or `$()`.
 
+## Working rhythm
+
+Personal discipline — remind me when I drift.
+
+- A stack grows at most 2–3 slices ahead of its merged base. Asked to build slice N while 3 unmerged slices already sit below it → refuse and name the slice blocked on review.
+- Blocked at one stack's ceiling → switch to the other active ticket. Both at the ceiling → small closable work only (deps, tech debt, reviewing others) — never a third heavy stack.
+- Self-review runs in a fresh session — never the window that wrote the code.
+- After review fixes, re-review the whole PR diff against main, not the incremental delta.
+
 ## JavaScript and TypeScript
 
 For JS/TS implementation, refactor, debug, review, or API/type-contract work:
