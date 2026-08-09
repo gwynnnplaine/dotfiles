@@ -28,15 +28,24 @@ Files in `home/` use chezmoi prefixes, not literal names:
 - This repo manages: `~/.config/{ghostty,nvim,lazygit,nushell}/**`,
   `~/.config/starship.toml`, `~/.config/worktrunk/config.toml`, `~/.zshrc`,
   `~/.zprofile`.
-- This repo also manages Pi's **source** config under `~/.pi/agent`:
-  `settings.json`, the instruction files (`SYSTEM.md`, `AGENTS.md`, `CLAUDE.md`,
-  `CODING_STANDARDS.md`), and the `extensions/`, `skills/`, `prompts/`
-  directories. Source lives at `home/dot_pi/agent/`. (Migrated off the old
+- This repo also manages Pi's **source** config under `~/.pi/agent`: `SYSTEM.md`,
+  the `extensions/` and `prompts/` directories, and `settings.json` (see below).
+  Source lives at `home/dot_pi/agent/`. (Migrated off the old
   `i-love-this-shitty-agent` repo + `link-to-pi.sh`, which is now decommissioned.)
-- **Skills live here too.** `home/dot_pi/agent/skills/` is the canonical source.
-  The old `github.com/gwynnnplaine/skills` repo + `npx skills add` install hook
-  (`run_after_install-skills.sh.tmpl`) are decommissioned; edit skills in this
-  repo and `chezmoi apply`.
+- **`settings.json` is a `modify_` script, not a file.**
+  `home/dot_pi/agent/modify_settings.json` receives the current file on stdin
+  and merges only the fields we choose, via `jq`. Pi's own churn
+  (`lastChangelogVersion`, `enabledModels`, `defaultModel`, `defaultProvider`,
+  `defaultThinkingLevel`) is deliberately left alone — managing it made the file
+  permanently dirty in `chezmoi status`. Add a field by adding a `jq` filter
+  line; never restore a full-content `settings.json`.
+- **No skills, no global instruction files.** `AGENTS.md`, `CLAUDE.md`,
+  `CODING_STANDARDS.md` and all skills were removed from `~/.pi/agent`
+  (commits `952585b`, `ae72b8f`); `~/.agents` was deleted too. Pi *layers*
+  context files instead of overriding them, so a global `AGENTS.md` rides along
+  in every project. Keep instructions project-local. Recover an individual
+  skill from history if needed — `~/.agents/skills` is the better target, since
+  Claude Code and Codex read it as well.
 - This repo does **not** manage Pi **machine-local state or secrets**:
   `auth.json`, `trust.json`, `mcp-*` caches/oauth, `sessions/`, `npm/`, `git/`,
   `helpers/`, logs, `run-history.jsonl`, `.update-check`, and `*.bak-*`. These
