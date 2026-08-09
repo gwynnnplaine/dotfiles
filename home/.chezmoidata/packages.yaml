@@ -8,3 +8,16 @@ npm_globals:
   - "typescript" # tsserver backing typescript-language-server
   - "bash-language-server" # Bash/sh/zsh LSP (supi-lsp); shellcheck via Brewfile
   - "vscode-langservers-extracted" # provides vscode-html-language-server (+css/json/eslint)
+
+# Agent skills installed into ~/.agents/skills, the shared location Pi, Claude
+# Code and Codex all read. Installed by the `skills` CLI (vercel-labs/skills),
+# see run_onchange_install-skills.sh.tmpl. This list is the single source of
+# truth: a skill removed from here is deleted from disk on the next apply.
+# `name` must match the skill's directory name, since removal matches on it.
+skills:
+  - name: bro
+    source: "https://github.com/backnotprop/bro/tree/main/skills/bro"
+  - name: herdr
+    source: "https://github.com/herdrdev/herdr/tree/master/skills/herdr" # default branch is master, not main
+  - name: writing-for-agents
+    source: "https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-for-agents"

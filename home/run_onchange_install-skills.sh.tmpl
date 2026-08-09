@@ -1,0 +1,63 @@
+{{ if and (lookPath "npx") (lookPath "jq") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Agent skills, declared in .chezmoidata/packages.yaml and installed with the
+# `skills` CLI (github.com/vercel-labs/skills) into ~/.agents/skills -- the
+# shared global location Pi, Claude Code and Codex all read.
+#
+# `-a codex` is not about Codex: every "universal" agent in that CLI maps to
+# ~/.agents/skills, and codex is one of them. `-a pi` would install into
+# ~/.pi/agent/skills instead, which only Pi sees.
+#
+# run_onchange hashes the rendered content, so this re-runs only when the list
+# below changes. The list is authoritative in both directions: anything in
+# ~/.agents/skills that is not declared here is removed.
+
+skills_dir="$HOME/.agents/skills"
+
+declare -a wanted_names=()
+declare -a wanted_sources=()
+{{ range .skills -}}
+wanted_names+=({{ .name | quote }})
+wanted_sources+=({{ .source | quote }})
+{{ end }}
+failed=0
+for i in "${!wanted_sources[@]}"; do
+  name=${wanted_names[$i]}
+  echo "🧠 Installing skill: $name"
+  npx -y skills@latest add "${wanted_sources[$i]}" --global --agent codex --yes || true
+  # The CLI exits 0 even when the install fails (bad ref, gone repo), so check
+  # the directory instead of the exit code.
+  if [ ! -d "$skills_dir/$name" ]; then
+    echo "❌ skill '$name' did not install from ${wanted_sources[$i]}" >&2
+    failed=1
+  fi
+done
+
+# Reconcile: drop anything installed under ~/.agents/skills that is no longer
+# declared. Scoped to that directory so per-project and per-agent installs are
+# left alone.
+[ -d "$skills_dir" ] || exit "$failed"
+
+installed=$(npx -y skills@latest ls --global --json 2>/dev/null \
+  | jq -r --arg dir "$skills_dir/" '.[] | select(.path | startswith($dir)) | .name')
+
+for name in $installed; do
+  for want in "${wanted_names[@]:-}"; do
+    if [ "$name" = "$want" ]; then
+      continue 2
+    fi
+  done
+  echo "🧹 Removing undeclared skill: $name"
+  npx -y skills@latest remove "$name" --global --yes
+done
+
+exit "$failed"
+{{ else -}}
+#!/usr/bin/env bash
+# npx or jq missing (fresh machine before Node/Homebrew are set up). Skip
+# without failing `chezmoi apply`; once both exist this rendered content
+# changes, so run_onchange re-runs and installs the skills.
+echo "⚠️  npx or jq not found; skipping agent skills."
+{{ end -}}

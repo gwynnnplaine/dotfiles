@@ -39,13 +39,20 @@ Files in `home/` use chezmoi prefixes, not literal names:
   `defaultThinkingLevel`) is deliberately left alone — managing it made the file
   permanently dirty in `chezmoi status`. Add a field by adding a `jq` filter
   line; never restore a full-content `settings.json`.
-- **No skills, no global instruction files.** `AGENTS.md`, `CLAUDE.md`,
-  `CODING_STANDARDS.md` and all skills were removed from `~/.pi/agent`
-  (commits `952585b`, `ae72b8f`); `~/.agents` was deleted too. Pi *layers*
-  context files instead of overriding them, so a global `AGENTS.md` rides along
-  in every project. Keep instructions project-local. Recover an individual
-  skill from history if needed — `~/.agents/skills` is the better target, since
-  Claude Code and Codex read it as well.
+- **No global instruction files.** `AGENTS.md`, `CLAUDE.md` and
+  `CODING_STANDARDS.md` were removed from `~/.pi/agent` (commit `952585b`).
+  Pi *layers* context files instead of overriding them, so a global `AGENTS.md`
+  rides along in every project. Keep instructions project-local.
+- **Skills are declared, not stored.** The 16 skills that used to live in this
+  repo are gone (`ae72b8f`); recover one from that commit if you miss it.
+  Skills now come from upstream repos: list them under `skills:` in
+  `.chezmoidata/packages.yaml`, and `run_onchange_install-skills.sh.tmpl`
+  installs them with the `skills` CLI (github.com/vercel-labs/skills) into
+  `~/.agents/skills` — the shared location Pi, Claude Code and Codex all read.
+  The list is authoritative both ways: **a skill removed from the list is
+  deleted from disk on the next `chezmoi apply`**, so a hand-installed global
+  skill will not survive. The files themselves stay unmanaged; only the list is
+  in git.
 - This repo does **not** manage Pi **machine-local state or secrets**:
   `auth.json`, `trust.json`, `mcp-*` caches/oauth, `sessions/`, `npm/`, `git/`,
   `helpers/`, logs, `run-history.jsonl`, `.update-check`, and `*.bak-*`. These
