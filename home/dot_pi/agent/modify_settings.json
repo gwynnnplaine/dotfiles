@@ -1,0 +1,35 @@
+#!/bin/sh
+# chezmoi `modify_` script: stdin is the current ~/.pi/agent/settings.json,
+# stdout becomes the new one. We merge only the fields we actually choose and
+# leave everything Pi maintains itself untouched, so upgrades never dirty
+# `chezmoi status`.
+#
+# Deliberately NOT managed here (Pi rewrites these on its own):
+#   lastChangelogVersion, enabledModels, defaultModel, defaultProvider,
+#   defaultThinkingLevel
+set -eu
+
+# First `chezmoi apply` on a fresh machine: no file on stdin yet.
+input=$(cat)
+[ -n "$input" ] || input='{}'
+
+printf '%s' "$input" | jq --sort-keys '
+  .packages = [
+    "git:github.com/dmmulroy/pi-mcp",
+    "npm:pi-web-access",
+    "npm:pi-themes-rose-pine",
+    "npm:@ff-labs/pi-fff",
+    "npm:@plannotator/pi-extension",
+    "npm:@gwynnnplaine/pi-github",
+    "npm:@tmustier/pi-session-hud",
+    "npm:@injaneity/pi-computer-use"
+  ]
+| .theme = "rose-pine-dawn/rose-pine-moon"
+| .quietStartup = true
+| .hideThinkingBlock = true
+| .showHardwareCursor = true
+| .treeFilterMode = "no-tools"
+| .collapseChangelog = true
+| .enableInstallTelemetry = false
+| .warnings.anthropicExtraUsage = false
+'
