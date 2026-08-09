@@ -48,10 +48,15 @@ aliases live in the `$env.PATH` and alias blocks of
 
 ## Node
 
-**fnm is the only Node version manager** (works in Nushell; auto-switches per
-project from `.node-version` / `.nvmrc`). Global CLIs like `pi` live in the fnm
-default version. Homebrew `node` is kept only as a dependency for brew formulae
-(`opencode`, `mongosh`, `mongodb`). **nvm is not used.** Pi installs as
+**fnm is the only Node version manager** (works in Nushell). Per-project
+auto-switch is intentionally off: `config.nu` calls `fnm env` without
+`--use-on-cd`, so fnm supplies the default Node only — run `fnm use` manually
+when a project needs another version. Global CLIs like `pi` live in the fnm
+default version, and each version has its own globals, so upgrading means
+`fnm install <new> --reinstall-packages-from=default && fnm default <new>`.
+
+Homebrew `node` is kept only as a dependency for brew formulae (`opencode`,
+`mongosh`, `mongodb`). **nvm is not used.** Pi installs as
 `@earendil-works/pi-coding-agent`.
 
 ## What's managed via chezmoi
