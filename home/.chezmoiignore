@@ -1,8 +1,5 @@
 # ~/.pi/agent: dotfiles manages only Pi *source* resources —
-# settings.json, instruction files, and extensions/prompts.
-# Skills are installed by `npx skills` (see run_after_install-skills.sh.tmpl),
-# canonical source github.com/gwynnnplaine/skills — never manage them here.
-.pi/agent/skills
+# settings.json, instruction files, skills, extensions, prompts.
 # herdr writes and overwrites this integration extension on every
 # `herdr integration install pi` / herdr upgrade (see the header it stamps in
 # the file). Tracking it here caused perpetual `chezmoi status` drift and a

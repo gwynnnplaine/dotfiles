@@ -33,6 +33,10 @@ Files in `home/` use chezmoi prefixes, not literal names:
   `CODING_STANDARDS.md`), and the `extensions/`, `skills/`, `prompts/`
   directories. Source lives at `home/dot_pi/agent/`. (Migrated off the old
   `i-love-this-shitty-agent` repo + `link-to-pi.sh`, which is now decommissioned.)
+- **Skills live here too.** `home/dot_pi/agent/skills/` is the canonical source.
+  The old `github.com/gwynnnplaine/skills` repo + `npx skills add` install hook
+  (`run_after_install-skills.sh.tmpl`) are decommissioned; edit skills in this
+  repo and `chezmoi apply`.
 - This repo does **not** manage Pi **machine-local state or secrets**:
   `auth.json`, `trust.json`, `mcp-*` caches/oauth, `sessions/`, `npm/`, `git/`,
   `helpers/`, logs, `run-history.jsonl`, `.update-check`, and `*.bak-*`. These
