@@ -2,8 +2,6 @@
 
 Managed with [chezmoi](https://www.chezmoi.io/) for reproducible, idempotent setup.
 
-See [`AGENTS.md`](./AGENTS.md) for the full workflow and best practices.
-
 ## Install (new machine)
 
 ```bash
@@ -26,8 +24,6 @@ chezmoi diff     # preview pending changes
 chezmoi apply    # apply
 ```
 
-See [`AGENTS.md`](./AGENTS.md) for conventions and best practices.
-
 ## Homebrew
 
 Packages live in [`Brewfile`](./Brewfile). `install.sh` runs `brew bundle`.
@@ -46,9 +42,9 @@ Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
 
 Font: `Iosevka Nerd Font Mono`, size 20.
 
-Daily shell is **Nushell**; zsh just bootstraps the env and hands off. See the
-Shell & PATH section in [`AGENTS.md`](./AGENTS.md) for how to add to PATH or
-define aliases.
+Daily shell is **Nushell**; zsh just bootstraps the env and hands off. PATH and
+aliases live in the `$env.PATH` and alias blocks of
+`home/dot_config/nushell/config.nu`.
 
 ## Node
 
@@ -56,7 +52,7 @@ define aliases.
 project from `.node-version` / `.nvmrc`). Global CLIs like `pi` live in the fnm
 default version. Homebrew `node` is kept only as a dependency for brew formulae
 (`opencode`, `mongosh`, `mongodb`). **nvm is not used.** Pi installs as
-`@earendil-works/pi-coding-agent`. Full policy in [`AGENTS.md`](./AGENTS.md).
+`@earendil-works/pi-coding-agent`.
 
 ## What's managed via chezmoi
 
@@ -65,6 +61,11 @@ default version. Homebrew `node` is kept only as a dependency for brew formulae
 - `~/.config/lazygit/config.yml`
 - `~/.config/nushell/{config,env}.nu`
 - `~/.zshrc`, `~/.zprofile`
+- `~/.pi/agent/SYSTEM.md`, `extensions/`, and `settings.json` (via
+  `modify_settings.json`; Pi's own volatile fields are left alone)
 
-> `~/.pi` is **not** managed here — it is owned solely by the
-> `i-love-this-shitty-agent` repo and is ignored via `home/.chezmoiignore`.
+Machine-local Pi state — `auth.json`, `trust.json`, `sessions/`, `npm/`, `git/`,
+caches and logs — is ignored via `home/.chezmoiignore`. Agent skills are
+declared under `skills:` in `home/.chezmoidata/packages.yaml` and installed into
+`~/.agents/skills`; the list is authoritative, so anything undeclared there is
+removed on `chezmoi apply`.
