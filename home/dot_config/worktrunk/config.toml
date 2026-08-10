@@ -1,16 +1,7 @@
 worktree-path = "~/worktrees/{{ repo }}/{{ branch | sanitize }}"
 
-[[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
-copy-env = '$HOME/.config/worktrunk/copy-env.sh {{ primary_worktree_path }}'
+[projects."github.com/IndieCampers/fe-indie-next"]
+pre-start = [{ copy-env = '$HOME/.config/worktrunk/copy-env.sh {{ primary_worktree_path }}' }, { install = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && pnpm install' }, { setup = '[ -d .next-docs ] || npx @next/codemod agents-md --output AGENTS.md' }]
 
-[[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
-install = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && pnpm install'
-
-[[projects."github.com/IndieCampers/fe-indie-next".pre-start]]
-setup = '[ -d .next-docs ] || npx @next/codemod agents-md --output AGENTS.md'
-
-[[projects."github.com/IndieCampers/goindie-website".pre-start]]
-copy-env = '$HOME/.config/worktrunk/copy-env.sh {{ primary_worktree_path }}'
-
-[[projects."github.com/IndieCampers/goindie-website".pre-start]]
-setup = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && yarn install && yarn fetch-unzip-translations'
+[projects."github.com/IndieCampers/goindie-website"]
+pre-start = [{ copy-env = '$HOME/.config/worktrunk/copy-env.sh {{ primary_worktree_path }}' }, { setup = 'eval "$(fnm env --shell bash)" && fnm use --install-if-missing && yarn install && yarn fetch-unzip-translations' }]
