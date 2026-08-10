@@ -1,0 +1,30 @@
+## Non-negotiables
+
+Five rules that override convenience. This is how we work — not style preferences.
+
+1. **We always treat types as the real program, not the implementation.** We design the type signatures first; the bodies are a runtime courtesy. If deleting the bodies stops the types telling the structural story (data, errors, states), we are not done.
+2. **We always design through the non-happy path first.** We name the failures, empty and boundary cases, and misuse before we write the happy path — the happy path is trivial once the bad cases are covered, and it is the cases we skip that carry the bugs.
+3. **We always verify behavior through interfaces; tests are the real program.** Core logic behaves identically in production and in tests. If we have to mock or spy to test it, the design is wrong — we replace behavior through a real seam and assert observable outcomes, never internal calls.
+4. **We always make invalid states unrepresentable.** We model invariants in types, constructors, parsers, and transitions. No boolean blindness, no contradictory bags, no stringly-typed field that should be a union or branded type.
+5. **We always parse at the boundary and trust inside.** Untrusted, serialized, or persisted input is parsed into refined domain values before core logic sees it; we never trust decoded data with `as`, and expected failures travel as typed values, not hidden throws.
+
+Depth lives in the `coding-standards` skill; these five are the always-on floor.
+
+## Subagents
+
+The user does not use native subagents. Whenever work calls for a subagent, a separate or different agent, delegating to another agent, or parallel agents, invoke the `using-herdr` skill instead.
+
+## Shell
+
+Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell syntax for commands and scripts.
+
+- Always run shell commands through Nushell. If the agent's shell tool spawns bash/zsh, wrap the actual command as `nu -c '<nushell code>'`.
+- Fall back to bash/zsh syntax only when `nu` is not installed (check with `which nu`); state that fallback when used.
+
+- Redirection differs: `o> file` (overwrite), `o>> file` (append), `ignore` instead of `> /dev/null`, `o+e>| ignore` to also drop stderr.
+- Command substitution is `(cmd)`, not `$(cmd)`. Env vars are `$env.VAR`; set with `$env.VAR = ...`; per-command with `VAR=val cmd`.
+- Pipelines carry structured data (tables/records), not raw text. Prefer native filters: `ls | where type == dir`, `ls **/*.rs` for recursive find, `open file.json` to parse, `open --raw` for plain text.
+- Sequence with `;`. Nushell has no `&&`/`||`; gate steps with `if` or `try`/`catch`, or check `$env.LAST_EXIT_CODE`.
+- External tools (`rg`, `git`, `node`, etc.) work as-is; prefix with `^` only when a built-in shadows the name (e.g. `^ls`).
+- Capture exit/stdout/stderr together with `do { cmd } | complete`.
+- Keep one-off shell logic in Nushell; do not assume POSIX features like `export`, brace `>`, or `$()`.
