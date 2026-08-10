@@ -19,5 +19,7 @@ skills:
     source: "https://github.com/backnotprop/bro/tree/main/skills/bro"
   - name: herdr
     source: "https://github.com/herdrdev/herdr/tree/master/skills/herdr" # default branch is master, not main
+  - name: using-herdr
+    source: "https://github.com/gwynnnplaine/dotfiles/tree/main/skills/using-herdr" # vendored in this repo, outside chezmoiroot
   - name: writing-for-agents
     source: "https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-for-agents"
