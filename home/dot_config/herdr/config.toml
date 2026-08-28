@@ -88,21 +88,29 @@ next_workspace = "prefix+period"
 # so the number maps to the CURRENT sorted position, not a fixed agent.
 focus_agent = "prefix+alt+1..9"
 
-# --- Plugin: cloudmanic.herdr-plus ---
-# Both launchers live on "A":
-#   Ctrl+Space a        Quick Actions (one-off command launcher)
-#   Ctrl+Space shift+a  Projects (spin up a whole workspace from a template)
+# --- Plugin: plannotator.herdr-annotate ---
+# Annotate copied terminal text; collect comments as Markdown for agents.
+# Uses the plugin's README default keys:
+#   Ctrl+; a        capture a note for the current selection
+#   Ctrl+; shift+a  copy all annotations as Markdown context
+#   Ctrl+; m        manage annotations (browse / copy / archive)
 [[keys.command]]
 key = "prefix+a"
 type = "plugin_action"
-command = "cloudmanic.herdr-plus.quick-actions"
-description = "quick actions"
+command = "annotate.capture"
+description = "annotate selection"
 
 [[keys.command]]
 key = "prefix+shift+a"
 type = "plugin_action"
-command = "cloudmanic.herdr-plus.projects"
-description = "projects"
+command = "annotate.copy-context"
+description = "copy annotations as context"
+
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "annotate.manage"
+description = "manage annotations"
 
 # --- lazygit popup (0.7.4 `type = "popup"`) ---
 # Session-modal floating terminal: grabs all input (incl. Esc) until lazygit

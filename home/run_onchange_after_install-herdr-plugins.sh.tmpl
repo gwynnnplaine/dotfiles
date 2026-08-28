@@ -1,0 +1,26 @@
+{{ if lookPath "herdr" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Herdr plugins referenced by ~/.config/herdr/config.toml. Keep in sync with the
+# [[keys.command]] plugin_action blocks there. Reproducible on a fresh machine.
+plugins=(
+  "plannotator/herdr-annotate"
+)
+
+installed="$(herdr plugin list 2>/dev/null || true)"
+
+for repo in "${plugins[@]}"; do
+  id="${repo##*/}"      # e.g. plannotator/herdr-annotate -> herdr-annotate
+  id="${id#herdr-}"     # herdr-annotate -> annotate (plugin id)
+  if printf '%s\n' "$installed" | grep -q "\b${id}\b"; then
+    echo "🐑 herdr plugin '${id}' already installed; skipping."
+  else
+    echo "🐑 Installing herdr plugin ${repo}"
+    herdr plugin install "$repo" --yes
+  fi
+done
+{{ else -}}
+#!/usr/bin/env bash
+echo "⚠️  herdr not found; skipping herdr plugin install."
+{{ end -}}
