@@ -27,4 +27,5 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 - Sequence with `;`. Nushell has no `&&`/`||`; gate steps with `if` or `try`/`catch`, or check `$env.LAST_EXIT_CODE`.
 - External tools (`rg`, `git`, `node`, etc.) work as-is; prefix with `^` only when a built-in shadows the name (e.g. `^ls`).
 - Capture exit/stdout/stderr together with `do { cmd } | complete`.
+- Nushell does not interpolate a variable inside a bareword after `=`: an external arg like `-f body=$var` sends the literal string `body=$var`. Build the whole token with interpolation instead — `-f $"body=($var)"` — for any `key=value` external argument (e.g. `gh api -f`, `curl -d`) whose value comes from a variable.
 - Keep one-off shell logic in Nushell; do not assume POSIX features like `export`, brace `>`, or `$()`.
