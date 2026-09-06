@@ -19,6 +19,7 @@ The user does not use native subagents. Whenever work calls for a subagent, a se
 Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell syntax for commands and scripts.
 
 - Always run shell commands through Nushell. If the agent's shell tool spawns bash/zsh, wrap the actual command as `nu -c '<nushell code>'`.
+- This includes commands sent into Herdr panes via `herdr_pane run` and `herdr_agent`: they execute in the pane's Nushell, so use nu syntax and prefix externals with `^` (e.g. `^uname -sm`, not `uname -sm`).
 - Fall back to bash/zsh syntax only when `nu` is not installed (check with `which nu`); state that fallback when used.
 
 - Redirection differs: `o> file` (overwrite), `o>> file` (append), `ignore` instead of `> /dev/null`, `o+e>| ignore` to also drop stderr.
