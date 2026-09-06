@@ -22,7 +22,8 @@ printf '%s' "$input" | jq --sort-keys '
     "npm:@plannotator/pi-extension",
     "npm:@gwynnnplaine/pi-github",
     "npm:@tmustier/pi-session-hud",
-    "npm:@injaneity/pi-computer-use"
+    "npm:@injaneity/pi-computer-use",
+    "git:github.com/joelhooks/pi-bellwether"
   ]
 | .theme = "rose-pine-dawn/rose-pine-moon"
 | .quietStartup = true

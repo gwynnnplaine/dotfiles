@@ -12,7 +12,7 @@ Depth lives in the `coding-standards` skill; these five are the always-on floor.
 
 ## Subagents
 
-The user does not use native subagents. Whenever work calls for a subagent, a separate or different agent, delegating to another agent, or parallel agents, invoke the `using-herdr` skill instead.
+The user does not use native subagents. Whenever work calls for a subagent, a separate or different agent, delegating to another agent, or parallel agents, use the Bellwether Herdr tools (`herdr_layout`, `herdr_agent`, `herdr_watch`) to spawn and drive an agent in a Herdr pane instead.
 
 ## Shell
 
