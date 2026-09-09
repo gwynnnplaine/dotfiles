@@ -15,11 +15,13 @@ default_shell = "nu"   # Nushell in newly created panes
 shell_mode = "auto"    # macOS: login shell so brew/PATH init runs in new panes
 
 [theme]
-# Mirror Ghostty: Rose Pine (dark) / Rose Pine Dawn (light), auto-switch with the OS.
-name = "rose-pine"
+# Mirror Ghostty: Gruvbox Dark / Gruvbox Light, auto-switch with the OS.
+# Same palette as Ghostty's built-ins and pi's `pi-themes` gruvbox pair
+# (dark #282828/#ebdbb2, light #fbf1c7/#3c3836), so panes and Pi match exactly.
+name = "gruvbox"
 auto_switch = true
-light_name = "rose-pine-dawn"
-dark_name = "rose-pine"
+light_name = "gruvbox-light"
+dark_name = "gruvbox"
 
 [ui]
 # Sort the agents panel by urgency: blocked, then done, then working, then idle.
@@ -28,12 +30,14 @@ agent_panel_sort = "priority"
 sidebar_width = 32                        # wider sidebar (default 26)
 sidebar_collapsed_mode = "hidden"
 right_click_passthrough_modifier = "ctrl" # ctrl+right-click goes to the pane app, not Herdr's menu
+status_indicators = "dots"                # compact dot per agent state instead of text badges
+show_agent_labels_on_pane_borders = true  # agent name rides the pane border, not the sidebar only
 
 [ui.sound]
 enabled = true         # short beep when an agent finishes / needs input
 
 [ui.toast]
-delivery = "system"  # macOS native notification via terminal-notifier (falls back to osascript)
+delivery = "terminal"  # in-terminal toast (was "system"; live config had this reverted by hand)
 
 [keys]
 # Prefix = Ctrl+; (semicolon). Chosen over Ctrl+Space because Ctrl+Space is

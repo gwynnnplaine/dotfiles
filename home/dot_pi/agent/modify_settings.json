@@ -17,7 +17,7 @@ printf '%s' "$input" | jq --sort-keys '
   .packages = [
     "git:github.com/dmmulroy/pi-mcp",
     "npm:pi-web-access",
-    "npm:pi-themes-rose-pine",
+    "npm:pi-themes",
     "npm:@ff-labs/pi-fff",
     "npm:@plannotator/pi-extension",
     "npm:@gwynnnplaine/pi-github",
@@ -25,7 +25,7 @@ printf '%s' "$input" | jq --sort-keys '
     "npm:@injaneity/pi-computer-use",
     "git:github.com/joelhooks/pi-bellwether"
   ]
-| .theme = "rose-pine-dawn/rose-pine-moon"
+| .theme = "gruvbox-warm-light/gruvbox-warm-dark"
 | .quietStartup = true
 | .hideThinkingBlock = true
 | .showHardwareCursor = true

@@ -1,5 +1,5 @@
 # --- Appearance ---
-theme = light:Rose Pine Dawn,dark:Rose Pine
+theme = light:Gruvbox Light,dark:Gruvbox Dark
 font-family = "Iosevka Nerd Font Mono"
 font-size = 20
 font-feature = -liga
@@ -26,7 +26,8 @@ background-opacity = 1
 
 # Split panes
 unfocused-split-opacity = 0.85
-split-divider-color = #4b4b4b
+# Gruvbox bg2 — visible against both #282828 (dark) and #fbf1c7 (light).
+split-divider-color = #504945
 
 # --- Functionality ---
 copy-on-select = false
