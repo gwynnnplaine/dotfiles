@@ -12,8 +12,9 @@ adjust-cell-height = 15%
 title = ghostty
 macos-titlebar-style = transparent
 macos-option-as-alt = left
-window-padding-x = 0
-window-padding-y = 0
+# Light breathing room so text does not touch the screen edges in fullscreen.
+window-padding-x = 6
+window-padding-y = 6
 window-width = 90
 window-height = 30
 window-padding-balance = true
