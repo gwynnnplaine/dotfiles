@@ -1,0 +1,29 @@
+{{ if and (lookPath "oh-my-posh") (lookPath "nu") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Regenerate the Nushell oh-my-posh init whenever the theme changes.
+#
+# `oh-my-posh init nu` bakes a *static* POSH_SESSION_ID into the generated
+# autoload script and caches the parsed config per session id under
+# ~/.cache/oh-my-posh. Applying only config.json (via `chezmoi apply`) leaves
+# that session id + cache untouched, so open and new shells keep rendering the
+# previous theme. Re-running init here mints a fresh session id, and clearing
+# the cache guarantees the new theme is read.
+#
+# The hash below makes chezmoi re-run this script on every config.json change.
+# config hash: {{ include "dot_config/oh-my-posh/config.json" | sha256sum }}
+
+config="$HOME/.config/oh-my-posh/config.json"
+autoload="$(nu -c 'print $nu.data-dir' | tr -d '\r')/vendor/autoload"
+
+echo "🎨 Regenerating oh-my-posh init (theme changed)..."
+rm -f "$HOME/.cache/oh-my-posh/"*.omp.cache 2>/dev/null || true
+mkdir -p "$autoload"
+rm -f "$autoload/oh-my-posh.nu"
+oh-my-posh init nu --config "$config"
+echo "   Done — open a new shell to see the updated prompt."
+{{ else -}}
+#!/usr/bin/env bash
+echo "⚠️  oh-my-posh or nu not found; skipping prompt init regeneration."
+{{ end -}}
