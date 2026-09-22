@@ -86,13 +86,20 @@ command = "annotate.manage"
 description = "manage annotations"
 
 # --- Plugin: devashish2203/herdr-worktrunk ---
-# f as in fzf; only f/i/u/y were free. Remove, merge, and the current-base and
+# f as in fzf; only f/i/u/y were free. Merge and the current-base and
 # remote-branch pickers stay on the workspace menu (right-click the row).
 [[keys.command]]
 key = "prefix+f"
 type = "plugin_action"
 command = "worktrunk.open"
 description = "worktree: switch / create"
+
+# wt prompts before removing and refuses unmerged or dirty worktrees itself.
+[[keys.command]]
+key = "prefix+shift+f"
+type = "plugin_action"
+command = "worktrunk.remove"
+description = "worktree: remove"
 
 # --- lazygit ---
 # popup, not a split: session-modal (grabs Esc) and leaves the layout alone.
