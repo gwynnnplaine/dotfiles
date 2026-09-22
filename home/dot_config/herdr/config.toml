@@ -73,14 +73,14 @@ resize_mode = "prefix+r"
 split_vertical   = ["prefix+d", "prefix+v"]
 split_horizontal = ["prefix+minus"]
 
-# Open an existing git worktree of the current repo as its own grouped workspace.
-# Ctrl+Space Shift+O  (mouse: right-click the repo row -> Open worktree...)
-open_worktree = "prefix+shift+o"
-
-# Creating worktrees goes through the worktrunk plugin (see below), which runs
-# the lifecycle hooks in ~/.config/worktrunk/config.toml. herdr's built-in
-# new_worktree has no hook system, so its key is freed for the plugin instead.
+# Worktrees go through the worktrunk plugin only (see below): it runs the
+# lifecycle hooks in ~/.config/worktrunk/config.toml, which herdr's built-in
+# worktree commands have no equivalent for, and its picker covers both existing
+# worktrees and new branches. Both native keys are cleared so there is one way
+# in. (The `herdr worktree open` CLI still runs — the plugin calls it to
+# register the checkout as a native worktree workspace.)
 new_worktree = ""
+open_worktree = ""
 
 # Jump to a workspace (project) by number: Ctrl+; 1 .. 9 (plain digits, reliable).
 # Shift+digit was unreliable: the terminal sends ! @ # ... instead of shift+1/2/3.
@@ -122,23 +122,20 @@ command = "annotate.manage"
 description = "manage annotations"
 
 # --- Plugin: worktrunk (devashish2203/herdr-worktrunk) ---
-# Worktree switch/create through `wt`, so worktrunk's pre-start hooks run and
-# the checkout still opens as a native herdr worktree workspace.
-#   Ctrl+; shift+g   picker, new branches based on the default branch
-#   Ctrl+; alt+g     same picker, new branches based on the current branch
-# The remaining actions (remove, merge, merge --no-squash, remote branches)
-# stay on the workspace menu: right-click the workspace row.
+# Ctrl+; f -- fzf picker over worktrees and branches. Enter switches; typing a
+# new name and Enter creates it from worktrunk's default base branch, running
+# the pre-start hooks, then opens it as a native worktree workspace.
+# `f` because every free plain letter was arbitrary (only f/i/u/y are unused)
+# and this is the fzf picker; shift+g was the native new_worktree key, cleared
+# above. The other five actions (current-base picker, remote branches, remove,
+# merge, merge --no-squash) stay on the workspace menu: right-click the
+# workspace row. Current-base means a typed new branch is created from the
+# checked-out branch instead of the default one.
 [[keys.command]]
-key = "prefix+shift+g"
+key = "prefix+f"
 type = "plugin_action"
 command = "worktrunk.open"
-description = "worktree: switch / create (default base)"
-
-[[keys.command]]
-key = "prefix+alt+g"
-type = "plugin_action"
-command = "worktrunk.open-current"
-description = "worktree: switch / create (current base)"
+description = "worktree: switch / create"
 
 # --- lazygit popup (0.7.4 `type = "popup"`) ---
 # Session-modal floating terminal: grabs all input (incl. Esc) until lazygit
