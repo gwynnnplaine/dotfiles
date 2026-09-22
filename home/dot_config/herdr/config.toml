@@ -77,6 +77,11 @@ split_horizontal = ["prefix+minus"]
 # Ctrl+Space Shift+O  (mouse: right-click the repo row -> Open worktree...)
 open_worktree = "prefix+shift+o"
 
+# Creating worktrees goes through the worktrunk plugin (see below), which runs
+# the lifecycle hooks in ~/.config/worktrunk/config.toml. herdr's built-in
+# new_worktree has no hook system, so its key is freed for the plugin instead.
+new_worktree = ""
+
 # Jump to a workspace (project) by number: Ctrl+; 1 .. 9 (plain digits, reliable).
 # Shift+digit was unreliable: the terminal sends ! @ # ... instead of shift+1/2/3.
 # Trade-off: tabs lose number-jump; switch tabs with Ctrl+; n / Ctrl+; p instead.
@@ -115,6 +120,25 @@ key = "prefix+m"
 type = "plugin_action"
 command = "annotate.manage"
 description = "manage annotations"
+
+# --- Plugin: worktrunk (devashish2203/herdr-worktrunk) ---
+# Worktree switch/create through `wt`, so worktrunk's pre-start hooks run and
+# the checkout still opens as a native herdr worktree workspace.
+#   Ctrl+; shift+g   picker, new branches based on the default branch
+#   Ctrl+; alt+g     same picker, new branches based on the current branch
+# The remaining actions (remove, merge, merge --no-squash, remote branches)
+# stay on the workspace menu: right-click the workspace row.
+[[keys.command]]
+key = "prefix+shift+g"
+type = "plugin_action"
+command = "worktrunk.open"
+description = "worktree: switch / create (default base)"
+
+[[keys.command]]
+key = "prefix+alt+g"
+type = "plugin_action"
+command = "worktrunk.open-current"
+description = "worktree: switch / create (current base)"
 
 # --- lazygit popup (0.7.4 `type = "popup"`) ---
 # Session-modal floating terminal: grabs all input (incl. Esc) until lazygit

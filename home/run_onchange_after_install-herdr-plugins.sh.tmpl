@@ -6,6 +6,7 @@ set -euo pipefail
 # [[keys.command]] plugin_action blocks there. Reproducible on a fresh machine.
 plugins=(
   "plannotator/herdr-annotate"
+  "devashish2203/herdr-worktrunk"
 )
 
 installed="$(herdr plugin list 2>/dev/null || true)"

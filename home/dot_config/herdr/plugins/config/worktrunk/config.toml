@@ -1,0 +1,28 @@
+# Herdr plugin: worktrunk (devashish2203/herdr-worktrunk).
+# Managed config dir: `herdr plugin config-dir worktrunk`.
+# Read on every picker run — no reinstall or server reload needed after edits.
+
+# Let `wt` create/switch the checkout (running the hooks in
+# ~/.config/worktrunk/config.toml), then register it with `herdr worktree open`
+# so it shows up as a nested worktree workspace — same presentation as herdr's
+# native `open_worktree` (prefix+shift+o). "tab" mode is the alternative, but it
+# types a `wt switch` line into the pane shell and so needs worktrunk's nushell
+# shell integration; workspace mode calls `wt` directly and needs none.
+open_mode = "workspace"
+
+# Float the picker over the layout instead of splitting the workspace, matching
+# the lazygit popup (prefix+t) in config.toml. Needs herdr >= 0.7.4.
+picker_placement = "popup"
+popup_width = "80%"
+popup_height = "70%"
+
+# A popup closes the moment `wt` succeeds, which would swallow the pre-start
+# hook output (copy-env + yarn install for goindie-website). Hold after a
+# create so that output stays readable; switching to an existing worktree and
+# every failure are unaffected.
+hold_on_create = true
+
+# Local branches without worktrees always show; remote-tracking branches are
+# reachable through the dedicated "switch / create from local or remote
+# branches" action instead of cluttering the default picker.
+show_remote_branches = false
