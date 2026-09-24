@@ -24,21 +24,12 @@ sidebar_collapsed_mode = "hidden"
 right_click_passthrough_modifier = "ctrl"
 status_indicators = "dots"
 show_agent_labels_on_pane_borders = true
-# herdr-projects `configure` wrote this and the sidebar rows below;
-# `herdr-projects unconfigure` removes them.
-tab_bar_right = [{ type = "command", command = "/Users/vladyslav.hrabovyi/.config/herdr/plugins/github/herdr-projects-b1278ffb803c/target/release/herdr-projects --root /Users/vladyslav.hrabovyi/.herdr-projects needs-you --line", interval_seconds = 15, timeout_seconds = 5 }]
 
 [ui.sound]
 enabled = true
 
 [ui.toast]
 delivery = "terminal"
-
-[ui.sidebar.agents]
-rows = [["state_icon", "machine", "workspace", "tab"], ["agent"], [{ token = "$hp_state", rules = [{ starts_with = "needs you", fg = "#f38ba8", bold = true }, { starts_with = "review", fg = "#f9e2af" }] }], [{ token = "$hp_activity", dim = true }]]
-
-[ui.sidebar.spaces]
-rows = [["state_icon", "workspace"], ["branch", "git_status"], [{ token = "$hp" }]]
 
 [keys]
 # Ctrl+; because Ctrl+Space is macOS input-source switching and Ctrl+B is Pi.
@@ -126,10 +117,3 @@ command = "lazygit"
 description = "lazygit"
 width = "90%"
 height = "90%"
-
-# --- Plugin: eliasstravik/herdr-projects (prefix+o is built-in) ---
-[[keys.command]]
-key = "prefix+shift+o"
-type = "plugin_action"
-command = "herdr-projects.open-popup"
-description = "Projects"
