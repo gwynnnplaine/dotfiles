@@ -24,6 +24,24 @@ chezmoi diff     # preview pending changes
 chezmoi apply    # apply
 ```
 
+## Rules that keep `apply` from asking "has changed since chezmoi last wrote it"
+
+chezmoi asks when a file in `~` differs from what it last wrote. So:
+
+- **Edit through the repo, never in `~`.** Use `chezmoi edit --apply <file>`, or
+  edit `~` and then run `chezmoi re-add <file>` at once. Edits left only in `~`
+  cause the prompt on the next `update`.
+- **Files an app rewrites are not plain managed files.**
+  - Lock files (`nvim-pack-lock.json`): the real file is in `linked/`, and
+    `~` gets a symlink (`symlink_*.tmpl`). The app writes into the repo; commit it.
+  - Settings with app-owned keys (Pi `settings.json`, Plannotator
+    `config.json`): `modify_` scripts set only our keys and keep the app's key
+    order and final newline, so output is byte-identical when nothing changed.
+- **`exact_` directories** (`~/.config/nvim/**`): files deleted from the repo
+  are deleted from `~` too. Without it, old files stay on every machine.
+- Before `chezmoi update` on a machine, run `chezmoi status`. Resolve local
+  edits (`re-add` or `apply --force <file>`) first.
+
 ## Homebrew
 
 Packages live in [`Brewfile`](./Brewfile). `install.sh` runs `brew bundle`.

@@ -1,3 +1,9 @@
+os:
+  # $SHELL is nushell, whose `open` builtin reads a file instead of calling
+  # macOS /usr/bin/open. Absolute paths bypass builtin shadowing.
+  open: /usr/bin/open -- {{filename}}
+  openLink: /usr/bin/open -- {{link}}
+
 git:
   diffRenderers:
     # macOS-only: switch delta theme based on system light/dark appearance.

@@ -1,0 +1,22 @@
+#!/bin/sh
+# chezmoi `modify_` script: stdin is the current ~/.plannotator/config.json,
+# stdout becomes the new one. Plannotator rewrites this file itself (adds keys
+# like reviewAnalysis), so a plain managed file
+# drifted and `chezmoi apply` asked to overwrite it. We set only our fields,
+# and keep Plannotator's key order and formatting.
+set -eu
+
+input=$(cat)
+[ -n "$input" ] || input='{}'
+
+printf '%s' "$input" | jq '
+  .diffOptions = {
+    "diffStyle": "split",
+    "defaultDiffType": "since-base",
+    "overflow": "wrap",
+    "expandUnchanged": false
+  }
+| .conventionalComments = true
+| .theme = { "mode": "system", "light": "claude-plus", "dark": "claude-plus" }
+| .prompts.review.denied = "\n\nThe annotations above are direct instructions from the reviewer — not findings to evaluate. For each annotation, in order: open the location, apply exactly what it asks across the annotated scope, run the narrowest check that covers the change. Do not review the rest of the diff, do not assess whether an instruction is justified, do not debate it. If an instruction is genuinely impossible or self-contradictory, skip it with a one-line reason.\n\nDo not commit. When every annotation is handled, reply with a checklist — each annotation → done (what changed, where) or skipped (reason) — and stop. The reviewer will look at the result and decide; commit only when they say so."
+'

@@ -4,6 +4,10 @@
 # leave everything Pi maintains itself untouched, so upgrades never dirty
 # `chezmoi status`.
 #
+# Output must match the bytes Pi writes, or every Pi save looks like drift and
+# `chezmoi apply` asks to overwrite: keep Pi's key order (no --sort-keys) and
+# its missing trailing newline ("$(...)" strips jq's newline).
+#
 # Deliberately NOT managed here (Pi rewrites these on its own):
 #   lastChangelogVersion, enabledModels, defaultModel, defaultProvider,
 #   defaultThinkingLevel
@@ -13,7 +17,7 @@ set -eu
 input=$(cat)
 [ -n "$input" ] || input='{}'
 
-printf '%s' "$input" | jq --sort-keys '
+printf '%s' "$(printf '%s' "$input" | jq '
   .packages = [
     "git:github.com/dmmulroy/pi-mcp",
     "npm:pi-web-access",
@@ -33,4 +37,4 @@ printf '%s' "$input" | jq --sort-keys '
 | .collapseChangelog = true
 | .enableInstallTelemetry = false
 | .warnings.anthropicExtraUsage = false
-'
+')"
