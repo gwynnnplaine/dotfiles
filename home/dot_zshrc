@@ -6,9 +6,10 @@
 export PATH="/usr/local/bin:/opt/homebrew/bin:$HOME/bin:$PATH"
 
 export PNPM_HOME="$HOME/Library/pnpm"
+# pnpm >= 11 puts global bins in $PNPM_HOME/bin
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 
 # GNU coreutils (findutils/getopt/make/util-linux) ahead of BSD versions

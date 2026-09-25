@@ -66,16 +66,19 @@ aliases live in the `$env.PATH` and alias blocks of
 
 ## Node
 
-**fnm is the only Node version manager** (works in Nushell). Per-project
-auto-switch is intentionally off: `config.nu` calls `fnm env` without
-`--use-on-cd`, so fnm supplies the default Node only — run `fnm use` manually
-when a project needs another version. Global CLIs like `pi` live in the fnm
-default version, and each version has its own globals, so upgrading means
+**fnm is the only Node version manager** (works in Nushell). `config.nu` runs
+a PWD hook that auto-switches to a project's `.node-version` / `.nvmrc`
+(`fnm use --install-if-missing`; fnm's own `--use-on-cd` freezes Nushell).
+Each fnm version has its own npm globals, so the LSP servers from
+`.chezmoidata/packages.yaml` live in the fnm default version; upgrading means
 `fnm install <new> --reinstall-packages-from=default && fnm default <new>`.
 
 Homebrew `node` is kept only as a dependency for brew formulae (`opencode`,
-`mongosh`, `mongodb`). **nvm is not used.** Pi installs as
-`@earendil-works/pi-coding-agent`.
+`mongosh`, `mongodb`). **nvm is not used.**
+
+**Pi is a pnpm global** (`@earendil-works/pi-coding-agent`). pnpm's global dir
+(`~/Library/pnpm`) is shared by every fnm version, so `pi` survives per-project
+Node switches; it runs on the active Node, which must be >= 22.19.
 
 ## What's managed via chezmoi
 

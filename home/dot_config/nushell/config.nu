@@ -7,8 +7,9 @@ $env.PATH ++= [
     "/opt/homebrew/bin"
     "/opt/homebrew/sbin"
     "/Applications/cmux.app/Contents/Resources/bin"
-    $"($env.HOME)/Library/pnpm"
+    $"($env.HOME)/Library/pnpm/bin" # pnpm global bins (PNPM_HOME/bin)
 ]
+$env.PNPM_HOME = $"($env.HOME)/Library/pnpm"
 
 # ── fnm (Node Version Manager) ────────────────────────────────────────────────
 # nvm is bash-only; fnm is the nushell-compatible alternative.
@@ -23,8 +24,17 @@ if (which fnm | is-not-empty) {
     $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 }
 
-# Per-project Node auto-switch is intentionally disabled. fnm provides the
-# default Node only; run `fnm use` manually when a project needs another version.
+# ── Auto-switch Node per project (.node-version / .nvmrc) ──────────────────────
+# fnm's --use-on-cd flag freezes Nushell (stdin-in-hook bug); use a PWD hook.
+# --install-if-missing avoids the confirmation prompt that would freeze nu.
+$env.config.hooks.env_change.PWD = (
+    $env.config.hooks.env_change.PWD?
+    | default []
+    | append {
+        condition: {|_, _| ['.node-version' '.nvmrc'] | path exists | any {} }
+        code: {|_, _| fnm use --silent-if-unchanged --install-if-missing }
+    }
+)
 
 # ── Editor ────────────────────────────────────────────────────────────────────
 $env.EDITOR = "nvim"

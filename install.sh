@@ -57,8 +57,6 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   fi
 fi
 
-# --- Pi binary ---
-# Pi moved from @mariozechner to @earendil-works on 2026-05-07 (>= 0.74.0).
 # --- corepack: enable pnpm shim in fnm's default Node ---
 if command -v fnm >/dev/null 2>&1 && command -v corepack >/dev/null 2>&1; then
   echo "📦 Enabling corepack pnpm shim..."
@@ -70,8 +68,12 @@ if command -v fnm >/dev/null 2>&1 && command -v corepack >/dev/null 2>&1; then
   fi
 fi
 
+# --- Pi ---
+# pnpm's global dir (~/Library/pnpm) is shared by every fnm Node version, so pi
+# survives per-project Node switches (it still needs the active Node >= 22.19).
 echo "🤖 Installing/updating pi..."
-npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+PNPM_HOME="$HOME/Library/pnpm" PATH="$HOME/Library/pnpm/bin:$PATH" \
+  pnpm add -g @earendil-works/pi-coding-agent
 
 # Other npm globals (LSP servers, etc.) are installed declaratively by chezmoi
 # via .chezmoidata/packages.yaml + run_onchange_install-npm-globals.sh.tmpl,
