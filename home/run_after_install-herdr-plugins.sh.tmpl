@@ -1,0 +1,49 @@
+{{ if lookPath "herdr" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Herdr plugins referenced by ~/.config/herdr/config.toml. Keep in sync with the
+# [[keys.command]] plugin_action blocks there. Reproducible on a fresh machine.
+#
+# Runs on every `chezmoi apply`: installs missing plugins and reinstalls any
+# whose installed commit differs from the remote HEAD (herdr has no
+# `plugin update`). Offline / unreachable remotes are skipped, not fatal.
+plugins=(
+  "plannotator/herdr-annotate"
+  "devashish2203/herdr-worktrunk"
+)
+
+installed="$(herdr plugin list 2>/dev/null || true)"
+
+for repo in "${plugins[@]}"; do
+  id="${repo##*/}"      # e.g. plannotator/herdr-annotate -> herdr-annotate
+  id="${id#herdr-}"     # herdr-annotate -> annotate (plugin id)
+
+  # Installed commit, from e.g. "[github:plannotator/herdr-annotate@<sha>]".
+  local_sha="$(printf '%s\n' "$installed" \
+    | grep -o "github:${repo}@[0-9a-f]\{40\}" \
+    | head -n1 | cut -d@ -f2 || true)"
+
+  if [[ -z "$local_sha" ]]; then
+    echo "🐑 Installing herdr plugin ${repo}"
+    herdr plugin install "$repo" --yes
+    continue
+  fi
+
+  if ! remote_sha="$(git ls-remote "https://github.com/${repo}" HEAD 2>/dev/null | cut -f1)" \
+      || [[ -z "$remote_sha" ]]; then
+    echo "⚠️  Could not reach ${repo}; leaving '${id}' at ${local_sha:0:7}."
+    continue
+  fi
+
+  if [[ "$local_sha" == "$remote_sha" ]]; then
+    echo "🐑 herdr plugin '${id}' up to date (${local_sha:0:7})."
+  else
+    echo "🐑 Updating herdr plugin '${id}' ${local_sha:0:7} -> ${remote_sha:0:7}"
+    herdr plugin install "$repo" --yes
+  fi
+done
+{{ else -}}
+#!/usr/bin/env bash
+echo "⚠️  herdr not found; skipping herdr plugin install."
+{{ end -}}
