@@ -19,7 +19,6 @@ input=$(cat)
 
 printf '%s' "$(printf '%s' "$input" | jq '
   .packages = [
-    "git:github.com/dmmulroy/pi-mcp",
     "npm:pi-web-access",
     "npm:pi-themes",
     "npm:@ff-labs/pi-fff",
