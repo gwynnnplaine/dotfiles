@@ -8,16 +8,31 @@ set -euo pipefail
 # Runs on every `chezmoi apply`: installs missing plugins and reinstalls any
 # whose installed commit differs from the remote HEAD (herdr has no
 # `plugin update`). Offline / unreachable remotes are skipped, not fatal.
+# "owner/repo@ref" pins a branch or tag: installed once, never auto-updated.
 plugins=(
   "plannotator/herdr-annotate"
-  "devashish2203/herdr-worktrunk"
+  # Fork branch until devashish2203/herdr-worktrunk#33 (slugify_new_branches)
+  # merges; then switch back to "devashish2203/herdr-worktrunk".
+  "gwynnnplaine/herdr-worktrunk@feat/slugify-new-branches"
 )
 
 installed="$(herdr plugin list 2>/dev/null || true)"
 
-for repo in "${plugins[@]}"; do
+for entry in "${plugins[@]}"; do
+  repo="${entry%%@*}"
   id="${repo##*/}"      # e.g. plannotator/herdr-annotate -> herdr-annotate
   id="${id#herdr-}"     # herdr-annotate -> annotate (plugin id)
+
+  if [[ "$entry" == *@* ]]; then
+    ref="${entry#*@}"
+    if grep -qF "[github:${repo}@${ref}]" <<<"$installed"; then
+      echo "🐑 herdr plugin '${id}' pinned to ${ref}."
+    else
+      echo "🐑 Installing herdr plugin ${repo} at ${ref}"
+      herdr plugin install "$repo" --ref "$ref" --yes
+    fi
+    continue
+  fi
 
   # Installed commit, from e.g. "[github:plannotator/herdr-annotate@<sha>]".
   local_sha="$(printf '%s\n' "$installed" \

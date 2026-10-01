@@ -26,3 +26,9 @@ hold_on_create = true
 # reachable through the dedicated "switch / create from local or remote
 # branches" action instead of cluttering the default picker.
 show_remote_branches = false
+
+# Paste a task title ("optimize Stripe loading waterfall") and get a branch slug
+# (optimize-stripe-loading-waterfall). Only new names are changed; existing
+# branches and shortcuts (^, -, pr:N) are not. Needs herdr-worktrunk PR #33
+# (devashish2203/herdr-worktrunk); older versions ignore this key.
+slugify_new_branches = true
