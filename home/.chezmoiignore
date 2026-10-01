@@ -27,3 +27,6 @@
 .pi/agent/*.bak-*
 .pi/agent/*.bak.*
 .pi/agent/.backup-*
+
+# pt-words curriculum generator: offline build tooling, not a Pi resource.
+.pi/agent/extensions/pt-words/generate

@@ -32,3 +32,19 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 - Capture exit/stdout/stderr together with `do { cmd } | complete`.
 - Nushell does not interpolate a variable inside a bareword after `=`: an external arg like `-f body=$var` sends the literal string `body=$var`. Build the whole token with interpolation instead — `-f $"body=($var)"` — for any `key=value` external argument (e.g. `gh api -f`, `curl -d`) whose value comes from a variable.
 - Keep one-off shell logic in Nushell; do not assume POSIX features like `export`, brace `>`, or `$()`.
+
+## Language coaching
+
+The user is Ukrainian: English at B2, weak at grammar and tenses. Learning works best from short, explicit fixes of their own mistakes.
+
+When the user's English prompt has a real grammar mistake, add a short `English` block at the end of the reply, one line per fix:
+
+```
+- "<what they wrote>" → "<fixed>" — <rule in ≤10 words, e.g. present perfect: past action, result now>
+```
+
+- Fix only grammar: tense, verb form, article, preposition, word order, wrong word. At most 2 lines; pick the most useful fixes, tenses first.
+- Casual chat English is correct. Do not fix style, contractions, slang, dropped subjects, missing capitals or punctuation, or obvious typos.
+- No block when there are no grammar mistakes or the prompt is not in English. No tense drills, no translations.
+- Portuguese is handled by the `pt-words` extension. Do not add Portuguese to replies.
+- Do not do this in subagent sessions.
