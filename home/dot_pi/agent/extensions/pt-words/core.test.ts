@@ -46,14 +46,31 @@ describe("scheduler", () => {
 		assert.equal(progress.current, words[1]?.id);
 	});
 
-	it("caps new words per day, then rests without changing the shown word", () => {
+	it("caps new words per day", () => {
 		let progress = emptyProgress;
 		for (let i = 0; i < NEW_WORDS_PER_DAY; i += 1) {
 			progress = step(progress, T0 + i);
 		}
-		const capped = step(progress, T0 + NEW_WORDS_PER_DAY);
-		assert.equal(capped, progress);
 		assert.deepEqual(pickNext(words, progress, T0 + NEW_WORDS_PER_DAY, DAY), { kind: "rest" });
+	});
+
+	it("while resting, cycles through learning words without touching the schedule", () => {
+		let progress = emptyProgress;
+		for (let i = 0; i < NEW_WORDS_PER_DAY; i += 1) {
+			progress = step(progress, T0 + i);
+		}
+		assert.equal(progress.current, words[NEW_WORDS_PER_DAY - 1]?.id);
+		const first = step(progress, T0 + NEW_WORDS_PER_DAY);
+		const second = step(first, T0 + NEW_WORDS_PER_DAY + 1);
+		assert.equal(first.current, words[0]?.id);
+		assert.equal(second.current, words[1]?.id);
+		assert.deepEqual(second.cards, progress.cards);
+	});
+
+	it("while resting with nothing to learn, keeps the shown word", () => {
+		const progress = skipCurrent(step(emptyProgress, T0));
+		const single = words.slice(0, 1);
+		assert.equal(expose(progress, pickNext(single, progress, T0, DAY), T0, DAY), progress);
 	});
 
 	it("resets the cap on the next day", () => {

@@ -114,12 +114,25 @@ function nextSeen(seen: Seen): Seen | "done" {
 	}
 }
 
-/** Records the exposure of a picked word and makes it the displayed one. `rest` keeps the current word on screen without counting an exposure. */
+/** The learning word after the current one, in introduction order, wrapping around. Used while nothing is due, so the screen still changes. */
+function nextInCycle(progress: Progress): WordId | undefined {
+	const learning = [...progress.cards].filter(([, card]) => card.kind === "learning").map(([id]) => id);
+	const index = progress.current === undefined ? -1 : learning.indexOf(progress.current);
+	return learning[(index + 1) % learning.length];
+}
+
+/**
+ * Records the exposure of a picked word and makes it the displayed one.
+ * `rest` cycles through words being learned without counting an exposure,
+ * so the schedule is unchanged.
+ */
 export function expose(progress: Progress, pick: Pick, nowMs: number, today: DayKey): Progress {
 	const cards = new Map(progress.cards);
 	switch (pick.kind) {
-		case "rest":
-			return progress;
+		case "rest": {
+			const current = nextInCycle(progress) ?? progress.current;
+			return current === progress.current ? progress : { ...progress, current };
+		}
 		case "new":
 			cards.set(pick.word.id, { kind: "learning", seen: 1, dueAtMs: nowMs + INTERVAL_AFTER[1], introducedOn: today });
 			return { ...progress, cards, current: pick.word.id };
