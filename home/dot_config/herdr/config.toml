@@ -11,11 +11,12 @@ default_shell = "nu"
 shell_mode = "auto"    # login shell, so brew/PATH init runs in new panes
 
 [theme]
-# Same gruvbox pair as Ghostty and pi-themes, so panes and Pi match exactly.
-name = "gruvbox"
+# Same Catppuccin Latte/Mocha pair as Ghostty and pi-themes, so panes and Pi
+# match exactly. herdr's "catppuccin" is Mocha.
+name = "catppuccin"
 auto_switch = true
-light_name = "gruvbox-light"
-dark_name = "gruvbox"
+light_name = "catppuccin-latte"
+dark_name = "catppuccin"
 
 [ui]
 agent_panel_sort = "priority"  # blocked > done > working > idle

@@ -28,7 +28,7 @@ printf '%s' "$(printf '%s' "$input" | jq '
     "npm:@injaneity/pi-computer-use",
     "git:github.com/joelhooks/pi-bellwether"
   ]
-| .theme = "gruvbox-warm-light/gruvbox-warm-dark"
+| .theme = "catppuccin-latte/catppuccin-mocha"
 | .quietStartup = true
 | .hideThinkingBlock = true
 | .showHardwareCursor = true

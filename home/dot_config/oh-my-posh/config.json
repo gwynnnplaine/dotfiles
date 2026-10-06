@@ -4,29 +4,33 @@
     "final_space": false,
     "console_title_template": "{{ .Shell }} in {{ .Folder }}",
     "palettes": {
-        "template": "{{ if eq (cmd \"bash\" \"-c\" \"defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light\") \"Dark\" }}gruvbox{{ else }}gruvbox-light{{ end }}",
+        "template": "{{ if eq (cmd \"bash\" \"-c\" \"defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light\") \"Dark\" }}catppuccin-mocha{{ else }}catppuccin-latte{{ end }}",
         "list": {
-            "gruvbox": {
-                "bg0": "#282828",
-                "gray": "#928374",
-                "red": "#fb4934",
-                "green": "#b8bb26",
-                "yellow": "#fabd2f",
-                "blue": "#83a598",
-                "purple": "#d3869b",
-                "aqua": "#8ec07c",
-                "orange": "#fe8019"
+            "catppuccin-mocha": {
+                "bg0": "#1e1e2e",
+                "gray": "#7f849c",
+                "red": "#f38ba8",
+                "green": "#a6e3a1",
+                "yellow": "#f9e2af",
+                "blue": "#89b4fa",
+                "purple": "#cba6f7",
+                "aqua": "#94e2d5",
+                "orange": "#fab387",
+                "pink": "#f5c2e7",
+                "lavender": "#b4befe"
             },
-            "gruvbox-light": {
-                "bg0": "#fbf1c7",
-                "gray": "#928374",
-                "red": "#9d0006",
-                "green": "#79740e",
-                "yellow": "#b57614",
-                "blue": "#076678",
-                "purple": "#8f3f71",
-                "aqua": "#427b58",
-                "orange": "#af3a03"
+            "catppuccin-latte": {
+                "bg0": "#eff1f5",
+                "gray": "#8c8fa1",
+                "red": "#d20f39",
+                "green": "#40a02b",
+                "yellow": "#df8e1d",
+                "blue": "#1e66f5",
+                "purple": "#8839ef",
+                "aqua": "#179299",
+                "orange": "#fe640b",
+                "pink": "#ea76cb",
+                "lavender": "#7287fd"
             }
         }
     },
@@ -35,11 +39,11 @@
         "false": "p:red",
         "time": "p:gray",
         "os-fg": "p:bg0",
-        "os-bg": "p:gray",
+        "os-bg": "p:blue",
         "root-fg": "p:bg0",
         "root-bg": "p:orange",
-        "path": "p:yellow",
-        "git": "p:purple",
+        "path": "p:pink",
+        "git": "p:lavender",
         "docker": "p:aqua",
         "go": "p:orange",
         "haskell": "p:orange",

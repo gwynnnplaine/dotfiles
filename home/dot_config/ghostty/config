@@ -1,5 +1,5 @@
 # --- Appearance ---
-theme = light:Gruvbox Light,dark:Gruvbox Dark
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
 font-family = "Iosevka Nerd Font Mono"
 font-size = 20
 font-feature = -liga
@@ -27,8 +27,8 @@ background-opacity = 1
 
 # Split panes
 unfocused-split-opacity = 0.85
-# Gruvbox bg2 — visible against both #282828 (dark) and #fbf1c7 (light).
-split-divider-color = #504945
+# Catppuccin Mocha overlay0 — visible against both #1e1e2e (Mocha) and #eff1f5 (Latte).
+split-divider-color = #6c7086
 
 # --- Functionality ---
 copy-on-select = false
