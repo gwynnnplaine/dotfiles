@@ -20,7 +20,7 @@ input=$(cat)
 printf '%s' "$(printf '%s' "$input" | jq '
   .packages = [
     "npm:pi-web-access",
-    "npm:pi-themes",
+    "npm:@sherif-fanous/pi-catppuccin",
     "npm:@ff-labs/pi-fff",
     "npm:@plannotator/pi-extension",
     "npm:@gwynnnplaine/pi-github",
