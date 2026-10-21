@@ -1,0 +1,14 @@
+{
+  "trustedtaps": [
+    "jandedobbeleer/oh-my-posh",
+    "keidarcy/tap"
+  ],
+  "trustedformulae": [
+    "atlassian/acli/acli",
+    "oven-sh/bun/bun"
+  ],
+  "trustedcasks": [
+    "crmne/tap/spotifast",
+    "crmne/tap/zapfast"
+  ]
+}

@@ -32,7 +32,8 @@ chezmoi asks when a file in `~` differs from what it last wrote. So:
   edit `~` and then run `chezmoi re-add <file>` at once. Edits left only in `~`
   cause the prompt on the next `update`.
 - **Files an app rewrites are not plain managed files.**
-  - Lock files (`nvim-pack-lock.json`): the real file is in `linked/`, and
+  - Lock files (`nvim-pack-lock.json`) and Homebrew tap trust
+    (`~/.homebrew/trust.json`): the real file is in `linked/`, and
     `~` gets a symlink (`symlink_*.tmpl`). The app writes into the repo; commit it.
   - Settings with app-owned keys (Pi `settings.json`, Plannotator
     `config.json`): `modify_` scripts set only our keys and keep the app's key
