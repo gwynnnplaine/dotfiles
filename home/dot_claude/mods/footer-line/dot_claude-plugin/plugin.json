@@ -1,0 +1,6 @@
+{
+  "name": "footer-line",
+  "version": "0.1.0",
+  "description": "Model, context bar and tokens on the mode line; git branch on the right",
+  "types": "./types/index.d.ts"
+}
