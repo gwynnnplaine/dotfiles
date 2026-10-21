@@ -3,9 +3,6 @@ vim.pack.add{
 }
 
 -- TypeScript/JavaScript handled by typescript-tools.nvim (see plugins/typescript-tools.lua)
-vim.lsp.enable("gopls")    -- Go
-vim.lsp.enable("zls")      -- Zig
-vim.lsp.enable("lua_ls")   -- Lua
 
 -- Buffer-local LSP keymaps, set only where a server attaches
 vim.api.nvim_create_autocmd("LspAttach", {
