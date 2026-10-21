@@ -58,7 +58,7 @@ Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
 | Nushell | `~/.config/nushell/{config,env}.nu` (App Support symlinked by `install.sh`) |
 | zsh | `~/.zprofile` (login env), `~/.zshrc` (bootstrap → `exec nu`) |
 
-Font: `Iosevka Nerd Font Mono`, size 20.
+Font: `Iosevka Nerd Font Mono`, size 18.
 
 Daily shell is **Nushell**; zsh just bootstraps the env and hands off. PATH and
 aliases live in the `$env.PATH` and alias blocks of
