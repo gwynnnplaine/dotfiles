@@ -1,0 +1,8 @@
+#!/bin/bash
+# Merge managed keys into ~/.claude/settings.json, leaving other keys untouched.
+set -euo pipefail
+
+current="$(cat)"
+[ -n "$current" ] || current='{}'
+
+printf '%s\n' "$current" | jq '.attribution = {"commit": "", "pr": ""}'
