@@ -1,32 +1,3 @@
-## Communication
-- Be extremely concise. Sacrifice grammar for concision.
-
-## Search
-- NEVER use `grep`. Always use `rg`.
-
-## Plans
-- Before writing any code, plan and ask questions until both you and the user have full shared understanding.
-- End each plan with unresolved questions (or "none").
-
-## Change policy
-- Prefer minimal diffs.
-- No broad refactoring, new packages, or test changes without approval.
-
-## Git
-- When making commits, load and follow the `commit` skill.
-- After committing, ask the user if they want to run the `code-review-expert` skill.
-- When working with GitHub, load and follow the `gh-cli` skill.
-
-## Research
-- When uncertain about a library or API, use `web-search` then `web-fetch` for current docs before attempting from memory.
-- When user asks for fresh/current docs on a package, use the `context7` skill.
-
-## Security
-- NEVER hardcode secrets, tokens, or credentials. Always read from env vars.
-
-## Ambiguity
-- ALWAYS ask about every unknown. NEVER assume.
-
 ## Non-negotiables
 
 Five rules that override convenience. This is how we work — not style preferences.
@@ -44,7 +15,7 @@ Depth lives in the `coding-standards` skill; these five are the always-on floor.
 Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell syntax for commands and scripts.
 
 - Always run shell commands through Nushell. If the agent's shell tool spawns bash/zsh, wrap the actual command as `nu -c '<nushell code>'`.
-- This includes commands sent into Herdr panes via `herdr_pane run` and `herdr_agent`: they execute in the pane's Nushell, so use nu syntax and prefix externals with `^` (e.g. `^uname -sm`, not `uname -sm`).
+- This includes commands sent into Herdr panes via `herdr pane` and `herdr agent`: they execute in the pane's Nushell, so use nu syntax and prefix externals with `^` (e.g. `^uname -sm`, not `uname -sm`).
 - Fall back to bash/zsh syntax only when `nu` is not installed (check with `which nu`); state that fallback when used.
 
 - Redirection differs: `o> file` (overwrite), `o>> file` (append), `ignore` instead of `> /dev/null`, `o+e>| ignore` to also drop stderr.
@@ -58,6 +29,6 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 
 ## Subagents
 
-Use native subagents by default. When the user asks for a pane or tab, use the Bellwether Herdr tools (`herdr_layout`, `herdr_agent`, `herdr_watch`) to spawn and drive an agent in a Herdr pane.
+Use native subagents by default. When the user asks for a pane or tab, use the `herdr` CLI (`herdr tab`, `herdr pane`, `herdr agent`; see `herdr --help`, `herdr --skill`) to spawn and drive an agent in a Herdr pane.
 
-When spawning `pi` subagents, pass **both** model and thinking explicitly via `agentArgs` — e.g. `["--model","anthropic/claude-opus-4-8:high"]`. Neither the model nor the reasoning level is inherited from the current session; mirror `PI_PROVIDER`/`PI_MODEL`/`PI_REASONING_LEVEL` for parity.
+When spawning `pi` subagents, pass **both** model and thinking explicitly — `--model <provider>/<model>:<level>` — set to the same model and reasoning level as the current session. Neither is inherited; mirror `PI_PROVIDER`/`PI_MODEL`/`PI_REASONING_LEVEL`.
