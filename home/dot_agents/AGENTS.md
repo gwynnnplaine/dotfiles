@@ -58,6 +58,6 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 
 ## Subagents
 
-The user does not use native subagents. Whenever work calls for a subagent, a separate or different agent, delegating to another agent, or parallel agents, use the Bellwether Herdr tools (`herdr_layout`, `herdr_agent`, `herdr_watch`) to spawn and drive an agent in a Herdr pane instead.
+Use native subagents by default. When the user asks for a pane or tab, use the Bellwether Herdr tools (`herdr_layout`, `herdr_agent`, `herdr_watch`) to spawn and drive an agent in a Herdr pane.
 
 When spawning `pi` subagents, pass **both** model and thinking explicitly via `agentArgs` — e.g. `["--model","anthropic/claude-opus-4-8:high"]`. Neither the model nor the reasoning level is inherited from the current session; mirror `PI_PROVIDER`/`PI_MODEL`/`PI_REASONING_LEVEL` for parity.
