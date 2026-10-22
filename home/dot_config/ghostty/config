@@ -1,6 +1,6 @@
 # --- Appearance ---
 theme = light:Catppuccin Latte,dark:Catppuccin Mocha
-# Font profile: swap the file name below (fonts/maple or fonts/iosevka).
+# Font profile: swap the file name below (fonts/geist, fonts/maple or fonts/iosevka).
 config-file = fonts/maple
 cursor-style = block
 cursor-style-blink = true

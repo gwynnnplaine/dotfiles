@@ -1,0 +1,4 @@
+# Geist Mono: clean, neutral, no ligatures. 0.60 em wide, so 16 here
+# fills about the same columns as Iosevka at 18.
+font-family = "Geist Mono"
+font-size = 16
