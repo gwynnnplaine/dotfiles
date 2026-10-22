@@ -1,0 +1,4 @@
+# Maple Mono: wide, rounded, ligatures on. 0.60 em wide, so 16 here
+# fills about the same columns as Iosevka at 18.
+font-family = "Maple Mono"
+font-size = 16

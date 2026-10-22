@@ -1,8 +1,7 @@
 # --- Appearance ---
 theme = light:Catppuccin Latte,dark:Catppuccin Mocha
-font-family = "Iosevka Nerd Font Mono"
-font-size = 18
-font-feature = -liga
+# Font profile: swap the file name below (fonts/maple or fonts/iosevka).
+config-file = fonts/maple
 cursor-style = block
 cursor-style-blink = true
 adjust-cell-height = 15%

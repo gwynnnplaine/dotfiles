@@ -1,0 +1,4 @@
+# Iosevka: narrow, most columns per pane. Ligatures off.
+font-family = "Iosevka Nerd Font Mono"
+font-size = 18
+font-feature = -liga
