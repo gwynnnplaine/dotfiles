@@ -1,7 +1,7 @@
 # Maple Mono: closest free match to MonoLisa, ligatures on. 0.60 em wide,
-# so 17 here is about 13% wider than Iosevka at 18.
+# so 16 here is about 7% wider than Iosevka at 18.
 font-family = "Maple Mono"
-font-size = 17
+font-size = 16
 # Variable font: the default 400 weight looks soft on a 1x monitor. A real
 # heavier weight stays crisp, unlike font-thicken, which smears the edges.
 font-variation = wght=500
