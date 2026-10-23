@@ -2,7 +2,7 @@
 name: researcher
 description: Read-only research on the web and in the codebase
 provider: claude-bridge
-model: claude-sonnet-5-5
+model: claude-haiku-5-5
 thinking: low
 tools: read,bash,ffgrep,fffind,web_search,fetch_content,get_search_content
 extensions: pi-claude-bridge, pi-web-access, @ff-labs/pi-fff

@@ -17,7 +17,6 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 - Always run shell commands through Nushell. If the agent's shell tool spawns bash/zsh, wrap the actual command as `nu -c '<nushell code>'`.
 - This includes commands sent into Herdr panes via `herdr_pane run`: they execute in the pane's Nushell, so use nu syntax and prefix externals with `^` (e.g. `^uname -sm`, not `uname -sm`).
 - Fall back to bash/zsh syntax only when `nu` is not installed (check with `which nu`); state that fallback when used.
-
 - Redirection differs: `o> file` (overwrite), `o>> file` (append), `ignore` instead of `> /dev/null`, `o+e>| ignore` to also drop stderr.
 - Command substitution is `(cmd)`, not `$(cmd)`. Env vars are `$env.VAR`; set with `$env.VAR = ...`; per-command with `VAR=val cmd`.
 - Pipelines carry structured data (tables/records), not raw text. Prefer native filters: `ls | where type == dir`, `ls **/*.rs` for recursive find, `open file.json` to parse, `open --raw` for plain text.
@@ -29,9 +28,12 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 
 ## Subagents
 
-Use background subagents by default: `spawn_agent`, then steer with `send_message`. Results arrive on their own; call `wait_agent` only when the next step depends on the answer.
+Delegate through codex subagents: `spawn_agent`, steered with `send_message`. Results arrive on their own; call `wait_agent` only when the next step depends on the answer.
 
-When the user asks for a pane or tab, run a visible agent in Herdr with the `herdr_*` tools: `herdr_layout pane_split` (or `tab_create`) → `herdr_agent start` → `herdr_agent prompt`, which waits until the agent settles. Then:
+- Size every task with `model` and `thinking`: haiku for lookups and research; opus for everything else, including any code change. Use the `researcher` template for read-only research.
+- Write each task self-contained: goal, paths, constraints, and what the answer must contain. Children load no AGENTS.md, skills, or extensions beyond their template.
+
+Herdr panes are for when the user asks for a pane or tab: a visible agent they can watch and talk to. Run it with the `herdr_*` tools: `herdr_layout pane_split` (or `tab_create`) → `herdr_agent start` → `herdr_agent prompt`, which waits until the agent settles. Then:
 
 - Read the reply with `herdr_agent read` and `source: "recent"`; the default visible screen often shows only the editor and footer.
 - When starting `pi` in a pane, pass model and thinking explicitly, sized to the task: `agentArgs: ["--model", "claude-bridge/<model>:<level>"]`. Use the `claude-bridge` provider, never `anthropic/`: direct Anthropic OAuth is billed as paid extra usage.
