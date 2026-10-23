@@ -118,3 +118,12 @@ command = "lazygit"
 description = "lazygit"
 width = "90%"
 height = "90%"
+
+# --- Plugin: jeffarese/herdr-bar ---
+# Fuzzy jump to any tab, pane, agent, repo or branch.
+# prefix+k is focus_pane_up. Auto titles only follow Claude/Codex, not Pi.
+[[keys.command]]
+key = "prefix+]"
+type = "plugin_action"
+command = "herdr-bar.open"
+description = "command bar"
