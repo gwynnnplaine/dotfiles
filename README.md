@@ -89,8 +89,7 @@ Each fnm version has its own npm globals, so the LSP servers from
 `.chezmoidata/packages.yaml` live in the fnm default version; upgrading means
 `fnm install <new> --reinstall-packages-from=default && fnm default <new>`.
 
-Homebrew `node` is kept only as a dependency for brew formulae (`opencode`,
-`mongosh`, `mongodb`). **nvm is not used.**
+There is no Homebrew `node`, and **nvm is not used.**
 
 **Pi is installed into Homebrew's prefix** (`/opt/homebrew/lib/node_modules`) by
 a `run_once_` script, so `pi` survives per-project Node switches and updates
