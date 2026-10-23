@@ -1,47 +1,34 @@
-#!/bin/sh
-# chezmoi `modify_` script: stdin is the current ~/.pi/agent/settings.json,
-# stdout becomes the new one. We merge only the fields we actually choose and
-# leave everything Pi maintains itself untouched, so upgrades never dirty
-# `chezmoi status`.
-#
-# Output must match the bytes Pi writes, or every Pi save looks like drift and
-# `chezmoi apply` asks to overwrite: keep Pi's key order (no --sort-keys) and
-# its missing trailing newline ("$(...)" strips jq's newline).
-#
-# Deliberately NOT managed here (Pi rewrites these on its own):
-#   lastChangelogVersion, enabledModels, defaultModel, defaultProvider,
-#   defaultThinkingLevel
-set -eu
-
-# First `chezmoi apply` on a fresh machine: no file on stdin yet.
-input=$(cat)
-[ -n "$input" ] || input='{}'
-
-printf '%s' "$(printf '%s' "$input" | jq '
-  .packages = [
-    "npm:pi-web-access",
-    "npm:@ff-labs/pi-fff",
-    "npm:@plannotator/pi-extension",
-    "npm:@gwynnnplaine/pi-github",
-    "npm:@injaneity/pi-computer-use",
-    "npm:pi-cached-compaction",
-    "npm:@ogulcancelik/pi-herdr",
-    "npm:@ogulcancelik/pi-codex-subagents",
-    "npm:@ogulcancelik/pi-anthropic-image-cap",
-    "npm:@ogulcancelik/pi-session-recall",
-    "npm:@ogulcancelik/pi-herdr-worktree-jump",
-    "npm:pi-claude-bridge",
-    "npm:@amaster.ai/pi-memory"
-  ]
-| .theme = "calm-latte/calm-mocha"
-| .quietStartup = true
-| .hideThinkingBlock = true
-| .showHardwareCursor = true
-| .treeFilterMode = "no-tools"
-| .collapseChangelog = true
-| .enableInstallTelemetry = false
-| .warnings.anthropicExtraUsage = true
-# Dreaming defaults to openai/gpt-4.1-mini, which is not configured here. Use the
-# bridge: direct anthropic OAuth is billed as extra usage.
-| ."pi-memory".dreaming.model = {provider: "claude-bridge", model: "claude-haiku-5-5"}
-')"
+{{- /* chezmoi:modify-template */ -}}
+{{- /*
+  Merges only the keys chosen here into ~/.pi/agent/settings.json; everything
+  Pi maintains itself (defaultModel, defaultProvider, enabledModels,
+  defaultThinkingLevel, lastChangelogVersion) passes through, so model
+  switches never show in `chezmoi status`. Pi writes keys sorted with no
+  trailing newline, which is what toPrettyJson produces.
+*/ -}}
+{{- $s := fromJson (.chezmoi.stdin | default "{}") -}}
+{{- $s = setValueAtPath "packages" (list
+      "npm:pi-web-access"
+      "npm:@ff-labs/pi-fff"
+      "npm:@plannotator/pi-extension"
+      "npm:@gwynnnplaine/pi-github"
+      "npm:@injaneity/pi-computer-use"
+      "npm:pi-cached-compaction"
+      "npm:@ogulcancelik/pi-herdr"
+      "npm:@ogulcancelik/pi-codex-subagents"
+      "npm:@ogulcancelik/pi-anthropic-image-cap"
+      "npm:@ogulcancelik/pi-session-recall"
+      "npm:@ogulcancelik/pi-herdr-worktree-jump"
+      "npm:pi-claude-bridge"
+      "npm:@amaster.ai/pi-memory") $s -}}
+{{- $s = setValueAtPath "theme" "calm-latte/calm-mocha" $s -}}
+{{- $s = setValueAtPath "quietStartup" true $s -}}
+{{- $s = setValueAtPath "hideThinkingBlock" true $s -}}
+{{- $s = setValueAtPath "showHardwareCursor" true $s -}}
+{{- $s = setValueAtPath "treeFilterMode" "no-tools" $s -}}
+{{- $s = setValueAtPath "collapseChangelog" true $s -}}
+{{- $s = setValueAtPath "enableInstallTelemetry" false $s -}}
+{{- $s = setValueAtPath "warnings.anthropicExtraUsage" true $s -}}
+{{- /* Dreaming defaults to openai/gpt-4.1-mini (not configured); direct anthropic bills as extra usage. */ -}}
+{{- $s = setValueAtPath "pi-memory.dreaming.model" (dict "provider" "claude-bridge" "model" "claude-haiku-5-5") $s -}}
+{{- toPrettyJson "  " $s | trimSuffix "\n" -}}
