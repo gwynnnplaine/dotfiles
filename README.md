@@ -74,7 +74,7 @@ store to those entries, so trust is declared only there.
 | Nushell | `~/.config/nushell/{config,env}.nu` (App Support copies are `symlink_`s) |
 | zsh | `~/.zprofile` (login env), `~/.zshrc` (bootstrap → `exec nu`) |
 
-Font: `Iosevka Nerd Font Mono`, size 18.
+Font: set by a profile in `~/.config/ghostty/fonts/` (`geist`, `maple`, `iosevka`); swap the `config-file` line in the ghostty config to change it.
 
 Daily shell is **Nushell**; zsh just bootstraps the env and hands off. PATH and
 aliases live in the `$env.PATH` and alias blocks of

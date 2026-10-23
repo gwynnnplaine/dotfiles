@@ -9,7 +9,6 @@
 .pi/agent/extensions/herdr-agent-state.ts
 # Everything below is machine-local state or secrets: never manage it.
 .pi/cache
-.pi/subagent-schedules
 .pi/agent/.pi
 .pi/agent/auth.json
 .pi/agent/trust.json
@@ -20,7 +19,6 @@
 .pi/agent/sessions
 .pi/agent/npm
 .pi/agent/git
-.pi/agent/helpers
 .pi/agent/run-history.jsonl
 .pi/agent/.update-check
 .pi/agent/*.log
