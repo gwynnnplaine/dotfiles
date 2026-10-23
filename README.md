@@ -5,12 +5,18 @@ Managed with [chezmoi](https://www.chezmoi.io/) for reproducible, idempotent set
 ## Install (new machine)
 
 ```bash
-chezmoi init --apply gwynnnplaine/dotfiles
+# 1. Homebrew (asks for your password, so it stays manual)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# 2. Everything else
+brew install chezmoi && chezmoi init --apply gwynnnplaine/dotfiles
+# 3. Once more: scripts that check for a tool (herdr, nu, npm) were planned
+#    before the Brewfile installed it
+chezmoi apply
 ```
 
-Clones into `~/.local/share/chezmoi` and applies. Optionally run `./install.sh`
-for `brew bundle` + macOS App Support symlinks (Lazygit, Nushell) + Nushell
-autoload generation.
+`apply` installs the Brewfile, writes the files and symlinks, generates the
+Nushell integrations, installs Pi, npm globals, skills and Herdr plugins. The
+scripts live in `home/.chezmoiscripts/`.
 
 ## Layout
 
@@ -35,9 +41,12 @@ chezmoi asks when a file in `~` differs from what it last wrote. So:
   - Lock files (`nvim-pack-lock.json`) and Homebrew tap trust
     (`~/.homebrew/trust.json`): the real file is in `linked/`, and
     `~` gets a symlink (`symlink_*.tmpl`). The app writes into the repo; commit it.
-  - Settings with app-owned keys (Pi `settings.json`, Plannotator
-    `config.json`): `modify_` scripts set only our keys and keep the app's key
-    order and final newline, so output is byte-identical when nothing changed.
+  - Settings with app-owned keys (Pi `settings.json`, Claude `settings.json`,
+    Plannotator `config.json`): `modify_` files set only our keys and pass the
+    rest through, so the app's own changes (model, effort) never show as drift.
+    Pi's is a `chezmoi:modify-template` (Pi sorts keys, so `toPrettyJson`
+    matches it); Claude and Plannotator keep their own key order, so theirs
+    are jq scripts.
 - **`exact_` directories** (`~/.config/nvim/**`): files deleted from the repo
   are deleted from `~` too. Without it, old files stay on every machine.
 - Before `chezmoi update` on a machine, run `chezmoi status`. Resolve local
@@ -45,8 +54,8 @@ chezmoi asks when a file in `~` differs from what it last wrote. So:
 
 ## Homebrew
 
-Packages live in [`Brewfile`](./Brewfile). `install.sh` runs `brew bundle`.
-Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
+Packages live in [`Brewfile`](./Brewfile). `chezmoi apply` runs `brew bundle`
+whenever it changes (`--no-upgrade`; upgrade with `brew upgrade`). Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
 `brew bundle dump --file=./Brewfile --force`.
 
 ## Config directories (where apps actually read from)
@@ -55,8 +64,8 @@ Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
 |---|---|
 | Ghostty / cmux | `~/.config/ghostty/config` (cmux renders terminals via libghostty and reads this) |
 | Neovim | `~/.config/nvim` |
-| Lazygit | `~/Library/Application Support/lazygit/config.yml` (symlinked to `~/.config` by `install.sh`) |
-| Nushell | `~/.config/nushell/{config,env}.nu` (App Support symlinked by `install.sh`) |
+| Lazygit | `~/Library/Application Support/lazygit/config.yml` (`symlink_` to `~/.config`) |
+| Nushell | `~/.config/nushell/{config,env}.nu` (App Support copies are `symlink_`s) |
 | zsh | `~/.zprofile` (login env), `~/.zshrc` (bootstrap → `exec nu`) |
 
 Font: `Iosevka Nerd Font Mono`, size 18.
@@ -77,9 +86,9 @@ Each fnm version has its own npm globals, so the LSP servers from
 Homebrew `node` is kept only as a dependency for brew formulae (`opencode`,
 `mongosh`, `mongodb`). **nvm is not used.**
 
-**Pi is a pnpm global** (`@earendil-works/pi-coding-agent`). pnpm's global dir
-(`~/Library/pnpm`) is shared by every fnm version, so `pi` survives per-project
-Node switches; it runs on the active Node, which must be >= 22.19.
+**Pi is installed into Homebrew's prefix** (`/opt/homebrew/lib/node_modules`) by
+a `run_once_` script, so `pi` survives per-project Node switches and updates
+itself; it runs on the active Node, which must be >= 22.19.
 
 ## What's managed via chezmoi
 

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Installs the Brewfile at the repo root. Runs before files are written, and
+# again whenever the Brewfile changes (hash below). --no-upgrade: updating
+# installed formulae stays a manual `brew upgrade`.
+# Brewfile hash: {{ include (joinPath .chezmoi.workingTree "Brewfile") | sha256sum }}
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "⚠️  Homebrew not found; install it first (see README)." >&2
+  exit 1
+fi
+
+echo "🍺 Installing Homebrew packages..."
+brew bundle install --file={{ joinPath .chezmoi.workingTree "Brewfile" | quote }} --no-upgrade

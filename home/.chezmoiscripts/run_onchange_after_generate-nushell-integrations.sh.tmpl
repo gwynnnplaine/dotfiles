@@ -1,0 +1,26 @@
+{{ if lookPath "nu" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Generates zoxide, fzf and worktrunk integrations into Nushell's autoload dir.
+# Re-runs when any tool's version changes (they can change their output).
+# oh-my-posh has its own script (run_onchange_after_regenerate-oh-my-posh).
+#   zoxide: {{ if lookPath "zoxide" }}{{ output "zoxide" "--version" | trim }}{{ end }}
+#   fzf:    {{ if lookPath "fzf" }}{{ output "fzf" "--version" | trim }}{{ end }}
+#   wt:     {{ if lookPath "wt" }}{{ output "wt" "--version" | trim }}{{ end }}
+
+# shellcheck disable=SC2016 # $nu is Nushell's, not bash's
+autoload="$(nu -c 'print $nu.data-dir' | tr -d '\r')/vendor/autoload"
+mkdir -p "$autoload"
+
+echo "🐚 Generating Nushell integrations..."
+command -v zoxide >/dev/null 2>&1 && zoxide init nushell >"$autoload/zoxide.nu"
+# fzf's shipped script still uses `str downcase`, deprecated in nu 0.114 in
+# favor of `str lowercase` (nushell#18364); drop the sed once fzf updates.
+command -v fzf >/dev/null 2>&1 && fzf --nushell | sed 's/str downcase/str lowercase/g' >"$autoload/fzf.nu"
+command -v wt >/dev/null 2>&1 && wt config shell install nu --yes
+exit 0
+{{ else -}}
+#!/usr/bin/env bash
+echo "⚠️  nu not found; skipping Nushell integrations."
+{{ end -}}
