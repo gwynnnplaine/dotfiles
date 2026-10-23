@@ -24,7 +24,14 @@ printf '%s' "$(printf '%s' "$input" | jq '
     "npm:@plannotator/pi-extension",
     "npm:@gwynnnplaine/pi-github",
     "npm:@injaneity/pi-computer-use",
-    "git:github.com/joelhooks/pi-bellwether"
+    "npm:pi-cached-compaction",
+    "npm:@ogulcancelik/pi-herdr",
+    "npm:@ogulcancelik/pi-codex-subagents",
+    "npm:@ogulcancelik/pi-anthropic-image-cap",
+    "npm:@ogulcancelik/pi-session-recall",
+    "npm:@ogulcancelik/pi-herdr-worktree-jump",
+    "npm:pi-claude-bridge",
+    "npm:@amaster.ai/pi-memory"
   ]
 | .theme = "calm-latte/calm-mocha"
 | .quietStartup = true
@@ -33,5 +40,8 @@ printf '%s' "$(printf '%s' "$input" | jq '
 | .treeFilterMode = "no-tools"
 | .collapseChangelog = true
 | .enableInstallTelemetry = false
-| .warnings.anthropicExtraUsage = false
+| .warnings.anthropicExtraUsage = true
+# Dreaming defaults to openai/gpt-4.1-mini, which is not configured here. Use the
+# bridge: direct anthropic OAuth is billed as extra usage.
+| ."pi-memory".dreaming.model = {provider: "claude-bridge", model: "claude-haiku-5-5"}
 ')"

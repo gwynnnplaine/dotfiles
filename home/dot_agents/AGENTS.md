@@ -15,7 +15,7 @@ Depth lives in the `coding-standards` skill; these five are the always-on floor.
 Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell syntax for commands and scripts.
 
 - Always run shell commands through Nushell. If the agent's shell tool spawns bash/zsh, wrap the actual command as `nu -c '<nushell code>'`.
-- This includes commands sent into Herdr panes via `herdr pane` and `herdr agent`: they execute in the pane's Nushell, so use nu syntax and prefix externals with `^` (e.g. `^uname -sm`, not `uname -sm`).
+- This includes commands sent into Herdr panes via `herdr_pane run`: they execute in the pane's Nushell, so use nu syntax and prefix externals with `^` (e.g. `^uname -sm`, not `uname -sm`).
 - Fall back to bash/zsh syntax only when `nu` is not installed (check with `which nu`); state that fallback when used.
 
 - Redirection differs: `o> file` (overwrite), `o>> file` (append), `ignore` instead of `> /dev/null`, `o+e>| ignore` to also drop stderr.
@@ -29,6 +29,16 @@ Default interactive shell is **Nushell** (`nu`), not zsh/bash. Use Nushell synta
 
 ## Subagents
 
-Use native subagents by default. When the user asks for a pane or tab, use the `herdr` CLI (`herdr tab`, `herdr pane`, `herdr agent`; see `herdr --help`, `herdr --skill`) to spawn and drive an agent in a Herdr pane.
+Use background subagents by default: `spawn_agent`, then steer with `send_message`. Results arrive on their own; call `wait_agent` only when the next step depends on the answer.
 
-When spawning `pi` subagents, pass **both** model and thinking explicitly — `--model <provider>/<model>:<level>` — set to the same model and reasoning level as the current session. Neither is inherited; mirror `PI_PROVIDER`/`PI_MODEL`/`PI_REASONING_LEVEL`.
+When the user asks for a pane or tab, run a visible agent in Herdr with the `herdr_*` tools: `herdr_layout pane_split` (or `tab_create`) → `herdr_agent start` → `herdr_agent prompt`, which waits until the agent settles. Then:
+
+- Read the reply with `herdr_agent read` and `source: "recent"`; the default visible screen often shows only the editor and footer.
+- When starting `pi` in a pane, pass model and thinking explicitly, sized to the task: `agentArgs: ["--model", "claude-bridge/<model>:<level>"]`. Use the `claude-bridge` provider, never `anthropic/`: direct Anthropic OAuth is billed as paid extra usage.
+- Close panes you opened when the work is done.
+
+## Worktrees
+
+To start work in a new worktree, create it with `wt switch --create <branch>` so worktrunk's setup steps run (env files, installs, codegen). Herdr's own worktree commands skip them. Then open the worktree as a Herdr workspace and start `pi` there with a self-contained prompt; it does not see this conversation.
+
+Use `herdr_worktree_jump` only when the user explicitly asks to move this session, and warn first that it creates the worktree with Herdr and skips worktrunk setup.
