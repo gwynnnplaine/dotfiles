@@ -25,8 +25,15 @@ done 3<<<"$wanted"
 installed=$(npx -y skills@latest ls --global --json 2>/dev/null \
   | jq -r --arg dir "$skills_dir/" '.[] | select(.path | startswith($dir)) | .path | split("/") | last')
 
+# Skills kept as plain files in this repo (dot_agents/skills/) are chezmoi's,
+# not the skills CLI's: never remove them.
+managed_dir={{ joinPath .chezmoi.sourceDir "dot_agents/skills" | quote }}
+
 for name in $installed; do
   if printf '%s\n' "$wanted" | awk '{print $1}' | grep -qxF -- "$name"; then
+    continue
+  fi
+  if [ -d "$managed_dir/$name" ]; then
     continue
   fi
   echo "🧹 Removing undeclared skill: $name"
