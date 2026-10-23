@@ -38,8 +38,7 @@ chezmoi asks when a file in `~` differs from what it last wrote. So:
   edit `~` and then run `chezmoi re-add <file>` at once. Edits left only in `~`
   cause the prompt on the next `update`.
 - **Files an app rewrites are not plain managed files.**
-  - Lock files (`nvim-pack-lock.json`) and Homebrew tap trust
-    (`~/.homebrew/trust.json`): the real file is in `linked/`, and
+  - Lock files (`nvim-pack-lock.json`): the real file is in `linked/`, and
     `~` gets a symlink (`symlink_*.tmpl`). The app writes into the repo; commit it.
   - Settings with app-owned keys (Pi `settings.json`, Claude `settings.json`,
     Plannotator `config.json`): `modify_` files set only our keys and pass the
@@ -57,9 +56,13 @@ chezmoi asks when a file in `~` differs from what it last wrote. So:
 Formulae and casks are listed under `brew:` in
 [`home/.chezmoidata/packages.yaml`](./home/.chezmoidata/packages.yaml).
 `chezmoi apply` pipes them to `brew bundle` whenever the list changes
-(`--no-upgrade`; upgrade with `brew upgrade`). Removing an entry does not
-uninstall it: run `brew uninstall` too. To find installed packages missing from
-the list: `brew bundle dump --file=- | grep -vFf <(chezmoi data | jq -r '.brew[][]')`.
+(`--no-upgrade`; upgrade with `brew upgrade`), then `brew bundle cleanup --force`:
+**the list is authoritative**, so removing an entry uninstalls it, and anything
+installed with a bare `brew install` is removed on the next list change. Add
+it to the list instead. To see installed packages missing from the list:
+`brew bundle dump --file=- | grep -E '^(brew|cask) ' | grep -vFf <(chezmoi data | jq -r '.brew[][] | .name? // .')`.
+Third-party tap packages carry `trusted: true`; cleanup resets Homebrew's trust
+store to those entries, so trust is declared only there.
 
 ## Config directories (where apps actually read from)
 

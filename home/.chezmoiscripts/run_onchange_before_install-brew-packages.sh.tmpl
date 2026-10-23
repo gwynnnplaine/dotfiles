@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Installs brew.formulae and brew.casks from .chezmoidata/packages.yaml.
-# Runs before files are written, and again whenever either list changes.
+# Makes Homebrew match brew.formulae and brew.casks in .chezmoidata/packages.yaml:
+# installs what is listed, then uninstalls what is not (taps included; a
+# listed package's dependencies stay) and resets Homebrew's trust store to the
+# `trusted: true` entries. Runs before files are written, and again
+# whenever either list changes. Add anything you `brew install` by hand to the
+# list, or the next change removes it. Preview removals with:
+#   brew bundle cleanup --file=<(chezmoi execute-template <this file> | sed …)
 # --no-upgrade: updating installed packages stays a manual `brew upgrade`.
 
 if ! command -v brew >/dev/null 2>&1; then
@@ -10,12 +15,18 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "🍺 Installing Homebrew packages..."
-brew bundle install --file=/dev/stdin --no-upgrade <<'BREWFILE'
+brewfile="$(mktemp)"
+trap 'rm -f "$brewfile"' EXIT
+cat >"$brewfile" <<'BREWFILE'
 {{ range .brew.formulae -}}
-brew {{ . | quote }}
+{{ if kindIs "map" . }}brew {{ .name | quote }}{{ if .trusted }}, trusted: true{{ end }}{{ else }}brew {{ . | quote }}{{ end }}
 {{ end -}}
 {{ range .brew.casks -}}
-cask {{ . | quote }}
+{{ if kindIs "map" . }}cask {{ .name | quote }}{{ if .trusted }}, trusted: true{{ end }}{{ else }}cask {{ . | quote }}{{ end }}
 {{ end -}}
 BREWFILE
+
+echo "🍺 Installing Homebrew packages..."
+brew bundle install --file="$brewfile" --no-upgrade
+echo "🧹 Uninstalling Homebrew packages not in the list..."
+brew bundle cleanup --file="$brewfile" --force

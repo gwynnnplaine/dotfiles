@@ -3,7 +3,10 @@
 
 # Homebrew formulae and casks, piped to `brew bundle` by
 # run_onchange_before_install-brew-packages. Fully qualified names
-# (owner/tap/name) tap automatically. Removing an entry does not uninstall it.
+# (owner/tap/name) tap automatically. The list is authoritative: removing an
+# entry uninstalls it. Packages from third-party taps need `trusted: true`
+# (Homebrew refuses to load untrusted taps); cleanup resets Homebrew's trust
+# store to exactly these entries.
 brew:
   formulae:
     - "fd"
@@ -26,15 +29,15 @@ brew:
     - "terminal-notifier"
     - "tree-sitter-cli"
     - "worktrunk"
-    - "jandedobbeleer/oh-my-posh/oh-my-posh"
+    - { name: "jandedobbeleer/oh-my-posh/oh-my-posh", trusted: true }
     - "chezmoi"
     - "yazi"
     - "zoxide"
-    - "keidarcy/tap/e1s"
+    - { name: "keidarcy/tap/e1s", trusted: true }
     - "pnpm"
     - "awscli"
-    - "atlassian/acli/acli"
-    - "oven-sh/bun/bun"
+    - { name: "atlassian/acli/acli", trusted: true }
+    - { name: "oven-sh/bun/bun", trusted: true }
   casks:
     - "alt-tab"
     - "ghostty"
@@ -43,8 +46,8 @@ brew:
     - "font-geist-mono"
     - "session-manager-plugin"
     - "vorssaint"
-    - "crmne/tap/spotifast"
-    - "crmne/tap/zapfast"
+    - { name: "crmne/tap/spotifast", trusted: true }
+    - { name: "crmne/tap/zapfast", trusted: true }
     - "orbstack"
     - "helium-browser"
     - "slack"
