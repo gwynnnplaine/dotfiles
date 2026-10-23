@@ -38,6 +38,11 @@ brew:
     - "awscli"
     - { name: "atlassian/acli/acli", trusted: true }
     - { name: "oven-sh/bun/bun", trusted: true }
+    # Local services for indiecampers (Rails). Data lives in
+    # /opt/homebrew/var/postgresql@17; start with `brew services start <name>`.
+    - "postgresql@17"
+    - "postgis"
+    - "redis"
   casks:
     - "alt-tab"
     - "ghostty"
