@@ -10,11 +10,11 @@ Managed with [chezmoi](https://www.chezmoi.io/) for reproducible, idempotent set
 # 2. Everything else
 brew install chezmoi && chezmoi init --apply gwynnnplaine/dotfiles
 # 3. Once more: scripts that check for a tool (herdr, nu, npm) were planned
-#    before the Brewfile installed it
+#    before Homebrew installed it
 chezmoi apply
 ```
 
-`apply` installs the Brewfile, writes the files and symlinks, generates the
+`apply` installs Homebrew packages, writes the files and symlinks, generates the
 Nushell integrations, installs Pi, npm globals, skills and Herdr plugins. The
 scripts live in `home/.chezmoiscripts/`.
 
@@ -54,9 +54,12 @@ chezmoi asks when a file in `~` differs from what it last wrote. So:
 
 ## Homebrew
 
-Packages live in [`Brewfile`](./Brewfile). `chezmoi apply` runs `brew bundle`
-whenever it changes (`--no-upgrade`; upgrade with `brew upgrade`). Manually: `brew bundle install --file=./Brewfile`. Re-dump current state:
-`brew bundle dump --file=./Brewfile --force`.
+Formulae and casks are listed under `brew:` in
+[`home/.chezmoidata/packages.yaml`](./home/.chezmoidata/packages.yaml).
+`chezmoi apply` pipes them to `brew bundle` whenever the list changes
+(`--no-upgrade`; upgrade with `brew upgrade`). Removing an entry does not
+uninstall it: run `brew uninstall` too. To find installed packages missing from
+the list: `brew bundle dump --file=- | grep -vFf <(chezmoi data | jq -r '.brew[][]')`.
 
 ## Config directories (where apps actually read from)
 
@@ -101,7 +104,8 @@ itself; it runs on the active Node, which must be >= 22.19.
   `modify_settings.json`; Pi's own volatile fields are left alone)
 
 Machine-local Pi state — `auth.json`, `trust.json`, `sessions/`, `npm/`, `git/`,
-caches and logs — is ignored via `home/.chezmoiignore`. Agent skills are
-declared under `skills:` in `home/.chezmoidata/packages.yaml` and installed into
-`~/.agents/skills`; the list is authoritative, so anything undeclared there is
-removed on `chezmoi apply`.
+caches and logs — is ignored via `home/.chezmoiignore`. Agent skills in
+`~/.agents/skills` come from two places: our own as plain files in
+`home/dot_agents/skills/`, and third-party ones from GitHub via
+`home/.chezmoiexternal.toml` (refreshed weekly; `chezmoi -R apply` refreshes now).
+To drop an external skill, delete its entry and add the path to `.chezmoiremove`.

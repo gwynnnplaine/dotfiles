@@ -1,21 +1,64 @@
-# Declarative package lists consumed by run_onchange_ scripts.
+# Declarative package lists consumed by .chezmoiscripts/run_onchange_* scripts.
 # Editing a list re-runs the matching script on the next `chezmoi apply`.
+
+# Homebrew formulae and casks, piped to `brew bundle` by
+# run_onchange_before_install-brew-packages. Fully qualified names
+# (owner/tap/name) tap automatically. Removing an entry does not uninstall it.
+brew:
+  formulae:
+    - "fd"
+    - "fzf"
+    - "gh"
+    - "bat"
+    - "btop"
+    - "carapace"
+    - "eza"
+    - "fnm"
+    - "git"
+    - "git-delta"
+    - "herdr"
+    - "jq"
+    - "lazygit"
+    - "make"
+    - "nushell"
+    - "ripgrep"
+    - "shellcheck"
+    - "terminal-notifier"
+    - "tree-sitter-cli"
+    - "worktrunk"
+    - "jandedobbeleer/oh-my-posh/oh-my-posh"
+    - "chezmoi"
+    - "yazi"
+    - "zoxide"
+    - "keidarcy/tap/e1s"
+    - "pnpm"
+    - "awscli"
+    - "atlassian/acli/acli"
+    - "oven-sh/bun/bun"
+  casks:
+    - "alt-tab"
+    - "ghostty"
+    - "font-iosevka-nerd-font"
+    - "font-maple-mono"
+    - "font-geist-mono"
+    - "session-manager-plugin"
+    - "vorssaint"
+    - "crmne/tap/spotifast"
+    - "crmne/tap/zapfast"
+    - "orbstack"
+    - "helium-browser"
+    - "slack"
+    - "raycast"
+    - "telegram"
+    - "obsidian"
+    - "shottr"
+    - "figma"
+    - "stremio"
 
 # Global npm CLIs installed into the fnm default Node.
 # See run_onchange_install-npm-globals.sh.tmpl.
 npm_globals:
   - "typescript-language-server" # TS/JS LSP (supi-lsp)
   - "typescript" # tsserver backing typescript-language-server
-  - "bash-language-server" # Bash/sh/zsh LSP (supi-lsp); shellcheck via Brewfile
+  - "bash-language-server" # Bash/sh/zsh LSP (supi-lsp); shellcheck via brew.formulae
   - "vscode-langservers-extracted" # provides vscode-html-language-server (+css/json/eslint)
-
-# Agent skills installed into ~/.agents/skills, the shared location Pi, Claude
-# Code and Codex all read. Installed by the `skills` CLI (vercel-labs/skills),
-# see run_onchange_install-skills.sh.tmpl. This list is the single source of
-# truth: a skill removed from here is deleted from disk on the next apply.
-# `name` must match the skill's directory name, since removal matches on it.
-skills:
-  - name: bro
-    source: "https://github.com/backnotprop/bro/tree/main/skills/bro"
-  - name: writing-for-agents
-    source: "https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-for-agents"

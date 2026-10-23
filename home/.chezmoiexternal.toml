@@ -1,0 +1,21 @@
+# Agent skills from GitHub, installed into ~/.agents/skills (read by Pi, Claude
+# Code and Codex). chezmoi downloads and caches each archive and refreshes it
+# weekly; `chezmoi -R apply` refreshes now. `include` matches paths inside the
+# archive (before stripComponents). To drop a skill, delete its entry here and
+# add `.agents/skills/<name>` to .chezmoiremove.
+
+[".agents/skills/bro"]
+    type = "archive"
+    url = "https://github.com/backnotprop/bro/archive/main.tar.gz"
+    exact = true
+    stripComponents = 3
+    include = ["*/skills/bro/**"]
+    refreshPeriod = "168h"
+
+[".agents/skills/writing-for-agents"]
+    type = "archive"
+    url = "https://github.com/mattpocock/skills/archive/main.tar.gz"
+    exact = true
+    stripComponents = 4
+    include = ["*/skills/productivity/writing-for-agents/**"]
+    refreshPeriod = "168h"
