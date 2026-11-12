@@ -1,6 +1,6 @@
 {
   "queryModel": {
-    "provider": "anthropic",
+    "provider": "pi-claude-cli",
     "id": "claude-haiku-5-5"
   }
 }
