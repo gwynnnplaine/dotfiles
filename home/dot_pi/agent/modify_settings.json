@@ -20,7 +20,6 @@
       "npm:@ogulcancelik/pi-codex-subagents"
       "npm:@ogulcancelik/pi-anthropic-image-cap"
       "npm:@ogulcancelik/pi-session-recall"
-      "npm:@ogulcancelik/pi-herdr-worktree-jump"
       "npm:@amaster.ai/pi-memory"
       "npm:pi-codex-goal") $s -}}
 {{- $s = setValueAtPath "theme" "calm-latte/calm-mocha" $s -}}
@@ -31,6 +30,9 @@
 {{- $s = setValueAtPath "collapseChangelog" true $s -}}
 {{- $s = setValueAtPath "enableInstallTelemetry" false $s -}}
 {{- $s = setValueAtPath "warnings.anthropicExtraUsage" true $s -}}
+{{- /* The shell tool and `!` commands run `<shellPath> -c`, so Nushell runs them
+  directly; without nu on PATH, Pi keeps its /bin/bash default. */ -}}
+{{- with lookPath "nu" }}{{ $s = setValueAtPath "shellPath" . $s }}{{ end -}}
 {{- /* pi-herdr comes from a fork of the ogulcancelik/pi-extensions monorepo (it
   also drives the Herdr app); the filter loads only that package of the 22. */ -}}
 {{- /* Dreaming defaults to openai/gpt-4.1-mini (not configured); direct anthropic bills as extra usage. */ -}}
