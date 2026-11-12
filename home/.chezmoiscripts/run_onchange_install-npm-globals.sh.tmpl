@@ -1,4 +1,4 @@
-{{ if lookPath "npm" -}}
+{{ if lookPath "vp" -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -9,8 +9,8 @@ packages=(
 )
 
 echo "🔤 Installing/updating npm globals: ${packages[*]}"
-npm install -g "${packages[@]}"
+vp install -g "${packages[@]}"
 {{ else -}}
 #!/usr/bin/env bash
-echo "⚠️  npm not found; skipping npm globals (will install once Node is ready)."
+echo "⚠️  vp not found; skipping npm globals (re-run chezmoi apply once Vite+ is installed)."
 {{ end -}}

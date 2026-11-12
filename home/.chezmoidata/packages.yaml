@@ -16,7 +16,6 @@ brew:
     - "btop"
     - "carapace"
     - "eza"
-    - "fnm"
     - "git"
     - "git-delta"
     - "herdr"
@@ -63,7 +62,7 @@ brew:
     - "figma"
     - "stremio"
 
-# Global npm CLIs installed into the fnm default Node.
+# Global npm CLIs installed with `vp install -g` (Vite+ manages Node).
 # See run_onchange_install-npm-globals.sh.tmpl.
 npm_globals:
   - "typescript-language-server" # TS/JS LSP (supi-lsp)

@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Installs Pi once into Homebrew's prefix, so it stays on PATH whichever Node
-# version fnm activates per project (it still needs Node >= 22.19). After this,
+# version vp resolves per project (it still needs Node >= 22.19). After this,
 # Pi updates itself.
 if command -v pi >/dev/null 2>&1; then
   exit 0

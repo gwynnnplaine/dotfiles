@@ -2,7 +2,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Generates zoxide, fzf and worktrunk integrations into Nushell's autoload dir.
+# Generates zoxide, fzf, worktrunk and Vite+ integrations into Nushell's autoload dir.
 # Re-runs when any tool's version changes (they can change their output).
 # oh-my-posh has its own script (run_onchange_after_regenerate-oh-my-posh).
 #   zoxide: {{ if lookPath "zoxide" }}{{ output "zoxide" "--version" | trim }}{{ end }}
@@ -19,6 +19,8 @@ command -v zoxide >/dev/null 2>&1 && zoxide init nushell >"$autoload/zoxide.nu"
 # favor of `str lowercase` (nushell#18364); drop the sed once fzf updates.
 command -v fzf >/dev/null 2>&1 && fzf --nushell | sed 's/str downcase/str lowercase/g' >"$autoload/fzf.nu"
 command -v wt >/dev/null 2>&1 && wt config shell install nu --yes
+# Source (not copy) vp's env.nu: vp regenerates it on upgrade.
+[ -f "$HOME/.config/vite-plus/env.nu" ] && echo "source \"$HOME/.config/vite-plus/env.nu\"" >"$autoload/vite-plus.nu"
 exit 0
 {{ else -}}
 #!/usr/bin/env bash

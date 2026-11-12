@@ -11,30 +11,11 @@ $env.PATH ++= [
 ]
 $env.PNPM_HOME = $"($env.HOME)/Library/pnpm"
 
-# ── fnm (Node Version Manager) ────────────────────────────────────────────────
-# nvm is bash-only; fnm is the nushell-compatible alternative.
-if (which fnm | is-not-empty) {
-    load-env (fnm env --shell bash | lines
-        | str replace 'export ' ''
-        | str replace -a '"' ''
-        | split column '='
-        | rename name value
-        | where name != "FNM_ARCH" and name != "PATH"
-        | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
-    $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
-}
-
-# ── Auto-switch Node per project (.node-version / .nvmrc) ──────────────────────
-# fnm's --use-on-cd flag freezes Nushell (stdin-in-hook bug); use a PWD hook.
-# --install-if-missing avoids the confirmation prompt that would freeze nu.
-$env.config.hooks.env_change.PWD = (
-    $env.config.hooks.env_change.PWD?
-    | default []
-    | append {
-        condition: {|_, _| ['.node-version' '.nvmrc'] | path exists | any {} }
-        code: {|_, _| fnm use --silent-if-unchanged --install-if-missing }
-    }
-)
+# ── Node via Vite+ (vp) ───────────────────────────────────────────────────────
+# vp's shims pick the Node version per project at exec time (.node-version,
+# package.json engines, .nvmrc), so no cd hook is needed. PATH and the `vp`
+# wrapper load from vendor/autoload/vite-plus.nu (run_onchange_after_generate-
+# nushell-integrations); zsh loads ~/.config/vite-plus/env via ~/.zshenv.
 
 # ── Editor ────────────────────────────────────────────────────────────────────
 $env.EDITOR = "nvim"

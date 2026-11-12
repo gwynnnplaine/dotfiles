@@ -1,0 +1,4 @@
+# ~/.zshenv — read by every zsh, interactive or not (tools and agents too).
+# Vite+ (vp) manages Node and package-manager shims; installed by
+# run_onchange_before_install-vite-plus.
+[ -f "$HOME/.config/vite-plus/env" ] && . "$HOME/.config/vite-plus/env"
