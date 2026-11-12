@@ -13,14 +13,16 @@
       "npm:@plannotator/pi-extension"
       "npm:@gwynnnplaine/pi-github"
       "npm:@injaneity/pi-computer-use"
-      "npm:pi-cached-compaction"
-      "npm:@ogulcancelik/pi-herdr"
+      "git:github.com/dmmulroy/pi-claude-cli"
+      (dict "source" "git:github.com/gwynnnplaine/pi-extensions@herdr-app-backend"
+            "extensions" (list "packages/pi-herdr/index.ts")
+            "skills" (list) "prompts" (list) "themes" (list))
       "npm:@ogulcancelik/pi-codex-subagents"
       "npm:@ogulcancelik/pi-anthropic-image-cap"
       "npm:@ogulcancelik/pi-session-recall"
       "npm:@ogulcancelik/pi-herdr-worktree-jump"
-      "npm:pi-claude-bridge"
-      "npm:@amaster.ai/pi-memory") $s -}}
+      "npm:@amaster.ai/pi-memory"
+      "npm:pi-codex-goal") $s -}}
 {{- $s = setValueAtPath "theme" "calm-latte/calm-mocha" $s -}}
 {{- $s = setValueAtPath "quietStartup" true $s -}}
 {{- $s = setValueAtPath "hideThinkingBlock" true $s -}}
@@ -29,6 +31,8 @@
 {{- $s = setValueAtPath "collapseChangelog" true $s -}}
 {{- $s = setValueAtPath "enableInstallTelemetry" false $s -}}
 {{- $s = setValueAtPath "warnings.anthropicExtraUsage" true $s -}}
+{{- /* pi-herdr comes from a fork of the ogulcancelik/pi-extensions monorepo (it
+  also drives the Herdr app); the filter loads only that package of the 22. */ -}}
 {{- /* Dreaming defaults to openai/gpt-4.1-mini (not configured); direct anthropic bills as extra usage. */ -}}
-{{- $s = setValueAtPath "pi-memory.dreaming.model" (dict "provider" "claude-bridge" "model" "claude-haiku-5-5") $s -}}
+{{- $s = setValueAtPath "pi-memory.dreaming.model" (dict "provider" "pi-claude-cli" "model" "claude-haiku-5-5") $s -}}
 {{- toPrettyJson "  " $s | trimSuffix "\n" -}}

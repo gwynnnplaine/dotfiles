@@ -1,9 +1,9 @@
 {
   "models": [
-    "claude-bridge/claude-opus-5-5",
-    "claude-bridge/claude-haiku-5-5"
+    "pi-claude-cli/claude-opus-5-5",
+    "pi-claude-cli/claude-haiku-5-5"
   ],
   "defaults": {
-    "extensions": ["pi-claude-bridge"]
+    "extensions": ["~/.pi/agent/git/github.com/dmmulroy/pi-claude-cli"]
   }
 }
