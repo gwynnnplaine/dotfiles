@@ -48,6 +48,7 @@ brew:
     - "font-iosevka-nerd-font"
     - "font-maple-mono"
     - "font-geist-mono"
+    - "font-monaspace"
     - "session-manager-plugin"
     - "vorssaint"
     - { name: "crmne/tap/spotifast", trusted: true }
