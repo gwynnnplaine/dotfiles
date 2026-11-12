@@ -1,0 +1,37 @@
+#!/bin/bash
+# The herdr TUI's worktrunk plugin, run in the Herdr app: its own scripts (fzf
+# picker, slugify, hold_on_*, shortcuts like ^ and pr:N) with its config from
+# ~/.config/herdr/plugins/config/worktrunk. herdr-tui-shim stands in for the
+# `herdr` CLI it calls. Run by the prefix mod (f, F) in a floating dialog,
+# which closes when this ends.
+#
+#   herdr-wt [open]   switch / create from the default branch
+#   herdr-wt current  switch / create from the current branch
+#   herdr-wt remotes  switch / create from local or remote branches
+#   herdr-wt remove   remove a worktree, closing its space
+#   herdr-wt merge [--no-squash]   merge into the target branch, closing its space
+set -uo pipefail
+
+plugin=$(ls -d "$HOME"/.config/herdr/plugins/github/worktrunk-* 2>/dev/null | head -n1)
+if [ -z "$plugin" ]; then
+  read -r -n1 -p "The worktrunk herdr plugin isn't installed. Press any key to close."
+  exit 1
+fi
+
+export HERDR_PLUGIN_ROOT=$plugin
+export HERDR_PLUGIN_CONFIG_DIR=$HOME/.config/herdr/plugins/config/worktrunk
+export HERDR_BIN_PATH=$HOME/.local/bin/herdr-tui-shim
+
+action=${1:-open}
+[ $# -gt 0 ] && shift
+case "$action" in
+  open) bash "$plugin/picker.sh" --create-base=default ;;
+  current) bash "$plugin/picker.sh" --create-base=current ;;
+  remotes) bash "$plugin/picker.sh" --show-with-remotes ;;
+  remove) bash "$plugin/remove.sh" ;;
+  merge) bash "$plugin/merge.sh" "$@" ;;
+  *)
+    echo "usage: herdr-wt [open | current | remotes | remove | merge [--no-squash]]" >&2
+    exit 2
+    ;;
+esac

@@ -1,0 +1,65 @@
+#!/bin/bash
+# The few `herdr` (TUI) CLI calls the worktrunk plugin makes, answered by the
+# Herdr app, so the plugin's own scripts run there unchanged (see herdr-wt).
+# Workspaces are the app's spaces, matched by folder.
+#
+#   worktree list --cwd DIR --json      repo root, its space, and each worktree's space
+#   workspace create --cwd DIR --label NAME [...]
+#   worktree open --path DIR [...]      show the space for DIR, making one if none
+#   workspace close ID
+#   pane list                           none: workspaces are always found by folder
+set -uo pipefail
+
+opt() { # opt NAME ARGS...: the value after --NAME
+  local name=$1
+  shift
+  while [ $# -gt 0 ]; do
+    [ "$1" = "--$name" ] && { printf '%s\n' "${2:-}"; return; }
+    shift
+  done
+}
+
+space_for() { # space_for DIR: the id of the space made in DIR
+  herdr-app ls | jq -r --arg d "$1" '.spaces[] | select(.folder == $d) | .id' | head -n1
+}
+
+case "${1:-} ${2:-}" in
+  "worktree list")
+    cwd=$(opt cwd "$@")
+    cwd=${cwd:-$PWD}
+    common=$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir) || exit 1
+    root=${common%/.git}
+    spaces=$(herdr-app ls | jq -c '[.spaces[] | {folder, id}]')
+    git -C "$cwd" worktree list --porcelain | sed -n 's/^worktree //p' \
+      | jq -R . | jq -s --arg root "$root" --argjson spaces "$spaces" '
+          def space($p): ([$spaces[] | select(.folder == $p) | .id][0] // null);
+          { result: {
+              source: { repo_root: $root, repo_name: ($root | split("/") | last),
+                        source_workspace_id: space($root) },
+              worktrees: [.[] | { path: ., open_workspace_id: space(.) }] } }'
+    ;;
+  "workspace create")
+    herdr-app do space.new "$(jq -cn --arg d "$(opt cwd "$@")" --arg n "$(opt label "$@")" \
+      '{folder: $d} + (if $n == "" then {} else {name: $n} end)')" >/dev/null
+    ;;
+  "worktree open")
+    path=$(opt path "$@")
+    id=$(space_for "$path")
+    if [ -n "$id" ]; then
+      herdr-app do space.select "$(jq -cn --arg id "$id" '{id: $id}')" >/dev/null
+    else
+      herdr-app do space.new "$(jq -cn --arg d "$path" '{folder: $d}')" >/dev/null
+    fi
+    echo '{}'
+    ;;
+  "workspace close")
+    herdr-app do space.close "$(jq -cn --arg id "${3:?}" '{id: $id, confirmed: true}')" >/dev/null
+    ;;
+  "pane list")
+    echo '{"result":{"panes":[]}}'
+    ;;
+  *)
+    echo "herdr-tui-shim: unsupported: herdr $*" >&2
+    exit 2
+    ;;
+esac

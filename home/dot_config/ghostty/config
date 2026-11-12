@@ -56,6 +56,5 @@ keybind = ctrl+s=text:\x13
 
 # Floating quake-style quick terminal
 keybind = global:ctrl+minus=toggle_quick_terminal
-# Global show/hide the Ghostty window (iTerm2-style)
-keybind = global:ctrl+equal=toggle_visibility
+# ctrl+= shows/hides Herdr instead (Raycast app hotkey)
 

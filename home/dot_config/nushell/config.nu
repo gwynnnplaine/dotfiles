@@ -40,6 +40,12 @@ alias c   = clear
 alias cc  = claude
 alias p   = pi
 
+# Remote-attach variants (herdr --remote): copies go out as OSC 52, so they reach
+# the client machine's clipboard instead of this host's (herdr issue #4833).
+# pi honors PI_CLIPBOARD_OSC52; Claude Code treats SSH_TTY as an SSH session.
+def --wrapped pirem [...args] { with-env { PI_CLIPBOARD_OSC52: "1" } { ^pi ...$args } }
+def --wrapped clauderem [...args] { with-env { SSH_TTY: (^tty | str trim) } { ^claude ...$args } }
+
 # listing — bare `ls` stays Nu's builtin (structured output); eza powers these
 alias ll  = eza -lh --icons --group-directories-first
 alias la  = eza -lah --icons --group-directories-first

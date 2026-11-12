@@ -24,7 +24,9 @@ export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
 export AGE_KEY_FILE=~/.config/sops/age/keys.txt
 
 # --- Hand off to Nushell for interactive use ---
-if [[ -o interactive && -z "$NU_LAUNCHED" && "$TERM" != "dumb" ]] && command -v nu >/dev/null 2>&1; then
+# Not when zsh was given a command (`zsh -lic cmd`): the Herdr app starts tab
+# programs that way, then execs a login shell, which hands off here.
+if [[ -o interactive && -z "$NU_LAUNCHED" && -z "$ZSH_EXECUTION_STRING" && "$TERM" != "dumb" ]] && command -v nu >/dev/null 2>&1; then
   export NU_LAUNCHED=1
   exec nu
 fi

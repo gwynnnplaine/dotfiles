@@ -1,0 +1,11 @@
+#!/bin/bash
+# lazygit in a Herdr app tab that goes away with it: q closes lazygit, then
+# this closes the tab, so it behaves like the herdr TUI's lazygit popup.
+# Run by keys.json (prefix t, cmd-g) as the tab's program.
+
+lazygit "$@"
+
+# The tab running this, found by the terminal herdr-core gave it.
+tab=$(herdr-app ls | jq -r --arg t "${HC_TERMINAL_ID:-}" \
+  '.spaces[].tabs[] | select(any(.terminals[]; .terminal == $t)) | .id')
+[ -n "$tab" ] && herdr-app do tab.close "{\"id\":\"$tab\",\"confirmed\":true}" >/dev/null
